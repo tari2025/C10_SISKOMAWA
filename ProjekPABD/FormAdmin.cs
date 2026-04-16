@@ -166,7 +166,17 @@ namespace ProjekPABD
         // ================== CARI ==================
         private void btnCari_Click(object sender, EventArgs e)
         {
-            tampilData(txtCari.Text);
+            MessageBox.Show("Cari jalan");
+        }
+
+        private void btnHapus_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Hapus jalan");
+        }
+
+        private void btnTanggapi_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Tanggapi jalan");
         }
 
         // ================== LOGOUT ==================
@@ -178,6 +188,11 @@ namespace ProjekPABD
             {
                 this.Close();
             }
+        }
+
+        private void FormAdmin_Load_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
