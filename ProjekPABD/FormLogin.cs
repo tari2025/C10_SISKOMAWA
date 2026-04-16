@@ -48,9 +48,7 @@ namespace ProjekPABD
 
                         FormMahasiswa f = new FormMahasiswa();
                         this.Hide();
-                        f.ShowDialog();
-                        this.Show();
-                        return;
+                        f.Show();
                     }
 
                     // CEK ADMIN
@@ -68,8 +66,8 @@ namespace ProjekPABD
 
                         FormAdmin f = new FormAdmin();
                         this.Hide();
-                        f.ShowDialog();
-                        this.Show();
+                        f.Show();
+                        
 
                     }
                     else

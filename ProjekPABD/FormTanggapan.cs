@@ -1,13 +1,23 @@
 ﻿using System;
+using System.Data.SqlClient;
 using System.Windows.Forms;
 
-namespace SISKOMAWA
+namespace ProjekPABD
 {
-    public partial class FormTanggapan : Form
+    public partial class FormMahasiswa : Form
     {
-        public FormTanggapan()
+        SqlConnection conn = new SqlConnection("Data Source=LAPTOP-6B5BO8RM\\SA;Initial Catalog=ProjekPABD;Integrated Security=True");
+
+        public FormMahasiswa()
         {
             InitializeComponent();
+        }
+
+        // Kalau mau kirim ID dari Admin
+        public FormTanggapan(string id)
+        {
+            InitializeComponent();
+            txtIdSaran.Text = id;
         }
 
         private void FormTanggapan_Load(object sender, EventArgs e)

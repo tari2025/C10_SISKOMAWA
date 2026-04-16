@@ -7,9 +7,8 @@ namespace ProjekPABD
 {
     public partial class FormMahasiswa : Form
     {
-        SqlConnection conn = new SqlConnection(
-        "Data Source=LAPTOP-6B5BO8RM\\SA;Initial Catalog=projekPABD;Integrated Security=True");
-
+        SqlConnection conn = new SqlConnection("Data Source=LAPTOP-6B5BO8RM\\SA;Initial Catalog=ProjekPABD;Integrated Security=True");
+       
         public FormMahasiswa()
         {
             InitializeComponent();
@@ -45,31 +44,22 @@ namespace ProjekPABD
         {
             conn.Open();
 
-            string query = @"
-            SELECT 
-                s.id_saran,
-                s.id_mhs,
-                m.nim,
-                m.nama,
-                s.jenis,
-                s.isi,
-                s.status
-            FROM saran_komplain s
-            JOIN mahasiswa m ON s.id_mhs = m.id_mhs";
+            SqlDataAdapter da;
 
-            if (keyword != "")
+            if (keyword == "")
             {
-                query += " WHERE m.nama LIKE '%" + keyword + "%' OR s.isi LIKE '%" + keyword + "%'";
+                da = new SqlDataAdapter("SELECT * FROM saran_komplain", conn);
+            }
+            else
+            {
+                da = new SqlDataAdapter(
+                "SELECT * FROM saran_komplain WHERE isi LIKE '%" + keyword + "%'", conn);
             }
 
-            SqlDataAdapter da = new SqlDataAdapter(query, conn);
             DataTable dt = new DataTable();
             da.Fill(dt);
 
             dataGridView1.DataSource = dt;
-
-            if (dataGridView1.Columns.Contains("id_mhs"))
-                dataGridView1.Columns["id_mhs"].Visible = false;
 
             conn.Close();
         }

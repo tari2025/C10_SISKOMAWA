@@ -7,7 +7,7 @@ namespace ProjekPABD
 {
     public partial class FormAdmin : Form
     {
-        SqlConnection conn = new SqlConnection("Data Source=.;Initial Catalog=projekPABD;Integrated Security=True");
+        SqlConnection conn = new SqlConnection("Data Source=.;Initial Catalog=ProjekPABD;Integrated Security=True");
 
         public FormAdmin()
         {
@@ -33,24 +33,29 @@ namespace ProjekPABD
         }
 
         // ================== TAMPIL DATA ==================
-        void tampilData(string keyword = "")
+        void tampilData()
         {
-            conn.Open();
-
-            string query = "SELECT * FROM saran";
-
-            if (keyword != "")
+            try
             {
-                query += " WHERE isi LIKE '%" + keyword + "%'";
+                conn.Open();
+
+                SqlDataAdapter da = new SqlDataAdapter(
+                "SELECT s.id_saran, s.isi, s.status, t.isi_tanggapan " +
+                "FROM saran_komplain s " +
+                "LEFT JOIN tanggapan t ON s.id_saran = t.id_saran",
+                conn);
+
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                dataGridView1.DataSource = dt;
+
+                conn.Close();
             }
-
-            SqlDataAdapter da = new SqlDataAdapter(query, conn);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-
-            dataGridView1.DataSource = dt;
-
-            conn.Close();
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message); // 🔥 ini penting
+            }
         }
 
         // ================== HITUNG DATA ==================

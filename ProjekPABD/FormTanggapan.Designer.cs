@@ -1,6 +1,6 @@
-﻿namespace SISKOMAWA
+﻿namespace ProjekPABD
 {
-    partial class FormTanggapan
+    partial class FormMahasiswa
     {
         private System.ComponentModel.IContainer components = null;
 
