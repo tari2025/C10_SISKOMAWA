@@ -49,6 +49,7 @@ namespace ProjekPABD
                         FormMahasiswa f = new FormMahasiswa();
                         this.Hide();
                         f.Show();
+
                     }
 
                     // CEK ADMIN
