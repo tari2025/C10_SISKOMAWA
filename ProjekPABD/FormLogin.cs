@@ -13,20 +13,20 @@ namespace ProjekPABD
         {
             InitializeComponent();
 
-            // password jadi bintang
             txtPassword.UseSystemPasswordChar = true;
         }
 
-        // ===============================
-        // LOAD (WAJIB ADA UNTUK DESIGNER)
-        // ===============================
+        // ====================================
+        // LOAD
+        // ====================================
         private void FormLogin_Load(object sender, EventArgs e)
         {
+
         }
 
-        // ===============================
+        // ====================================
         // LOGIN
-        // ===============================
+        // ====================================
         private void BtnLogin_Click(object sender, EventArgs e)
         {
             if (txtUsername.Text == "" || txtPassword.Text == "")
@@ -37,85 +37,114 @@ namespace ProjekPABD
 
             try
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn =
+                    new SqlConnection(connectionString))
                 {
                     conn.Open();
 
-                    // ===============================
-                    // CEK MAHASISWA
-                    // ===============================
-                    SqlCommand cmdMhs = new SqlCommand(
-                        "SELECT id_mhs FROM mahasiswa WHERE username=@u AND password=@p", conn);
+                    // ====================================
+                    // LOGIN MAHASISWA
+                    // ====================================
+                    SqlCommand cmdMhs =
+                        new SqlCommand(
+                        "SELECT id_mhs FROM mahasiswa WHERE username=@u AND password=@p",
+                        conn);
 
-                    cmdMhs.Parameters.AddWithValue("@u", txtUsername.Text.Trim());
-                    cmdMhs.Parameters.AddWithValue("@p", txtPassword.Text.Trim());
+                    cmdMhs.Parameters.AddWithValue("@u",
+                        txtUsername.Text.Trim());
 
-                    object resultMhs = cmdMhs.ExecuteScalar();
+                    cmdMhs.Parameters.AddWithValue("@p",
+                        txtPassword.Text.Trim());
+
+                    object resultMhs =
+                        cmdMhs.ExecuteScalar();
 
                     if (resultMhs != null)
                     {
-                        MessageBox.Show("Login sebagai Mahasiswa");
+                        MessageBox.Show(
+                            "Login sebagai Mahasiswa");
 
-                        FormMahasiswa f = new FormMahasiswa();
-                        f.idMhs = resultMhs.ToString();
+                        // KIRIM ID MAHASISWA
+                        FormMahasiswa.idMahasiswa =
+                            Convert.ToInt32(resultMhs);
+
+                        FormMahasiswa f =
+                            new FormMahasiswa();
 
                         this.Hide();
-                        f.ShowDialog();
-                        this.Close();
+
+                        f.Show();
+
                         return;
                     }
 
-                    // ===============================
-                    // CEK ADMIN
-                    // ===============================
-                    SqlCommand cmdAdmin = new SqlCommand(
-                        "SELECT id_admin FROM admin WHERE username=@u AND password=@p", conn);
+                    // ====================================
+                    // LOGIN ADMIN
+                    // ====================================
+                    SqlCommand cmdAdmin =
+                        new SqlCommand(
+                        "SELECT id_admin FROM admin WHERE username=@u AND password=@p",
+                        conn);
 
-                    cmdAdmin.Parameters.AddWithValue("@u", txtUsername.Text.Trim());
-                    cmdAdmin.Parameters.AddWithValue("@p", txtPassword.Text.Trim());
+                    cmdAdmin.Parameters.AddWithValue("@u",
+                        txtUsername.Text.Trim());
 
-                    object resultAdmin = cmdAdmin.ExecuteScalar();
+                    cmdAdmin.Parameters.AddWithValue("@p",
+                        txtPassword.Text.Trim());
+
+                    object resultAdmin =
+                        cmdAdmin.ExecuteScalar();
 
                     if (resultAdmin != null)
                     {
-                        MessageBox.Show("Login sebagai Admin");
+                        MessageBox.Show(
+                            "Login sebagai Admin");
 
-                        FormAdmin f = new FormAdmin();
+                        // KIRIM ID ADMIN
+                        FormAdmin.idAdmin =
+                            Convert.ToInt32(resultAdmin);
 
+                        FormAdmin f =
+                            new FormAdmin();
                         this.Hide();
-                        f.ShowDialog();
-                        this.Close();
+                        f.Show();
+
                         return;
                     }
 
-                    // ===============================
-                    // SALAH
-                    // ===============================
-                    MessageBox.Show("Username / Password salah!");
+                    // ====================================
+                    // LOGIN GAGAL
+                    // ====================================
+                    MessageBox.Show(
+                        "Username / Password salah!");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show(
+                    "Error : " + ex.Message);
             }
         }
 
-        // ===============================
+        // ====================================
         // RESET
-        // ===============================
+        // ====================================
         private void btnReset_Click(object sender, EventArgs e)
         {
             txtUsername.Clear();
+
             txtPassword.Clear();
+
             txtUsername.Focus();
         }
 
-        // ===============================
+        // ====================================
         // KELUAR
-        // ===============================
+        // ====================================
         private void btnKeluar_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
     }
 }
+

@@ -7,126 +7,238 @@ namespace ProjekPABD
 {
     public partial class FormAdmin : Form
     {
-        SqlConnection conn;
+        private readonly SqlConnection conn =
+        new SqlConnection(
+        "Data Source=LAPTOP-6B5BO8RM\\SA;Initial Catalog=ProjekPABD;Integrated Security=True");
+
+        SqlDataAdapter da;
+        DataSet ds;
+        SqlCommand cmd;
+
+        int idSaran = 0;
+
+        public static int idAdmin = 1;
 
         public FormAdmin()
         {
             InitializeComponent();
-            Koneksi();
         }
 
-        void Koneksi()
-        {
-            conn = new SqlConnection("Data Source=LAPTOP-6B5BO8RM\\SA;Initial Catalog=ProjekPABD;Integrated Security=True");
-        }
-
+        // ===============================
+        // FORM LOAD
+        // ===============================
         private void FormAdmin_Load(object sender, EventArgs e)
         {
-            cmbStatus.Items.Add("pending");
+            cmbStatus.Items.Clear();
+
+            cmbStatus.Items.Add("menunggu");
             cmbStatus.Items.Add("diproses");
             cmbStatus.Items.Add("selesai");
 
             TampilData();
         }
 
-        void TampilData(string keyword = "")
+        // ===============================
+        // TAMPIL DATA
+        // ===============================
+        void TampilData()
         {
-            conn.Open();
-
-            string query = @"
-            SELECT s.id_saran, m.nama, sd.nama_sumber, 
-                   s.jenis, s.isi, s.status
-            FROM saran_komplain s
-            JOIN mahasiswa m ON s.id_mhs = m.id_mhs
-            JOIN sumber_daya_kampus sd ON s.id_sumber = sd.id_sumber";
-
-            if (keyword != "")
-                query += " WHERE s.isi LIKE @cari";
-
-            SqlDataAdapter da = new SqlDataAdapter(query, conn);
-
-            if (keyword != "")
-                da.SelectCommand.Parameters.AddWithValue("@cari", "%" + keyword + "%");
-
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-
-            dataGridView1.DataSource = dt;
-
-            conn.Close();
-        }
-
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0)
+            try
             {
-                var row = dataGridView1.Rows[e.RowIndex];
-                txtId.Text = row.Cells["id_saran"].Value.ToString();
-                txtIsi.Text = row.Cells["isi"].Value.ToString();
-                cmbStatus.Text = row.Cells["status"].Value.ToString();
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+
+                conn.Open();
+
+                string query = @"
+                SELECT
+                    s.id_saran,
+                    m.nama,
+                    s.jenis,
+                    s.isi,
+                    s.status,
+                    ISNULL(t.isi_tanggapan,'Belum ada tanggapan') AS tanggapan,
+                    s.created_at
+
+                FROM saran_komplain s
+
+                JOIN mahasiswa m
+                ON s.id_mhs = m.id_mhs
+
+                LEFT JOIN tanggapan t
+                ON s.id_saran = t.id_saran";
+
+                da = new SqlDataAdapter(query, conn);
+
+                ds = new DataSet();
+
+                da.Fill(ds);
+
+                dgvAdmin.DataSource = ds.Tables[0];
+
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
             }
         }
 
-        private void btnUpdate_Click(object sender, EventArgs e)
+        // ===============================
+        // GRID CLICK
+        // ===============================
+        private void dgvAdmin_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            conn.Open();
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row =
+                    dgvAdmin.Rows[e.RowIndex];
 
-            SqlCommand cmd = new SqlCommand(
-                "UPDATE saran_komplain SET isi=@i, status=@s WHERE id_saran=@id", conn);
+                idSaran =
+                    Convert.ToInt32(row.Cells[0].Value);
 
-            cmd.Parameters.AddWithValue("@i", txtIsi.Text);
-            cmd.Parameters.AddWithValue("@s", cmbStatus.Text);
-            cmd.Parameters.AddWithValue("@id", txtId.Text);
+                cmbStatus.Text =
+                    row.Cells[4].Value.ToString();
 
-            cmd.ExecuteNonQuery();
-            conn.Close();
-
-            MessageBox.Show("Data diupdate");
-            TampilData();
+                txtTanggapan.Text =
+                    row.Cells[5].Value.ToString();
+            }
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
+        // ===============================
+        // SIMPAN TANGGAPAN
+        // ===============================
+        private void btnSimpan_Click(object sender, EventArgs e)
         {
-            conn.Open();
+            if (idSaran == 0)
+            {
+                MessageBox.Show("Pilih data terlebih dahulu");
 
-            SqlCommand cmd = new SqlCommand(
-                "DELETE FROM saran_komplain WHERE id_saran=@id", conn);
+                return;
+            }
 
-            cmd.Parameters.AddWithValue("@id", txtId.Text);
+            try
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
 
-            cmd.ExecuteNonQuery();
-            conn.Close();
+                conn.Open();
 
-            MessageBox.Show("Data dihapus");
-            TampilData();
+                // =========================
+                // UPDATE STATUS
+                // =========================
+                string update = @"
+                UPDATE saran_komplain
+                SET status=@status
+                WHERE id_saran=@id";
+
+                cmd = new SqlCommand(update, conn);
+
+                cmd.Parameters.AddWithValue("@status",
+                    cmbStatus.Text);
+
+                cmd.Parameters.AddWithValue("@id",
+                    idSaran);
+
+                cmd.ExecuteNonQuery();
+
+                // =========================
+                // CEK TANGGAPAN
+                // =========================
+                string cek =
+                    "SELECT COUNT(*) FROM tanggapan WHERE id_saran=@id";
+
+                cmd = new SqlCommand(cek, conn);
+
+                cmd.Parameters.AddWithValue("@id", idSaran);
+
+                int count =
+                    Convert.ToInt32(cmd.ExecuteScalar());
+
+                // =========================
+                // INSERT / UPDATE
+                // =========================
+                if (count == 0)
+                {
+                    string insert = @"
+                    INSERT INTO tanggapan
+                    (id_saran,id_admin,isi_tanggapan)
+                    VALUES
+                    (@id_saran,@id_admin,@isi)";
+
+                    cmd = new SqlCommand(insert, conn);
+
+                    cmd.Parameters.AddWithValue("@id_saran",
+                        idSaran);
+
+                    cmd.Parameters.AddWithValue("@id_admin",
+                        idAdmin);
+
+                    cmd.Parameters.AddWithValue("@isi",
+                        txtTanggapan.Text);
+
+                    cmd.ExecuteNonQuery();
+                }
+                else
+                {
+                    string updateTanggapan = @"
+                    UPDATE tanggapan
+                    SET isi_tanggapan=@isi
+                    WHERE id_saran=@id";
+
+                    cmd = new SqlCommand(updateTanggapan, conn);
+
+                    cmd.Parameters.AddWithValue("@isi",
+                        txtTanggapan.Text);
+
+                    cmd.Parameters.AddWithValue("@id",
+                        idSaran);
+
+                    cmd.ExecuteNonQuery();
+                }
+
+                conn.Close();
+
+                MessageBox.Show("Tanggapan berhasil disimpan");
+
+                TampilData();
+
+                txtTanggapan.Clear();
+
+                cmbStatus.SelectedIndex = -1;
+
+                idSaran = 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
         }
 
-        private void btnCari_Click(object sender, EventArgs e)
+        // ===============================
+        // RESET
+        // ===============================
+        private void btnReset_Click(object sender, EventArgs e)
         {
-            TampilData(txtCari.Text);
+            txtTanggapan.Clear();
+
+            cmbStatus.SelectedIndex = -1;
+
+            idSaran = 0;
         }
 
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            TampilData();
-        }
-
-        private void btnTanggapi_Click(object sender, EventArgs e)
-        {
-            if (txtId.Text == "") return;
-
-            FormTanggapan f = new FormTanggapan(txtId.Text);
-            f.Show();
-        }
-
-        private void btnLogout_Click(object sender, EventArgs e)
+        // ===============================
+        // KELUAR
+        // ===============================
+        private void btnKeluar_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
-        // dummy event biar designer tidak error
-        private void FormAdmin_Load_1(object sender, EventArgs e) { }
-        private void btnTampil_Click(object sender, EventArgs e) { }
-        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
     }
 }

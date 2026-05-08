@@ -7,59 +7,256 @@ namespace ProjekPABD
 {
     public partial class FormMahasiswa : Form
     {
-        SqlConnection conn;
+        private readonly string connectionString =
+        "Data Source=LAPTOP-6B5BO8RM\\SA;Initial Catalog=ProjekPABD;Integrated Security=True";
 
-        public string idMhs;
+        SqlCommand cmd;
+        SqlDataAdapter da;
+        DataSet ds;
+
+        int idSelected = 0;
+
+        public static int idMahasiswa;
 
         public FormMahasiswa()
         {
             InitializeComponent();
-            Koneksi();
         }
 
         // ===============================
-        // KONEKSI DATABASE
+        // LOAD MAHASISWA
         // ===============================
-        private void Koneksi()
+        void LoadMahasiswa()
         {
-            conn = new SqlConnection("Data Source=LAPTOP-6B5BO8RM\\SA;Initial Catalog=ProjekPABD;Integrated Security=True");
+            try
+            {
+                using (SqlConnection conn =
+                    new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    string query =
+                    "SELECT * FROM mahasiswa WHERE id_mhs=@id";
+
+                    cmd = new SqlCommand(query, conn);
+
+                    cmd.Parameters.AddWithValue("@id", idMahasiswa);
+
+                    SqlDataReader rd = cmd.ExecuteReader();
+
+                    if (rd.Read())
+                    {
+                        txtNama.Text = rd["nama"].ToString();
+                        txtNim.Text = rd["nim"].ToString();
+                        txtProdi.Text = rd["prodi"].ToString();
+                        txtHp.Text = rd["no_hp"].ToString();
+                        txtEmail.Text = rd["email"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         // ===============================
-        // LOAD FORM
+        // LOAD SUMBER DAYA
+        // ===============================
+        void LoadSumberDaya()
+        {
+            try
+            {
+                using (SqlConnection conn =
+                    new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    string query =
+                    "SELECT * FROM sumber_daya_kampus";
+
+                    cmd = new SqlCommand(query, conn);
+
+                    SqlDataReader rd = cmd.ExecuteReader();
+
+                    cmbSumberDaya.Items.Clear();
+
+                    while (rd.Read())
+                    {
+                        cmbSumberDaya.Items.Add(
+                            rd["kategori"].ToString());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        // ===============================
+        // TAMPIL DATA
+        // ===============================
+        void TampilData()
+        {
+            try
+            {
+                using (SqlConnection conn =
+                    new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    string query = @"
+                    SELECT
+                        s.id_saran,
+                        m.nim,
+                        m.nama,
+                        m.prodi,
+                        s.jenis,
+                        sk.kategori,
+                        s.isi,
+                        s.status,
+                        ISNULL(t.isi_tanggapan,'Belum ada tanggapan') AS tanggapan,
+                        s.created_at
+
+                    FROM saran_komplain s
+
+                    JOIN mahasiswa m
+                    ON s.id_mhs = m.id_mhs
+
+                    JOIN sumber_daya_kampus sk
+                    ON s.id_sumber = sk.id_sumber
+
+                    LEFT JOIN tanggapan t
+                    ON s.id_saran = t.id_saran";
+
+                    cmd = new SqlCommand(query, conn);
+
+                    da = new SqlDataAdapter(cmd);
+
+                    ds = new DataSet();
+
+                    da.Fill(ds);
+
+                    dgvKomplain.DataSource = ds.Tables[0];
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        // ===============================
+        // CLEAR FORM
+        // ===============================
+        void ClearForm()
+        {
+            cmbJenis.SelectedIndex = -1;
+            cmbSumberDaya.SelectedIndex = -1;
+
+            txtIsi.Clear();
+            txtCari.Clear();
+
+            idSelected = 0;
+        }
+
+        // ===============================
+        // FORM LOAD
         // ===============================
         private void FormMahasiswa_Load(object sender, EventArgs e)
         {
             cmbJenis.Items.Add("saran");
             cmbJenis.Items.Add("komplain");
 
-            // contoh isi sumber (sementara)
-            cmbSumber.Items.Add("Perpustakaan");
-            cmbSumber.Items.Add("Lab Komputer");
-            cmbSumber.Items.Add("Wifi Kampus");
+            LoadMahasiswa();
 
-            LoadSumber();
+            LoadSumberDaya();
+
             TampilData();
         }
 
         // ===============================
-        // LOAD COMBOBOX SUMBER DAYA
+        // TAMBAH
         // ===============================
-        void LoadSumber()
+        private void btnTambah_Click(object sender, EventArgs e)
         {
             try
             {
-                conn.Open();
+                if (
+                    txtNama.Text == "" ||
+                    txtNim.Text == "" ||
+                    txtProdi.Text == "" ||
+                    txtHp.Text == "" ||
+                    txtEmail.Text == "" ||
+                    cmbJenis.Text == "" ||
+                    cmbSumberDaya.Text == "" ||
+                    txtIsi.Text == ""
+                )
+                {
+                    MessageBox.Show("Semua data wajib diisi!");
+                    return;
+                }
 
-                SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM sumber_daya_kampus", conn);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
+                using (SqlConnection conn =
+                    new SqlConnection(connectionString))
+                {
+                    conn.Open();
 
-                cmbSumber.DataSource = dt;
-                cmbSumber.DisplayMember = "nama_sumber";
-                cmbSumber.ValueMember = "id_sumber";
+                    string updateMhs = @"
+                    UPDATE mahasiswa
+                    SET
+                        nama=@nama,
+                        nim=@nim,
+                        prodi=@prodi,
+                        no_hp=@hp,
+                        email=@email
+                    WHERE id_mhs=@id";
 
-                conn.Close();
+                    cmd = new SqlCommand(updateMhs, conn);
+
+                    cmd.Parameters.AddWithValue("@nama", txtNama.Text);
+                    cmd.Parameters.AddWithValue("@nim", txtNim.Text);
+                    cmd.Parameters.AddWithValue("@prodi", txtProdi.Text);
+                    cmd.Parameters.AddWithValue("@hp", txtHp.Text);
+                    cmd.Parameters.AddWithValue("@email", txtEmail.Text);
+                    cmd.Parameters.AddWithValue("@id", idMahasiswa);
+
+                    cmd.ExecuteNonQuery();
+
+                    string cari =
+                    "SELECT id_sumber FROM sumber_daya_kampus WHERE kategori=@kategori";
+
+                    cmd = new SqlCommand(cari, conn);
+
+                    cmd.Parameters.AddWithValue(
+                        "@kategori",
+                        cmbSumberDaya.Text);
+
+                    int idSumber =
+                        Convert.ToInt32(cmd.ExecuteScalar());
+
+                    string insert = @"
+                    INSERT INTO saran_komplain
+                    (id_mhs,id_sumber,jenis,isi)
+                    VALUES
+                    (@id_mhs,@id_sumber,@jenis,@isi)";
+
+                    cmd = new SqlCommand(insert, conn);
+
+                    cmd.Parameters.AddWithValue("@id_mhs", idMahasiswa);
+                    cmd.Parameters.AddWithValue("@id_sumber", idSumber);
+                    cmd.Parameters.AddWithValue("@jenis", cmbJenis.Text);
+                    cmd.Parameters.AddWithValue("@isi", txtIsi.Text);
+
+                    cmd.ExecuteNonQuery();
+
+                    MessageBox.Show("Data berhasil disimpan");
+
+                    TampilData();
+
+                    ClearForm();
+                }
             }
             catch (Exception ex)
             {
@@ -68,145 +265,212 @@ namespace ProjekPABD
         }
 
         // ===============================
-        // TAMPIL DATA (JOIN)
+        // GRID CLICK
         // ===============================
-        void TampilData(string keyword = "")
+        private void dgvKomplain_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            try
+            if (e.RowIndex >= 0)
             {
-                conn.Open();
+                DataGridViewRow row =
+                    dgvKomplain.Rows[e.RowIndex];
 
-                string query = @"
-                SELECT s.id_saran, m.nama, sd.nama_sumber, s.jenis, s.isi, s.status, s.created_at
-                FROM saran_komplain s
-                JOIN mahasiswa m ON s.id_mhs = m.id_mhs
-                JOIN sumber_daya_kampus sd ON s.id_sumber = sd.id_sumber";
+                idSelected =
+                    Convert.ToInt32(row.Cells[0].Value);
 
-                if (keyword != "")
-                {
-                    query += " WHERE s.isi LIKE @cari";
-                }
+                cmbJenis.Text =
+                    row.Cells[4].Value.ToString();
 
-                SqlDataAdapter da = new SqlDataAdapter(query, conn);
+                cmbSumberDaya.Text =
+                    row.Cells[5].Value.ToString();
 
-                if (keyword != "")
-                {
-                    da.SelectCommand.Parameters.AddWithValue("@cari", "%" + keyword + "%");
-                }
-
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-
-                dataGridView1.DataSource = dt;
-
-                conn.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        // ===============================
-        // INSERT
-        // ===============================
-        private void btnKirim_Click(object sender, EventArgs e)
-        {
-            if (cmbSumber.Text == "" || cmbJenis.Text == "" || txtIsi.Text == "")
-            {
-                MessageBox.Show("Isi semua data!");
-                return;
-            }
-
-            try
-            {
-                conn.Open();
-
-                SqlCommand cmd = new SqlCommand(
-                    @"INSERT INTO saran_komplain
-                    (id_mhs, id_sumber, jenis, isi, created_at, status)
-                    VALUES (@mhs,@sumber,@jenis,@isi,GETDATE(),'pending')", conn);
-
-                cmd.Parameters.AddWithValue("@mhs", idMhs);
-                cmd.Parameters.AddWithValue("@sumber", cmbSumber.SelectedValue);
-                cmd.Parameters.AddWithValue("@jenis", cmbJenis.Text);
-                cmd.Parameters.AddWithValue("@isi", txtIsi.Text);
-
-                cmd.ExecuteNonQuery();
-                conn.Close();
-
-                MessageBox.Show("Saran berhasil dikirim!");
-
-                TampilData();
-                txtIsi.Clear();
-                cmbJenis.SelectedIndex = -1;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                txtIsi.Text =
+                    row.Cells[6].Value.ToString();
             }
         }
 
         // ===============================
         // UPDATE
         // ===============================
-        private void btnUbah_Click(object sender, EventArgs e)
+        private void BtnUpdate_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.CurrentRow == null) return;
+            try
+            {
+                using (SqlConnection conn =
+                    new SqlConnection(connectionString))
+                {
+                    conn.Open();
 
-            int id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["id_saran"].Value);
+                    string cari =
+                    "SELECT id_sumber FROM sumber_daya_kampus WHERE kategori=@kategori";
 
-            conn.Open();
+                    cmd = new SqlCommand(cari, conn);
 
-            SqlCommand cmd = new SqlCommand(
-                "UPDATE saran_komplain SET jenis=@j, isi=@i, id_sumber=@s WHERE id_saran=@id", conn);
+                    cmd.Parameters.AddWithValue(
+                        "@kategori",
+                        cmbSumberDaya.Text);
 
-            cmd.Parameters.AddWithValue("@j", cmbJenis.Text);
-            cmd.Parameters.AddWithValue("@i", txtIsi.Text);
-            cmd.Parameters.AddWithValue("@s", cmbSumber.SelectedValue);
-            cmd.Parameters.AddWithValue("@id", id);
+                    int idSumber =
+                        Convert.ToInt32(cmd.ExecuteScalar());
 
-            cmd.ExecuteNonQuery();
-            conn.Close();
+                    string query = @"
+                    UPDATE saran_komplain
+                    SET
+                        id_sumber=@id_sumber,
+                        jenis=@jenis,
+                        isi=@isi
+                    WHERE id_saran=@id";
 
-            MessageBox.Show("Data berhasil diubah");
-            TampilData();
+                    cmd = new SqlCommand(query, conn);
+
+                    cmd.Parameters.AddWithValue("@id_sumber", idSumber);
+                    cmd.Parameters.AddWithValue("@jenis", cmbJenis.Text);
+                    cmd.Parameters.AddWithValue("@isi", txtIsi.Text);
+                    cmd.Parameters.AddWithValue("@id", idSelected);
+
+                    cmd.ExecuteNonQuery();
+
+                    MessageBox.Show("Data berhasil diupdate");
+
+                    TampilData();
+
+                    ClearForm();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         // ===============================
         // DELETE
         // ===============================
-        private void btnHapus_Click(object sender, EventArgs e)
+        private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.CurrentRow == null) return;
+            try
+            {
+                using (SqlConnection conn =
+                    new SqlConnection(connectionString))
+                {
+                    conn.Open();
 
-            int id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["id_saran"].Value);
+                    string query =
+                    "DELETE FROM saran_komplain WHERE id_saran=@id";
 
-            conn.Open();
+                    cmd = new SqlCommand(query, conn);
 
-            SqlCommand cmd = new SqlCommand(
-                "DELETE FROM saran_komplain WHERE id_saran=@id", conn);
+                    cmd.Parameters.AddWithValue("@id", idSelected);
 
-            cmd.Parameters.AddWithValue("@id", id);
+                    cmd.ExecuteNonQuery();
 
-            cmd.ExecuteNonQuery();
-            conn.Close();
+                    MessageBox.Show("Data berhasil dihapus");
 
-            MessageBox.Show("Data berhasil dihapus");
+                    TampilData();
+
+                    ClearForm();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        // ===============================
+        // CARI
+        // ===============================
+        private void BtnCari_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (txtCari.Text == "")
+                {
+                    MessageBox.Show("Masukkan keyword pencarian!");
+                    return;
+                }
+
+                using (SqlConnection conn =
+                    new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    string query = @"
+                    SELECT
+                        s.id_saran,
+                        m.nim,
+                        m.nama,
+                        m.prodi,
+                        s.jenis,
+                        sk.kategori,
+                        s.isi,
+                        s.status,
+                        ISNULL(t.isi_tanggapan,'Belum ada tanggapan') AS tanggapan,
+                        s.created_at
+
+                    FROM saran_komplain s
+
+                    JOIN mahasiswa m
+                    ON s.id_mhs = m.id_mhs
+
+                    JOIN sumber_daya_kampus sk
+                    ON s.id_sumber = sk.id_sumber
+
+                    LEFT JOIN tanggapan t
+                    ON s.id_saran = t.id_saran
+
+                    WHERE
+                        m.nama LIKE @cari
+                        OR m.nim LIKE @cari
+                        OR s.jenis LIKE @cari
+                        OR sk.kategori LIKE @cari
+                        OR s.status LIKE @cari
+                        OR s.isi LIKE @cari";
+
+                    cmd = new SqlCommand(query, conn);
+
+                    cmd.Parameters.AddWithValue(
+                        "@cari",
+                        "%" + txtCari.Text + "%");
+
+                    da = new SqlDataAdapter(cmd);
+
+                    ds = new DataSet();
+
+                    da.Fill(ds);
+
+                    dgvKomplain.DataSource = ds.Tables[0];
+
+                    if (ds.Tables[0].Rows.Count == 0)
+                    {
+                        MessageBox.Show("Data tidak ditemukan!");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        // ===============================
+        // CLEAR
+        // ===============================
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            ClearForm();
+
             TampilData();
         }
 
         // ===============================
-        // SEARCH
+        // TAMPIL
         // ===============================
-        private void btnCari_Click(object sender, EventArgs e)
+        private void btnTampil_Click(object sender, EventArgs e)
         {
-            TampilData(txtCari.Text);
-        }
+            txtCari.Clear();
 
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
             TampilData();
         }
     }
 }
+
