@@ -4,20 +4,20 @@ using System.Windows.Forms;
 
 namespace ProjekPABD
 {
-    public partial class FormMahasiswa : Form
+    public partial class FormTanggapan : Form
     {
-        SqlConnection conn = new SqlConnection("Data Source=LAPTOP-6B5BO8RM\\SA;Initial Catalog=ProjekPABD;Integrated Security=True");
+        SqlConnection conn;
+        SqlCommand cmd;
 
-        public FormMahasiswa()
+        private void Koneksi()
         {
-            InitializeComponent();
+            conn = new SqlConnection("Data Source=LAPTOP-6B5BO8RM\\SA;Initial Catalog=ProjekPABD;Integrated Security=True");
         }
 
-        // Kalau mau kirim ID dari Admin
-        public FormTanggapan(string id)
+
+        public FormTanggapan()
         {
             InitializeComponent();
-            txtIdSaran.Text = id;
         }
 
         private void FormTanggapan_Load(object sender, EventArgs e)
@@ -43,6 +43,16 @@ namespace ProjekPABD
         private void btnBatal_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void txtIsiTanggapan_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtIdSaran_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
