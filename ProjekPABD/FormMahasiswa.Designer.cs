@@ -59,348 +59,606 @@ namespace ProjekPABD
 
         private void InitializeComponent()
         {
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.lblJenis = new System.Windows.Forms.Label();
-            this.lblSumberDaya = new System.Windows.Forms.Label();
-            this.lblIsi = new System.Windows.Forms.Label();
-            this.lblNama = new System.Windows.Forms.Label();
-            this.lblNim = new System.Windows.Forms.Label();
-            this.lblProdi = new System.Windows.Forms.Label();
-            this.lblHp = new System.Windows.Forms.Label();
-            this.lblEmail = new System.Windows.Forms.Label();
-            this.cmbJenis = new System.Windows.Forms.ComboBox();
-            this.cmbSumberDaya = new System.Windows.Forms.ComboBox();
-            this.txtIsi = new System.Windows.Forms.TextBox();
-            this.txtNama = new System.Windows.Forms.TextBox();
-            this.txtNim = new System.Windows.Forms.TextBox();
-            this.txtProdi = new System.Windows.Forms.TextBox();
-            this.txtHp = new System.Windows.Forms.TextBox();
-            this.txtEmail = new System.Windows.Forms.TextBox();
-            this.txtCari = new System.Windows.Forms.TextBox();
-            this.btnTambah = new System.Windows.Forms.Button();
-            this.btnUpdate = new System.Windows.Forms.Button();
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.btnClear = new System.Windows.Forms.Button();
-            this.btnTampil = new System.Windows.Forms.Button();
-            this.BtnCari = new System.Windows.Forms.Button();
-            this.btnTest = new System.Windows.Forms.Button();
-            this.btnResetData = new System.Windows.Forms.Button();
-            this.dgvKomplain = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvKomplain)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblTitle.Location = new System.Drawing.Point(330, 20);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(600, 50);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "DASHBOARD MAHASISWA";
-            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblJenis
-            // 
-            this.lblJenis.AutoSize = true;
-            this.lblJenis.Location = new System.Drawing.Point(80, 100);
-            this.lblJenis.Name = "lblJenis";
-            this.lblJenis.Size = new System.Drawing.Size(46, 20);
-            this.lblJenis.TabIndex = 1;
-            this.lblJenis.Text = "Jenis";
-            // 
-            // lblSumberDaya
-            // 
-            this.lblSumberDaya.AutoSize = true;
-            this.lblSumberDaya.Location = new System.Drawing.Point(80, 160);
-            this.lblSumberDaya.Name = "lblSumberDaya";
-            this.lblSumberDaya.Size = new System.Drawing.Size(106, 20);
-            this.lblSumberDaya.TabIndex = 2;
-            this.lblSumberDaya.Text = "Sumber Daya";
-            // 
-            // lblIsi
-            // 
-            this.lblIsi.AutoSize = true;
-            this.lblIsi.Location = new System.Drawing.Point(80, 220);
-            this.lblIsi.Name = "lblIsi";
-            this.lblIsi.Size = new System.Drawing.Size(94, 20);
-            this.lblIsi.TabIndex = 3;
-            this.lblIsi.Text = "Isi Komplain";
-            // 
-            // lblNama
-            // 
-            this.lblNama.AutoSize = true;
-            this.lblNama.Location = new System.Drawing.Point(700, 100);
-            this.lblNama.Name = "lblNama";
-            this.lblNama.Size = new System.Drawing.Size(51, 20);
-            this.lblNama.TabIndex = 4;
-            this.lblNama.Text = "Nama";
-            // 
-            // lblNim
-            // 
-            this.lblNim.AutoSize = true;
-            this.lblNim.Location = new System.Drawing.Point(700, 150);
-            this.lblNim.Name = "lblNim";
-            this.lblNim.Size = new System.Drawing.Size(38, 20);
-            this.lblNim.TabIndex = 5;
-            this.lblNim.Text = "NIM";
-            // 
-            // lblProdi
-            // 
-            this.lblProdi.AutoSize = true;
-            this.lblProdi.Location = new System.Drawing.Point(700, 200);
-            this.lblProdi.Name = "lblProdi";
-            this.lblProdi.Size = new System.Drawing.Size(45, 20);
-            this.lblProdi.TabIndex = 6;
-            this.lblProdi.Text = "Prodi";
-            // 
-            // lblHp
-            // 
-            this.lblHp.AutoSize = true;
-            this.lblHp.Location = new System.Drawing.Point(700, 250);
-            this.lblHp.Name = "lblHp";
-            this.lblHp.Size = new System.Drawing.Size(55, 20);
-            this.lblHp.TabIndex = 7;
-            this.lblHp.Text = "No HP";
-            // 
-            // lblEmail
-            // 
-            this.lblEmail.AutoSize = true;
-            this.lblEmail.Location = new System.Drawing.Point(700, 300);
-            this.lblEmail.Name = "lblEmail";
-            this.lblEmail.Size = new System.Drawing.Size(48, 20);
-            this.lblEmail.TabIndex = 8;
-            this.lblEmail.Text = "Email";
-            // 
-            // cmbJenis
-            // 
-            this.cmbJenis.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbJenis.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmbJenis.Location = new System.Drawing.Point(80, 120);
-            this.cmbJenis.Name = "cmbJenis";
-            this.cmbJenis.Size = new System.Drawing.Size(260, 28);
-            this.cmbJenis.TabIndex = 9;
-            // 
-            // cmbSumberDaya
-            // 
-            this.cmbSumberDaya.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbSumberDaya.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmbSumberDaya.Location = new System.Drawing.Point(80, 180);
-            this.cmbSumberDaya.Name = "cmbSumberDaya";
-            this.cmbSumberDaya.Size = new System.Drawing.Size(260, 28);
-            this.cmbSumberDaya.TabIndex = 10;
-            // 
-            // txtIsi
-            // 
-            this.txtIsi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtIsi.Location = new System.Drawing.Point(80, 240);
-            this.txtIsi.Multiline = true;
-            this.txtIsi.Name = "txtIsi";
-            this.txtIsi.Size = new System.Drawing.Size(350, 70);
-            this.txtIsi.TabIndex = 11;
-            // 
-            // txtNama
-            // 
-            this.txtNama.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtNama.Location = new System.Drawing.Point(780, 100);
-            this.txtNama.Name = "txtNama";
-            this.txtNama.Size = new System.Drawing.Size(260, 26);
-            this.txtNama.TabIndex = 12;
-            // 
-            // txtNim
-            // 
-            this.txtNim.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtNim.Location = new System.Drawing.Point(780, 150);
-            this.txtNim.Name = "txtNim";
-            this.txtNim.Size = new System.Drawing.Size(260, 26);
-            this.txtNim.TabIndex = 13;
-            // 
-            // txtProdi
-            // 
-            this.txtProdi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtProdi.Location = new System.Drawing.Point(780, 200);
-            this.txtProdi.Name = "txtProdi";
-            this.txtProdi.Size = new System.Drawing.Size(260, 26);
-            this.txtProdi.TabIndex = 14;
-            // 
-            // txtHp
-            // 
-            this.txtHp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtHp.Location = new System.Drawing.Point(780, 250);
-            this.txtHp.Name = "txtHp";
-            this.txtHp.Size = new System.Drawing.Size(260, 26);
-            this.txtHp.TabIndex = 15;
-            // 
-            // txtEmail
-            // 
-            this.txtEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtEmail.Location = new System.Drawing.Point(780, 300);
-            this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(260, 26);
-            this.txtEmail.TabIndex = 16;
-            // 
-            // txtCari
-            // 
-            this.txtCari.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtCari.Location = new System.Drawing.Point(860, 350);
-            this.txtCari.Name = "txtCari";
-            this.txtCari.Size = new System.Drawing.Size(220, 26);
-            this.txtCari.TabIndex = 17;
-            // 
-            // btnTambah
-            // 
-            this.btnTambah.BackColor = System.Drawing.Color.LimeGreen;
-            this.btnTambah.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTambah.ForeColor = System.Drawing.Color.White;
-            this.btnTambah.Location = new System.Drawing.Point(80, 340);
-            this.btnTambah.Name = "btnTambah";
-            this.btnTambah.Size = new System.Drawing.Size(120, 40);
-            this.btnTambah.TabIndex = 18;
-            this.btnTambah.Text = "Tambah";
-            this.btnTambah.UseVisualStyleBackColor = false;
-            this.btnTambah.Click += new System.EventHandler(this.btnTambah_Click);
-            // 
-            // btnUpdate
-            // 
-            this.btnUpdate.BackColor = System.Drawing.Color.DodgerBlue;
-            this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUpdate.ForeColor = System.Drawing.Color.White;
-            this.btnUpdate.Location = new System.Drawing.Point(220, 340);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(120, 40);
-            this.btnUpdate.TabIndex = 19;
-            this.btnUpdate.Text = "Update";
-            this.btnUpdate.UseVisualStyleBackColor = false;
-            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.BackColor = System.Drawing.Color.Crimson;
-            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDelete.ForeColor = System.Drawing.Color.White;
-            this.btnDelete.Location = new System.Drawing.Point(360, 340);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(120, 40);
-            this.btnDelete.TabIndex = 20;
-            this.btnDelete.Text = "Delete";
-            this.btnDelete.UseVisualStyleBackColor = false;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
-            // btnClear
-            // 
-            this.btnClear.BackColor = System.Drawing.Color.Gray;
-            this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClear.ForeColor = System.Drawing.Color.White;
-            this.btnClear.Location = new System.Drawing.Point(500, 340);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(120, 40);
-            this.btnClear.TabIndex = 21;
-            this.btnClear.Text = "Clear";
-            this.btnClear.UseVisualStyleBackColor = false;
-            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
-            // 
-            // btnTampil
-            // 
-            this.btnTampil.BackColor = System.Drawing.Color.Orange;
-            this.btnTampil.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTampil.ForeColor = System.Drawing.Color.White;
-            this.btnTampil.Location = new System.Drawing.Point(640, 340);
-            this.btnTampil.Name = "btnTampil";
-            this.btnTampil.Size = new System.Drawing.Size(120, 40);
-            this.btnTampil.TabIndex = 22;
-            this.btnTampil.Text = "Tampil";
-            this.btnTampil.UseVisualStyleBackColor = false;
-            this.btnTampil.Click += new System.EventHandler(this.btnTampil_Click);
-            // 
-            // BtnCari
-            // 
-            this.BtnCari.Location = new System.Drawing.Point(1100, 347);
-            this.BtnCari.Name = "BtnCari";
-            this.BtnCari.Size = new System.Drawing.Size(90, 35);
-            this.BtnCari.TabIndex = 25;
-            this.BtnCari.Text = "Cari";
-            this.BtnCari.Click += new System.EventHandler(this.BtnCari_Click);
-            // 
-            // btnTest
-            // 
-            this.btnTest.BackColor = System.Drawing.Color.Red;
-            this.btnTest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTest.ForeColor = System.Drawing.Color.White;
-            this.btnTest.Location = new System.Drawing.Point(1080, 180);
-            this.btnTest.Name = "btnTest";
-            this.btnTest.Size = new System.Drawing.Size(120, 40);
-            this.btnTest.TabIndex = 23;
-            this.btnTest.Text = "Test";
-            this.btnTest.UseVisualStyleBackColor = false;
-            this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
-            // 
-            // btnResetData
-            // 
-            this.btnResetData.BackColor = System.Drawing.Color.YellowGreen;
-            this.btnResetData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnResetData.ForeColor = System.Drawing.Color.White;
-            this.btnResetData.Location = new System.Drawing.Point(1080, 120);
-            this.btnResetData.Name = "btnResetData";
-            this.btnResetData.Size = new System.Drawing.Size(120, 40);
-            this.btnResetData.TabIndex = 24;
-            this.btnResetData.Text = "Reset";
-            this.btnResetData.UseVisualStyleBackColor = false;
-            this.btnResetData.Click += new System.EventHandler(this.btnResetData_Click);
-            // 
-            // dgvKomplain
-            // 
-            this.dgvKomplain.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvKomplain.BackgroundColor = System.Drawing.Color.White;
-            this.dgvKomplain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dgvKomplain.ColumnHeadersHeight = 34;
-            this.dgvKomplain.Location = new System.Drawing.Point(40, 420);
-            this.dgvKomplain.Name = "dgvKomplain";
-            this.dgvKomplain.RowHeadersVisible = false;
-            this.dgvKomplain.RowHeadersWidth = 62;
-            this.dgvKomplain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvKomplain.Size = new System.Drawing.Size(1180, 240);
-            this.dgvKomplain.TabIndex = 26;
-            this.dgvKomplain.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvKomplain_CellClick);
-            // 
-            // FormMahasiswa
-            // 
-            this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(1280, 720);
-            this.Controls.Add(this.lblTitle);
-            this.Controls.Add(this.lblJenis);
-            this.Controls.Add(this.lblSumberDaya);
-            this.Controls.Add(this.lblIsi);
-            this.Controls.Add(this.lblNama);
-            this.Controls.Add(this.lblNim);
-            this.Controls.Add(this.lblProdi);
-            this.Controls.Add(this.lblHp);
-            this.Controls.Add(this.lblEmail);
-            this.Controls.Add(this.cmbJenis);
-            this.Controls.Add(this.cmbSumberDaya);
-            this.Controls.Add(this.txtIsi);
-            this.Controls.Add(this.txtNama);
-            this.Controls.Add(this.txtNim);
-            this.Controls.Add(this.txtProdi);
-            this.Controls.Add(this.txtHp);
-            this.Controls.Add(this.txtEmail);
-            this.Controls.Add(this.txtCari);
-            this.Controls.Add(this.btnTambah);
-            this.Controls.Add(this.btnUpdate);
-            this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.btnClear);
-            this.Controls.Add(this.btnTampil);
-            this.Controls.Add(this.btnTest);
-            this.Controls.Add(this.btnResetData);
-            this.Controls.Add(this.BtnCari);
-            this.Controls.Add(this.dgvKomplain);
-            this.Name = "FormMahasiswa";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Dashboard Mahasiswa";
-            this.Load += new System.EventHandler(this.FormMahasiswa_Load_1);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvKomplain)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            this.lblTitle = new Label();
 
+            this.lblJenis = new Label();
+            this.lblSumberDaya = new Label();
+            this.lblIsi = new Label();
+
+            this.lblNama = new Label();
+            this.lblNim = new Label();
+            this.lblProdi = new Label();
+            this.lblHp = new Label();
+            this.lblEmail = new Label();
+
+            this.cmbJenis = new ComboBox();
+            this.cmbSumberDaya = new ComboBox();
+
+            this.txtIsi = new TextBox();
+
+            this.txtNama = new TextBox();
+            this.txtNim = new TextBox();
+            this.txtProdi = new TextBox();
+            this.txtHp = new TextBox();
+            this.txtEmail = new TextBox();
+
+            this.txtCari = new TextBox();
+
+            this.btnTambah = new Button();
+            this.btnUpdate = new Button();
+            this.btnDelete = new Button();
+            this.btnClear = new Button();
+            this.btnTampil = new Button();
+            this.BtnCari = new Button();
+
+            this.btnTest = new Button();
+            this.btnResetData = new Button();
+
+            this.dgvKomplain = new DataGridView();
+
+            ((ISupportInitialize)
+                (this.dgvKomplain)).BeginInit();
+
+            this.SuspendLayout();
+
+            // =====================================
+            // FORM
+            // =====================================
+            this.AutoScaleDimensions =
+                new SizeF(7F, 15F);
+
+            this.AutoScaleMode =
+                AutoScaleMode.Font;
+
+            this.BackColor =
+                Color.WhiteSmoke;
+
+            this.ClientSize =
+                new Size(1280, 720);
+
+            this.Name =
+                "FormMahasiswa";
+
+            this.StartPosition =
+                FormStartPosition.CenterScreen;
+
+            this.Text =
+                "Dashboard Mahasiswa";
+
+            this.Load +=
+                new EventHandler(
+                    this.FormMahasiswa_Load);
+
+            // =====================================
+            // TITLE
+            // =====================================
+            lblTitle.AutoSize =
+                false;
+
+            lblTitle.Font =
+                new Font(
+                    "Segoe UI",
+                    22F,
+                    FontStyle.Bold);
+
+            lblTitle.ForeColor =
+                Color.DarkBlue;
+
+            lblTitle.Location =
+                new Point(320, 20);
+
+            lblTitle.Name =
+                "lblTitle";
+
+            lblTitle.Size =
+                new Size(650, 50);
+
+            lblTitle.Text =
+                "DASHBOARD MAHASISWA";
+
+            lblTitle.TextAlign =
+                ContentAlignment.MiddleCenter;
+
+            // =====================================
+            // LABEL
+            // =====================================
+            lblJenis.AutoSize =
+                true;
+
+            lblJenis.Location =
+                new Point(80, 100);
+
+            lblJenis.Text =
+                "Jenis";
+
+            lblSumberDaya.AutoSize =
+                true;
+
+            lblSumberDaya.Location =
+                new Point(80, 160);
+
+            lblSumberDaya.Text =
+                "Sumber Daya";
+
+            lblIsi.AutoSize =
+                true;
+
+            lblIsi.Location =
+                new Point(80, 220);
+
+            lblIsi.Text =
+                "Isi Komplain";
+
+            lblNama.AutoSize =
+                true;
+
+            lblNama.Location =
+                new Point(720, 100);
+
+            lblNama.Text =
+                "Nama";
+
+            lblNim.AutoSize =
+                true;
+
+            lblNim.Location =
+                new Point(720, 150);
+
+            lblNim.Text =
+                "NIM";
+
+            lblProdi.AutoSize =
+                true;
+
+            lblProdi.Location =
+                new Point(720, 200);
+
+            lblProdi.Text =
+                "Prodi";
+
+            lblHp.AutoSize =
+                true;
+
+            lblHp.Location =
+                new Point(720, 250);
+
+            lblHp.Text =
+                "No HP";
+
+            lblEmail.AutoSize =
+                true;
+
+            lblEmail.Location =
+                new Point(720, 300);
+
+            lblEmail.Text =
+                "Email";
+
+            // =====================================
+            // COMBOBOX
+            // =====================================
+            cmbJenis.DropDownStyle =
+                ComboBoxStyle.DropDownList;
+
+            cmbJenis.FlatStyle =
+                FlatStyle.Popup;
+
+            cmbJenis.Location =
+                new Point(80, 120);
+
+            cmbJenis.Name =
+                "cmbJenis";
+
+            cmbJenis.Size =
+                new Size(260, 30);
+
+            cmbSumberDaya.DropDownStyle =
+                ComboBoxStyle.DropDownList;
+
+            cmbSumberDaya.FlatStyle =
+                FlatStyle.Popup;
+
+            cmbSumberDaya.Location =
+                new Point(80, 180);
+
+            cmbSumberDaya.Name =
+                "cmbSumberDaya";
+
+            cmbSumberDaya.Size =
+                new Size(260, 30);
+
+            // =====================================
+            // TEXTBOX ISI
+            // =====================================
+            txtIsi.Location =
+                new Point(80, 240);
+
+            txtIsi.Multiline =
+                true;
+
+            txtIsi.Name =
+                "txtIsi";
+
+            txtIsi.Size =
+                new Size(350, 70);
+
+            // =====================================
+            // TEXTBOX DATA DIRI
+            // =====================================
+            txtNama.Location =
+                new Point(820, 100);
+
+            txtNama.Name =
+                "txtNama";
+
+            txtNama.Size =
+                new Size(250, 30);
+
+            txtNim.Location =
+                new Point(820, 150);
+
+            txtNim.Name =
+                "txtNim";
+
+            txtNim.Size =
+                new Size(250, 30);
+
+            txtProdi.Location =
+                new Point(820, 200);
+
+            txtProdi.Name =
+                "txtProdi";
+
+            txtProdi.Size =
+                new Size(250, 30);
+
+            txtHp.Location =
+                new Point(820, 250);
+
+            txtHp.Name =
+                "txtHp";
+
+            txtHp.Size =
+                new Size(250, 30);
+
+            txtEmail.Location =
+                new Point(820, 300);
+
+            txtEmail.Name =
+                "txtEmail";
+
+            txtEmail.Size =
+                new Size(250, 30);
+
+            // =====================================
+            // BUTTON TAMBAH
+            // =====================================
+            btnTambah.BackColor =
+                Color.LimeGreen;
+
+            btnTambah.FlatStyle =
+                FlatStyle.Flat;
+
+            btnTambah.ForeColor =
+                Color.White;
+
+            btnTambah.Location =
+                new Point(80, 340);
+
+            btnTambah.Name =
+                "btnTambah";
+
+            btnTambah.Size =
+                new Size(120, 40);
+
+            btnTambah.Text =
+                "Tambah";
+
+            btnTambah.UseVisualStyleBackColor =
+                false;
+
+            btnTambah.Click +=
+                new EventHandler(
+                    this.btnTambah_Click);
+
+            // =====================================
+            // BUTTON UPDATE
+            // =====================================
+            btnUpdate.BackColor =
+                Color.DodgerBlue;
+
+            btnUpdate.FlatStyle =
+                FlatStyle.Flat;
+
+            btnUpdate.ForeColor =
+                Color.White;
+
+            btnUpdate.Location =
+                new Point(220, 340);
+
+            btnUpdate.Name =
+                "btnUpdate";
+
+            btnUpdate.Size =
+                new Size(120, 40);
+
+            btnUpdate.Text =
+                "Update";
+
+            btnUpdate.UseVisualStyleBackColor =
+                false;
+
+            btnUpdate.Click +=
+                new EventHandler(
+                    this.btnUpdate_Click);
+
+            // =====================================
+            // BUTTON DELETE
+            // =====================================
+            btnDelete.BackColor =
+                Color.Crimson;
+
+            btnDelete.FlatStyle =
+                FlatStyle.Flat;
+
+            btnDelete.ForeColor =
+                Color.White;
+
+            btnDelete.Location =
+                new Point(360, 340);
+
+            btnDelete.Name =
+                "btnDelete";
+
+            btnDelete.Size =
+                new Size(120, 40);
+
+            btnDelete.Text =
+                "Delete";
+
+            btnDelete.UseVisualStyleBackColor =
+                false;
+
+            btnDelete.Click +=
+                new EventHandler(
+                    this.btnDelete_Click);
+
+            // =====================================
+            // BUTTON CLEAR
+            // =====================================
+            btnClear.BackColor =
+                Color.Gray;
+
+            btnClear.FlatStyle =
+                FlatStyle.Flat;
+
+            btnClear.ForeColor =
+                Color.White;
+
+            btnClear.Location =
+                new Point(500, 340);
+
+            btnClear.Name =
+                "btnClear";
+
+            btnClear.Size =
+                new Size(120, 40);
+
+            btnClear.Text =
+                "Clear";
+
+            btnClear.UseVisualStyleBackColor =
+                false;
+
+            btnClear.Click +=
+                new EventHandler(
+                    this.btnClear_Click);
+
+            // =====================================
+            // BUTTON TAMPIL
+            // =====================================
+            btnTampil.BackColor =
+                Color.Orange;
+
+            btnTampil.FlatStyle =
+                FlatStyle.Flat;
+
+            btnTampil.ForeColor =
+                Color.White;
+
+            btnTampil.Location =
+                new Point(640, 340);
+
+            btnTampil.Name =
+                "btnTampil";
+
+            btnTampil.Size =
+                new Size(120, 40);
+
+            btnTampil.Text =
+                "Tampil";
+
+            btnTampil.UseVisualStyleBackColor =
+                false;
+
+            btnTampil.Click +=
+                new EventHandler(
+                    this.btnTampil_Click);
+
+            // =====================================
+            // BUTTON TEST
+            // =====================================
+            btnTest.BackColor =
+                Color.Red;
+
+            btnTest.FlatStyle =
+                FlatStyle.Flat;
+
+            btnTest.ForeColor =
+                Color.White;
+
+            btnTest.Location =
+                new Point(1110, 120);
+
+            btnTest.Name =
+                "btnTest";
+
+            btnTest.Size =
+                new Size(110, 40);
+
+            btnTest.Text =
+                "TEST";
+
+            btnTest.UseVisualStyleBackColor =
+                false;
+
+            btnTest.Click +=
+                new EventHandler(
+                    this.btnTest_Click);
+
+            // =====================================
+            // BUTTON RESET
+            // =====================================
+            btnResetData.BackColor =
+                Color.YellowGreen;
+
+            btnResetData.FlatStyle =
+                FlatStyle.Flat;
+
+            btnResetData.ForeColor =
+                Color.White;
+
+            btnResetData.Location =
+                new Point(1110, 180);
+
+            btnResetData.Name =
+                "btnResetData";
+
+            btnResetData.Size =
+                new Size(110, 40);
+
+            btnResetData.Text =
+                "RESET";
+
+            btnResetData.UseVisualStyleBackColor =
+                false;
+
+            btnResetData.Click +=
+                new EventHandler(
+                    this.btnResetData_Click);
+
+            // =====================================
+            // SEARCH
+            // =====================================
+            txtCari.Location =
+                new Point(850, 350);
+
+            txtCari.Name =
+                "txtCari";
+
+            txtCari.Size =
+                new Size(230, 30);
+
+            BtnCari.Location =
+                new Point(1100, 348);
+
+            BtnCari.Name =
+                "BtnCari";
+
+            BtnCari.Size =
+                new Size(90, 35);
+
+            BtnCari.Text =
+                "Cari";
+
+            BtnCari.UseVisualStyleBackColor =
+                true;
+
+            BtnCari.Click +=
+                new EventHandler(
+                    this.BtnCari_Click);
+
+            // =====================================
+            // DATAGRIDVIEW
+            // =====================================
+            dgvKomplain.AutoSizeColumnsMode =
+                DataGridViewAutoSizeColumnsMode.Fill;
+
+            dgvKomplain.BackgroundColor =
+                Color.White;
+
+            dgvKomplain.ColumnHeadersHeightSizeMode =
+                DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+
+            dgvKomplain.Location =
+                new Point(40, 420);
+
+            dgvKomplain.Name =
+                "dgvKomplain";
+
+            dgvKomplain.RowHeadersVisible =
+                false;
+
+            dgvKomplain.RowTemplate.Height =
+                25;
+
+            dgvKomplain.SelectionMode =
+                DataGridViewSelectionMode.FullRowSelect;
+
+            dgvKomplain.Size =
+                new Size(1180, 240);
+
+            dgvKomplain.CellClick +=
+                new DataGridViewCellEventHandler(
+                    this.dgvKomplain_CellClick);
+
+            // =====================================
+            // ADD CONTROL
+            // =====================================
+            this.Controls.Add(lblTitle);
+
+            this.Controls.Add(lblJenis);
+            this.Controls.Add(lblSumberDaya);
+            this.Controls.Add(lblIsi);
+
+            this.Controls.Add(lblNama);
+            this.Controls.Add(lblNim);
+            this.Controls.Add(lblProdi);
+            this.Controls.Add(lblHp);
+            this.Controls.Add(lblEmail);
+
+            this.Controls.Add(cmbJenis);
+            this.Controls.Add(cmbSumberDaya);
+
+            this.Controls.Add(txtIsi);
+
+            this.Controls.Add(txtNama);
+            this.Controls.Add(txtNim);
+            this.Controls.Add(txtProdi);
+            this.Controls.Add(txtHp);
+            this.Controls.Add(txtEmail);
+
+            this.Controls.Add(txtCari);
+
+            this.Controls.Add(btnTambah);
+            this.Controls.Add(btnUpdate);
+            this.Controls.Add(btnDelete);
+            this.Controls.Add(btnClear);
+            this.Controls.Add(btnTampil);
+
+            this.Controls.Add(btnTest);
+            this.Controls.Add(btnResetData);
+
+            this.Controls.Add(BtnCari);
+
+            this.Controls.Add(dgvKomplain);
+
+            ((ISupportInitialize)
+                (this.dgvKomplain)).EndInit();
+
+            this.ResumeLayout(false);
+
+            this.PerformLayout();
         }
     }
 }
