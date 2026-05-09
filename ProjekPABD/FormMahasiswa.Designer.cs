@@ -12,7 +12,7 @@ namespace ProjekPABD
         private Label lblTitle;
 
         private Label lblJenis;
-        private Label lblSumber;
+        private Label lblSumberDaya;
         private Label lblIsi;
 
         private Label lblNama;
@@ -48,7 +48,8 @@ namespace ProjekPABD
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if (disposing &&
+                (components != null))
             {
                 components.Dispose();
             }
@@ -61,7 +62,7 @@ namespace ProjekPABD
             this.lblTitle = new Label();
 
             this.lblJenis = new Label();
-            this.lblSumber = new Label();
+            this.lblSumberDaya = new Label();
             this.lblIsi = new Label();
 
             this.lblNama = new Label();
@@ -95,13 +96,14 @@ namespace ProjekPABD
 
             this.dgvKomplain = new DataGridView();
 
-            ((ISupportInitialize)(this.dgvKomplain)).BeginInit();
+            ((ISupportInitialize)
+                (this.dgvKomplain)).BeginInit();
 
             this.SuspendLayout();
 
-            // =========================================
+            // =====================================
             // FORM
-            // =========================================
+            // =====================================
             this.BackColor =
                 Color.WhiteSmoke;
 
@@ -114,9 +116,9 @@ namespace ProjekPABD
             this.Text =
                 "Dashboard Mahasiswa";
 
-            // =========================================
+            // =====================================
             // TITLE
-            // =========================================
+            // =====================================
             lblTitle.Text =
                 "DASHBOARD MAHASISWA";
 
@@ -141,20 +143,26 @@ namespace ProjekPABD
             lblTitle.Size =
                 new Size(600, 50);
 
-            // =========================================
+            // =====================================
             // LABEL KIRI
-            // =========================================
+            // =====================================
             lblJenis.Text =
                 "Jenis";
 
             lblJenis.Location =
                 new Point(80, 100);
 
-            lblSumber.Text =
+            lblJenis.AutoSize =
+                true;
+
+            lblSumberDaya.Text =
                 "Sumber Daya";
 
-            lblSumber.Location =
+            lblSumberDaya.Location =
                 new Point(80, 160);
+
+            lblSumberDaya.AutoSize =
+                true;
 
             lblIsi.Text =
                 "Isi Komplain";
@@ -162,14 +170,20 @@ namespace ProjekPABD
             lblIsi.Location =
                 new Point(80, 220);
 
-            // =========================================
+            lblIsi.AutoSize =
+                true;
+
+            // =====================================
             // LABEL KANAN
-            // =========================================
+            // =====================================
             lblNama.Text =
                 "Nama";
 
             lblNama.Location =
                 new Point(700, 100);
+
+            lblNama.AutoSize =
+                true;
 
             lblNim.Text =
                 "NIM";
@@ -177,11 +191,17 @@ namespace ProjekPABD
             lblNim.Location =
                 new Point(700, 150);
 
+            lblNim.AutoSize =
+                true;
+
             lblProdi.Text =
                 "Prodi";
 
             lblProdi.Location =
                 new Point(700, 200);
+
+            lblProdi.AutoSize =
+                true;
 
             lblHp.Text =
                 "No HP";
@@ -189,15 +209,21 @@ namespace ProjekPABD
             lblHp.Location =
                 new Point(700, 250);
 
+            lblHp.AutoSize =
+                true;
+
             lblEmail.Text =
                 "Email";
 
             lblEmail.Location =
                 new Point(700, 300);
 
-            // =========================================
+            lblEmail.AutoSize =
+                true;
+
+            // =====================================
             // COMBOBOX
-            // =========================================
+            // =====================================
             cmbJenis.Location =
                 new Point(80, 120);
 
@@ -222,9 +248,9 @@ namespace ProjekPABD
             cmbSumberDaya.DropDownStyle =
                 ComboBoxStyle.DropDownList;
 
-            // =========================================
-            // TEXTBOX KIRI
-            // =========================================
+            // =====================================
+            // TEXTBOX ISI
+            // =====================================
             txtIsi.Location =
                 new Point(80, 240);
 
@@ -237,9 +263,9 @@ namespace ProjekPABD
             txtIsi.BorderStyle =
                 BorderStyle.FixedSingle;
 
-            // =========================================
+            // =====================================
             // TEXTBOX KANAN
-            // =========================================
+            // =====================================
             txtNama.Location =
                 new Point(780, 100);
 
@@ -285,9 +311,9 @@ namespace ProjekPABD
             txtEmail.BorderStyle =
                 BorderStyle.FixedSingle;
 
-            // =========================================
+            // =====================================
             // BUTTON TAMBAH
-            // =========================================
+            // =====================================
             btnTambah.Text =
                 "Tambah";
 
@@ -310,9 +336,9 @@ namespace ProjekPABD
                 new EventHandler(
                     this.btnTambah_Click);
 
-            // =========================================
+            // =====================================
             // BUTTON UPDATE
-            // =========================================
+            // =====================================
             btnUpdate.Text =
                 "Update";
 
@@ -335,9 +361,9 @@ namespace ProjekPABD
                 new EventHandler(
                     this.btnUpdate_Click);
 
-            // =========================================
+            // =====================================
             // BUTTON DELETE
-            // =========================================
+            // =====================================
             btnDelete.Text =
                 "Delete";
 
@@ -360,9 +386,9 @@ namespace ProjekPABD
                 new EventHandler(
                     this.btnDelete_Click);
 
-            // =========================================
+            // =====================================
             // BUTTON CLEAR
-            // =========================================
+            // =====================================
             btnClear.Text =
                 "Clear";
 
@@ -385,9 +411,9 @@ namespace ProjekPABD
                 new EventHandler(
                     this.btnClear_Click);
 
-            // =========================================
+            // =====================================
             // BUTTON TAMPIL
-            // =========================================
+            // =====================================
             btnTampil.Text =
                 "Tampil";
 
@@ -410,9 +436,9 @@ namespace ProjekPABD
                 new EventHandler(
                     this.btnTampil_Click);
 
-            // =========================================
+            // =====================================
             // BUTTON TEST
-            // =========================================
+            // =====================================
             btnTest.Text =
                 "Test";
 
@@ -435,9 +461,9 @@ namespace ProjekPABD
                 new EventHandler(
                     this.btnTest_Click);
 
-            // =========================================
+            // =====================================
             // BUTTON RESET
-            // =========================================
+            // =====================================
             btnResetData.Text =
                 "Reset";
 
@@ -460,9 +486,9 @@ namespace ProjekPABD
                 new EventHandler(
                     this.btnResetData_Click);
 
-            // =========================================
+            // =====================================
             // SEARCH
-            // =========================================
+            // =====================================
             txtCari.Location =
                 new Point(860, 350);
 
@@ -485,9 +511,9 @@ namespace ProjekPABD
                 new EventHandler(
                     this.BtnCari_Click);
 
-            // =========================================
+            // =====================================
             // DATAGRIDVIEW
-            // =========================================
+            // =====================================
             dgvKomplain.Location =
                 new Point(40, 420);
 
@@ -513,13 +539,13 @@ namespace ProjekPABD
                 new DataGridViewCellEventHandler(
                     this.dgvKomplain_CellClick);
 
-            // =========================================
+            // =====================================
             // ADD CONTROL
-            // =========================================
+            // =====================================
             this.Controls.Add(lblTitle);
 
             this.Controls.Add(lblJenis);
-            this.Controls.Add(lblSumber);
+            this.Controls.Add(lblSumberDaya);
             this.Controls.Add(lblIsi);
 
             this.Controls.Add(lblNama);
@@ -554,9 +580,11 @@ namespace ProjekPABD
 
             this.Controls.Add(dgvKomplain);
 
-            ((ISupportInitialize)(this.dgvKomplain)).EndInit();
+            ((ISupportInitialize)
+                (this.dgvKomplain)).EndInit();
 
             this.ResumeLayout(false);
+            this.PerformLayout();
         }
     }
 }
