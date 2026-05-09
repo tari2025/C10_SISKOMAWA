@@ -29,8 +29,6 @@ namespace ProjekPABD
             this.btnKeluar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.btnTest = new System.Windows.Forms.Button();
-            this.btnReset1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtUsername
@@ -92,34 +90,9 @@ namespace ProjekPABD
             this.label2.TabIndex = 6;
             this.label2.Text = "Password";
             // 
-            // btnTest
-            // 
-            this.btnTest.BackColor = System.Drawing.Color.GreenYellow;
-            this.btnTest.Location = new System.Drawing.Point(497, 100);
-            this.btnTest.Name = "btnTest";
-            this.btnTest.Size = new System.Drawing.Size(80, 30);
-            this.btnTest.TabIndex = 7;
-            this.btnTest.Text = "Test";
-            this.btnTest.UseVisualStyleBackColor = false;
-            this.btnTest.Click +=
-            new System.EventHandler(this.btnTest_Click);
-            // 
-            // btnReset1
-            // 
-            this.btnReset1.BackColor = System.Drawing.Color.Red;
-            this.btnReset1.Location = new System.Drawing.Point(497, 40);
-            this.btnReset1.Name = "btnReset1";
-            this.btnReset1.Size = new System.Drawing.Size(80, 30);
-            this.btnReset1.TabIndex = 8;
-            this.btnReset1.Text = "Reset";
-            this.btnReset1.UseVisualStyleBackColor = false;
-            this.btnReset1.Click += new System.EventHandler(this.btnReset1_Click);
-            // 
             // FormLogin
             // 
             this.ClientSize = new System.Drawing.Size(963, 326);
-            this.Controls.Add(this.btnReset1);
-            this.Controls.Add(this.btnTest);
             this.Controls.Add(this.txtUsername);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.btnLogin);
@@ -142,7 +115,5 @@ namespace ProjekPABD
         private System.Windows.Forms.Button btnKeluar;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private Button btnTest;
-        private Button btnReset1;
     }
 }
