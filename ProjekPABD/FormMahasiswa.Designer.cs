@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -316,8 +315,8 @@ namespace ProjekPABD
             txtHp.Location =
                 new Point(820, 250);
 
-            txtNO_HP.Name =
-                "txtHP";
+            txtHp.Name =
+                "txtHp";
 
             txtHp.Size =
                 new Size(250, 30);
@@ -519,46 +518,39 @@ namespace ProjekPABD
 
             // =====================================
             // BUTTON RESET
+            // =====================================
+            btnResetData.BackColor =
+                Color.YellowGreen;
+
+            btnResetData.FlatStyle =
+                FlatStyle.Flat;
+
+            btnResetData.ForeColor =
+                Color.White;
+
+            btnResetData.Location =
+                new Point(1110, 180);
+
+            btnResetData.Name =
+                "btnResetData";
+
+            btnResetData.Size =
+                new Size(110, 40);
+
+            btnResetData.Text =
+                "RESET";
+
+            btnResetData.UseVisualStyleBackColor =
+                false;
+
+            btnResetData.Click +=
+                new EventHandler(
+                    this.btnResetData_Click);
 
             // =====================================
-             private void btnResetData_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                using (SqlConnection conn =
-                    new SqlConnection(connectionString))
-                {
-                    conn.Open();
-
-                    string query = @"
-                    IF OBJECT_ID('dbo.Mahasiswa_Backup') IS NOT NULL
-                    BEGIN
-                        DELETE FROM dbo.Mahasiswa;
-
-                        INSERT INTO dbo.Mahasiswa
-                        SELECT * FROM dbo.Mahasiswa_Backup;
-                    END";
-
-                    using (SqlCommand cmd =
-                        new SqlCommand(query, conn))
-                    {
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-
-                MessageBox.Show("Data berhasil direset");
-                LoadData();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    "Reset gagal: " + ex.Message);
-
-
-                // =====================================
-                // SEARCH
-                // =====================================
-                txtCari.Location =
+            // SEARCH
+            // =====================================
+            txtCari.Location =
                 new Point(850, 350);
 
             txtCari.Name =

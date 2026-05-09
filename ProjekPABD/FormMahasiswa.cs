@@ -15,6 +15,8 @@ namespace ProjekPABD
         string connectionString =
         "Data Source=LAPTOP-6B5BO8RM\\SA;Initial Catalog=ProjekPABD;Integrated Security=True";
 
+        int idSelected = 0;
+
         public static int idMahasiswa;
 
         public FormMahasiswa()
@@ -26,7 +28,7 @@ namespace ProjekPABD
         }
 
         // =====================================
-        // LOAD FORM
+        // FORM LOAD
         // =====================================
         private void FormMahasiswa_Load(
             object sender,
@@ -51,50 +53,28 @@ namespace ProjekPABD
 
             cmbSumberDaya.Items.Clear();
 
-            cmbSumberDaya.Items.Add("Infrastruktur");
-            cmbSumberDaya.Items.Add("Fasilitas Akademik");
-            cmbSumberDaya.Items.Add("Kemahasiswaan");
-        }
-
-        // =====================================
-        // LOAD DATA GRID
-        // =====================================
-        private void LoadData()
-        {
             try
             {
                 conn.Open();
 
-                string query = @"
-                SELECT
-                    sk.id_saran,
-                    m.nim,
-                    m.nama,
-                    m.prodi,
-                    sk.jenis,
-                    sdk.kategori,
-                    sk.isi,
-                    sk.status,
-                    sk.tanggapan,
-                    sk.created_at
-                FROM saran_komplain sk
-                JOIN mahasiswa m
-                    ON sk.id_mhs = m.id_mhs
-                JOIN sumber_daya_kampus sdk
-                    ON sk.id_sumber = sdk.id_sumber";
+                string query =
+                "SELECT kategori FROM sumber_daya_kampus";
 
-                da =
-                    new SqlDataAdapter(
+                cmd =
+                    new SqlCommand(
                         query,
                         conn);
 
-                dt =
-                    new DataTable();
+                SqlDataReader dr =
+                    cmd.ExecuteReader();
 
-                da.Fill(dt);
+                while (dr.Read())
+                {
+                    cmbSumberDaya.Items.Add(
+                        dr["kategori"].ToString());
+                }
 
-                dgvKomplain.DataSource =
-                    dt;
+                dr.Close();
 
                 conn.Close();
             }
@@ -103,6 +83,8 @@ namespace ProjekPABD
                 MessageBox.Show(ex.Message);
             }
         }
+
+      
 
         // =====================================
         // LOAD DATA MAHASISWA
@@ -113,10 +95,8 @@ namespace ProjekPABD
             {
                 conn.Open();
 
-                string query = @"
-                SELECT *
-                FROM mahasiswa
-                WHERE id_mhs=@id";
+                string query =
+                "SELECT * FROM mahasiswa WHERE id_mhs=@id";
 
                 cmd =
                     new SqlCommand(
@@ -141,18 +121,46 @@ namespace ProjekPABD
                     txtProdi.Text =
                         dr["prodi"].ToString();
 
-                    txtNoHP.Text =
-                        dr["no_HP"].ToString();
+                    txtHp.Text =
+                        dr["no_hp"].ToString();
 
                     txtEmail.Text =
                         dr["email"].ToString();
                 }
+
+                dr.Close();
 
                 conn.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        // =====================================
+        // TEST KONEKSI
+        // =====================================
+        private void btnTesKoneksi_Click(
+            object sender,
+            EventArgs e)
+        {
+            try
+            {
+                using (SqlConnection conn =
+                    new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    MessageBox.Show(
+                        "Koneksi berhasil");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Koneksi gagal : " +
+                    ex.Message);
             }
         }
 
@@ -241,11 +249,125 @@ namespace ProjekPABD
         }
 
         // =====================================
-        // TEST SQL INJECTION
+        // UPDATE DATA
         // =====================================
-        private void btnTest_Click(
+        private void btnUpdate_Click(
             object sender,
             EventArgs e)
+        {
+            try
+            {
+                using (SqlConnection conn =
+                    new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    string querySumber =
+                    "SELECT id_sumber FROM sumber_daya_kampus " +
+                    "WHERE kategori=@kategori";
+
+                    SqlCommand cmdSumber =
+                        new SqlCommand(
+                            querySumber,
+                            conn);
+
+                    cmdSumber.Parameters.AddWithValue(
+                        "@kategori",
+                        cmbSumberDaya.Text);
+
+                    int idSumber =
+                        Convert.ToInt32(
+                            cmdSumber.ExecuteScalar());
+
+                    string query = @"
+                    UPDATE saran_komplain
+                    SET
+                        id_sumber=@id_sumber,
+                        jenis=@jenis,
+                        isi=@isi
+                    WHERE id_saran=@id";
+
+                    SqlCommand cmd =
+                        new SqlCommand(
+                            query,
+                            conn);
+
+                    cmd.Parameters.AddWithValue(
+                        "@id",
+                        idSelected);
+
+                    cmd.Parameters.AddWithValue(
+                        "@id_sumber",
+                        idSumber);
+
+                    cmd.Parameters.AddWithValue(
+                        "@jenis",
+                        cmbJenis.Text);
+
+                    cmd.Parameters.AddWithValue(
+                        "@isi",
+                        txtIsi.Text);
+
+                    cmd.ExecuteNonQuery();
+
+                    MessageBox.Show(
+                        "Data berhasil diupdate");
+
+                    LoadData();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        // =====================================
+        // DELETE DATA
+        // =====================================
+        private void btnDelete_Click(
+            object sender,
+            EventArgs e)
+        {
+            try
+            {
+                using (SqlConnection conn =
+                    new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    string query =
+                    "DELETE FROM saran_komplain " +
+                    "WHERE id_saran=@id";
+
+                    SqlCommand cmd =
+                        new SqlCommand(
+                            query,
+                            conn);
+
+                    cmd.Parameters.AddWithValue(
+                        "@id",
+                        idSelected);
+
+                    cmd.ExecuteNonQuery();
+
+                    MessageBox.Show(
+                        "Data berhasil dihapus");
+
+                    LoadData();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        // =====================================
+        // TEST SQL INJECTION
+        private void btnTest_Click(
+    object sender,
+    EventArgs e)
         {
             try
             {
@@ -282,12 +404,14 @@ namespace ProjekPABD
             }
         }
 
+
         // =====================================
         // RESET DATA
-        // =====================================
+
+
         private void btnResetData_Click(
-            object sender,
-            EventArgs e)
+    object sender,
+    EventArgs e)
         {
             try
             {
@@ -297,23 +421,27 @@ namespace ProjekPABD
                     conn.Open();
 
                     string query = @"
-                    IF OBJECT_ID('dbo.Mahasiswa_Backup') IS NOT NULL
-                    BEGIN
-                        DELETE FROM dbo.mahasiswa;
+            UPDATE mahasiswa
+            SET nama =
+            CASE
+                WHEN nim='202401' THEN 'Andi'
+                WHEN nim='202403' THEN 'Citra'
+                WHEN nim='202404' THEN 'Dewi'
+                ELSE nama
+            END";
 
-                        INSERT INTO dbo.mahasiswa
-                        SELECT * FROM dbo.Mahasiswa_Backup;
-                    END";
+                    SqlCommand cmd =
+                        new SqlCommand(
+                            query,
+                            conn);
 
-                    using (SqlCommand cmd =
-                        new SqlCommand(query, conn))
-                    {
+                    int result =
                         cmd.ExecuteNonQuery();
-                    }
-                }
 
-                MessageBox.Show(
-                    "Data berhasil direset");
+                    MessageBox.Show(
+                        result +
+                        " data berhasil direset");
+                }
 
                 LoadMahasiswa();
 
@@ -322,9 +450,11 @@ namespace ProjekPABD
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    "Reset gagal: " + ex.Message);
+                    "Reset gagal: " +
+                    ex.Message);
             }
         }
+        
 
         // =====================================
         // CLEAR
@@ -378,37 +508,19 @@ namespace ProjekPABD
                 DataGridViewRow row =
                     dgvKomplain.Rows[e.RowIndex];
 
+                idSelected =
+                    Convert.ToInt32(
+                        row.Cells[0].Value);
+
                 cmbJenis.Text =
-                    row.Cells["jenis"].Value.ToString();
+                    row.Cells[4].Value.ToString();
 
                 cmbSumberDaya.Text =
-                    row.Cells["kategori"].Value.ToString();
+                    row.Cells[5].Value.ToString();
 
                 txtIsi.Text =
-                    row.Cells["isi"].Value.ToString();
+                    row.Cells[6].Value.ToString();
             }
-        }
-
-        // =====================================
-        // UPDATE
-        // =====================================
-        private void btnUpdate_Click(
-            object sender,
-            EventArgs e)
-        {
-            MessageBox.Show(
-                "Fitur update aktif");
-        }
-
-        // =====================================
-        // DELETE
-        // =====================================
-        private void btnDelete_Click(
-            object sender,
-            EventArgs e)
-        {
-            MessageBox.Show(
-                "Fitur delete aktif");
         }
 
         // =====================================
