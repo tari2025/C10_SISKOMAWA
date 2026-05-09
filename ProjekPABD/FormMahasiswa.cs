@@ -128,9 +128,15 @@ namespace ProjekPABD
                     ON s.id_sumber = sk.id_sumber
 
                     LEFT JOIN tanggapan t
-                    ON s.id_saran = t.id_saran";
+                    ON s.id_saran = t.id_saran
+
+                    WHERE s.id_mhs = @id";
 
                     cmd = new SqlCommand(query, conn);
+
+                    cmd.Parameters.AddWithValue(
+                        "@id",
+                        idMahasiswa);
 
                     da = new SqlDataAdapter(cmd);
 
@@ -300,6 +306,22 @@ namespace ProjekPABD
                 {
                     conn.Open();
 
+                    string cek =
+                    "SELECT id_mhs FROM saran_komplain WHERE id_saran=@id";
+
+                    cmd = new SqlCommand(cek, conn);
+
+                    cmd.Parameters.AddWithValue("@id", idSelected);
+
+                    int owner =
+                        Convert.ToInt32(cmd.ExecuteScalar());
+
+                    if (owner != idMahasiswa)
+                    {
+                        MessageBox.Show("Tidak bisa edit data orang lain!");
+                        return;
+                    }
+
                     string cari =
                     "SELECT id_sumber FROM sumber_daya_kampus WHERE kategori=@kategori";
 
@@ -353,6 +375,22 @@ namespace ProjekPABD
                     new SqlConnection(connectionString))
                 {
                     conn.Open();
+
+                    string cek =
+                    "SELECT id_mhs FROM saran_komplain WHERE id_saran=@id";
+
+                    cmd = new SqlCommand(cek, conn);
+
+                    cmd.Parameters.AddWithValue("@id", idSelected);
+
+                    int owner =
+                        Convert.ToInt32(cmd.ExecuteScalar());
+
+                    if (owner != idMahasiswa)
+                    {
+                        MessageBox.Show("Tidak bisa hapus data orang lain!");
+                        return;
+                    }
 
                     string query =
                     "DELETE FROM saran_komplain WHERE id_saran=@id";
@@ -419,18 +457,25 @@ namespace ProjekPABD
                     ON s.id_saran = t.id_saran
 
                     WHERE
+                    (
                         m.nama LIKE @cari
                         OR m.nim LIKE @cari
                         OR s.jenis LIKE @cari
                         OR sk.kategori LIKE @cari
                         OR s.status LIKE @cari
-                        OR s.isi LIKE @cari";
+                        OR s.isi LIKE @cari
+                    )
+                    AND s.id_mhs = @id";
 
                     cmd = new SqlCommand(query, conn);
 
                     cmd.Parameters.AddWithValue(
                         "@cari",
                         "%" + txtCari.Text + "%");
+
+                    cmd.Parameters.AddWithValue(
+                        "@id",
+                        idMahasiswa);
 
                     da = new SqlDataAdapter(cmd);
 
@@ -473,4 +518,3 @@ namespace ProjekPABD
         }
     }
 }
-
