@@ -1,24 +1,54 @@
 ﻿using System;
-using System.Data;
-using System.Data.SqlClient;
+using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace ProjekPABD
 {
     partial class FormMahasiswa
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
+        private Label lblTitle;
+
+        private Label lblJenis;
+        private Label lblSumber;
+        private Label lblIsi;
+
+        private Label lblNama;
+        private Label lblNim;
+        private Label lblProdi;
+        private Label lblHp;
+        private Label lblEmail;
+
+        private ComboBox cmbJenis;
+        private ComboBox cmbSumberDaya;
+
+        private TextBox txtIsi;
+
+        private TextBox txtNama;
+        private TextBox txtNim;
+        private TextBox txtProdi;
+        private TextBox txtHp;
+        private TextBox txtEmail;
+
+        private TextBox txtCari;
+
+        private Button btnTambah;
+        private Button btnUpdate;
+        private Button btnDelete;
+        private Button btnClear;
+        private Button btnTampil;
+        private Button BtnCari;
+
+        private Button btnTest;
+        private Button btnResetData;
+
+        private DataGridView dgvKomplain;
+
         protected override void Dispose(bool disposing)
         {
-            if (disposing &&
-                (components != null))
+            if (disposing && (components != null))
             {
                 components.Dispose();
             }
@@ -26,327 +56,507 @@ namespace ProjekPABD
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.dgvKomplain = new System.Windows.Forms.DataGridView();
-            this.bindingNavigator1 = new System.Windows.Forms.BindingNavigator(this.components);
-            this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
-            this.txtNama = new System.Windows.Forms.TextBox();
-            this.txtNim = new System.Windows.Forms.TextBox();
-            this.txtProdi = new System.Windows.Forms.TextBox();
-            this.txtHp = new System.Windows.Forms.TextBox();
-            this.txtEmail = new System.Windows.Forms.TextBox();
-            this.txtIsi = new System.Windows.Forms.TextBox();
-            this.txtCari = new System.Windows.Forms.TextBox();
-            this.cmbJenis = new System.Windows.Forms.ComboBox();
-            this.cmbSumberDaya = new System.Windows.Forms.ComboBox();
-            this.btnTambah = new System.Windows.Forms.Button();
-            this.btnUpdate = new System.Windows.Forms.Button();
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.btnClear = new System.Windows.Forms.Button();
-            this.btnTampil = new System.Windows.Forms.Button();
-            this.BtnCari = new System.Windows.Forms.Button();
-            this.btnReset1 = new System.Windows.Forms.Button();
-            this.btnTest = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvKomplain)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
-            this.bindingNavigator1.SuspendLayout();
+            this.lblTitle = new Label();
+
+            this.lblJenis = new Label();
+            this.lblSumber = new Label();
+            this.lblIsi = new Label();
+
+            this.lblNama = new Label();
+            this.lblNim = new Label();
+            this.lblProdi = new Label();
+            this.lblHp = new Label();
+            this.lblEmail = new Label();
+
+            this.cmbJenis = new ComboBox();
+            this.cmbSumberDaya = new ComboBox();
+
+            this.txtIsi = new TextBox();
+
+            this.txtNama = new TextBox();
+            this.txtNim = new TextBox();
+            this.txtProdi = new TextBox();
+            this.txtHp = new TextBox();
+            this.txtEmail = new TextBox();
+
+            this.txtCari = new TextBox();
+
+            this.btnTambah = new Button();
+            this.btnUpdate = new Button();
+            this.btnDelete = new Button();
+            this.btnClear = new Button();
+            this.btnTampil = new Button();
+            this.BtnCari = new Button();
+
+            this.btnTest = new Button();
+            this.btnResetData = new Button();
+
+            this.dgvKomplain = new DataGridView();
+
+            ((ISupportInitialize)(this.dgvKomplain)).BeginInit();
+
             this.SuspendLayout();
-            // 
-            // dgvKomplain
-            // 
-            this.dgvKomplain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvKomplain.Location = new System.Drawing.Point(28, 375);
-            this.dgvKomplain.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dgvKomplain.Name = "dgvKomplain";
-            this.dgvKomplain.RowHeadersWidth = 51;
-            this.dgvKomplain.RowTemplate.Height = 24;
-            this.dgvKomplain.Size = new System.Drawing.Size(1012, 275);
-            this.dgvKomplain.TabIndex = 0;
-            this.dgvKomplain.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvKomplain_CellClick);
-            // 
-            // bindingNavigator1
-            // 
-            this.bindingNavigator1.AddNewItem = null;
-            this.bindingNavigator1.CountItem = null;
-            this.bindingNavigator1.DeleteItem = null;
-            this.bindingNavigator1.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.bindingNavigator1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bindingNavigatorMoveFirstItem,
-            this.bindingNavigatorMovePreviousItem,
-            this.bindingNavigatorMoveNextItem,
-            this.bindingNavigatorMoveLastItem});
-            this.bindingNavigator1.Location = new System.Drawing.Point(0, 0);
-            this.bindingNavigator1.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
-            this.bindingNavigator1.MoveLastItem = this.bindingNavigatorMoveLastItem;
-            this.bindingNavigator1.MoveNextItem = this.bindingNavigatorMoveNextItem;
-            this.bindingNavigator1.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
-            this.bindingNavigator1.Name = "bindingNavigator1";
-            this.bindingNavigator1.PositionItem = null;
-            this.bindingNavigator1.Size = new System.Drawing.Size(1069, 34);
-            this.bindingNavigator1.TabIndex = 1;
-            this.bindingNavigator1.RefreshItems += new System.EventHandler(this.bindingNavigator1_RefreshItems);
-            // 
-            // bindingNavigatorMoveFirstItem
-            // 
-            this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
-            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(34, 29);
-            this.bindingNavigatorMoveFirstItem.Text = "|<";
-            // 
-            // bindingNavigatorMovePreviousItem
-            // 
-            this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
-            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(34, 29);
-            this.bindingNavigatorMovePreviousItem.Text = "<";
-            // 
-            // bindingNavigatorMoveNextItem
-            // 
-            this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
-            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(34, 29);
-            this.bindingNavigatorMoveNextItem.Text = ">";
-            // 
-            // bindingNavigatorMoveLastItem
-            // 
-            this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
-            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(34, 29);
-            this.bindingNavigatorMoveLastItem.Text = ">|";
-            // 
-            // txtNama
-            // 
-            this.txtNama.Location = new System.Drawing.Point(28, 62);
-            this.txtNama.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtNama.Name = "txtNama";
-            this.txtNama.Size = new System.Drawing.Size(281, 26);
-            this.txtNama.TabIndex = 2;
-            // 
-            // txtNim
-            // 
-            this.txtNim.Location = new System.Drawing.Point(338, 62);
-            this.txtNim.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtNim.Name = "txtNim";
-            this.txtNim.Size = new System.Drawing.Size(281, 26);
-            this.txtNim.TabIndex = 3;
-            // 
-            // txtProdi
-            // 
-            this.txtProdi.Location = new System.Drawing.Point(647, 62);
-            this.txtProdi.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtProdi.Name = "txtProdi";
-            this.txtProdi.Size = new System.Drawing.Size(281, 26);
-            this.txtProdi.TabIndex = 4;
-            // 
-            // txtHp
-            // 
-            this.txtHp.Location = new System.Drawing.Point(28, 112);
-            this.txtHp.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtHp.Name = "txtHp";
-            this.txtHp.Size = new System.Drawing.Size(281, 26);
-            this.txtHp.TabIndex = 5;
-            // 
-            // txtEmail
-            // 
-            this.txtEmail.Location = new System.Drawing.Point(338, 112);
-            this.txtEmail.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(281, 26);
-            this.txtEmail.TabIndex = 6;
-            // 
-            // txtIsi
-            // 
-            this.txtIsi.Location = new System.Drawing.Point(28, 200);
-            this.txtIsi.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtIsi.Multiline = true;
-            this.txtIsi.Name = "txtIsi";
-            this.txtIsi.Size = new System.Drawing.Size(900, 99);
-            this.txtIsi.TabIndex = 9;
-            // 
-            // txtCari
-            // 
-            this.txtCari.Location = new System.Drawing.Point(28, 312);
-            this.txtCari.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtCari.Name = "txtCari";
-            this.txtCari.Size = new System.Drawing.Size(281, 26);
-            this.txtCari.TabIndex = 10;
-            // 
-            // cmbJenis
-            // 
-            this.cmbJenis.FormattingEnabled = true;
-            this.cmbJenis.Location = new System.Drawing.Point(647, 112);
-            this.cmbJenis.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cmbJenis.Name = "cmbJenis";
-            this.cmbJenis.Size = new System.Drawing.Size(281, 28);
-            this.cmbJenis.TabIndex = 7;
-            // 
-            // cmbSumberDaya
-            // 
-            this.cmbSumberDaya.FormattingEnabled = true;
-            this.cmbSumberDaya.Location = new System.Drawing.Point(28, 150);
-            this.cmbSumberDaya.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cmbSumberDaya.Name = "cmbSumberDaya";
-            this.cmbSumberDaya.Size = new System.Drawing.Size(281, 28);
-            this.cmbSumberDaya.TabIndex = 8;
-            // 
-            // btnTambah
-            // 
-            this.btnTambah.Location = new System.Drawing.Point(28, 675);
-            this.btnTambah.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnTambah.Name = "btnTambah";
-            this.btnTambah.Size = new System.Drawing.Size(112, 50);
-            this.btnTambah.TabIndex = 11;
-            this.btnTambah.Text = "Tambah";
-            this.btnTambah.UseVisualStyleBackColor = true;
-            this.btnTambah.Click += new System.EventHandler(this.btnTambah_Click);
-            // 
-            // btnUpdate
-            // 
-            this.btnUpdate.Location = new System.Drawing.Point(158, 675);
-            this.btnUpdate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(112, 50);
-            this.btnUpdate.TabIndex = 12;
-            this.btnUpdate.Text = "Update";
-            this.btnUpdate.UseVisualStyleBackColor = true;
-            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.Location = new System.Drawing.Point(287, 675);
-            this.btnDelete.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(112, 50);
-            this.btnDelete.TabIndex = 13;
-            this.btnDelete.Text = "Delete";
-            this.btnDelete.UseVisualStyleBackColor = true;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
-            // btnClear
-            // 
-            this.btnClear.Location = new System.Drawing.Point(416, 675);
-            this.btnClear.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(112, 50);
-            this.btnClear.TabIndex = 14;
-            this.btnClear.Text = "Clear";
-            this.btnClear.UseVisualStyleBackColor = true;
-            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
-            // 
-            // btnTampil
-            // 
-            this.btnTampil.Location = new System.Drawing.Point(546, 675);
-            this.btnTampil.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnTampil.Name = "btnTampil";
-            this.btnTampil.Size = new System.Drawing.Size(112, 50);
-            this.btnTampil.TabIndex = 15;
-            this.btnTampil.Text = "Tampil";
-            this.btnTampil.UseVisualStyleBackColor = true;
-            this.btnTampil.Click += new System.EventHandler(this.btnTampil_Click);
-            // 
-            // BtnCari
-            // 
-            this.BtnCari.Location = new System.Drawing.Point(338, 306);
-            this.BtnCari.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.BtnCari.Name = "BtnCari";
-            this.BtnCari.Size = new System.Drawing.Size(112, 38);
-            this.BtnCari.TabIndex = 16;
-            this.BtnCari.Text = "Cari";
-            this.BtnCari.UseVisualStyleBackColor = true;
-            this.BtnCari.Click += new System.EventHandler(this.BtnCari_Click);
-            // 
-            // btnReset1
-            // 
-            this.btnReset1.BackColor = System.Drawing.Color.IndianRed;
-            this.btnReset1.Location = new System.Drawing.Point(928, 166);
-            this.btnReset1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnReset1.Name = "btnReset1";
-            this.btnReset1.Size = new System.Drawing.Size(112, 38);
-            this.btnReset1.TabIndex = 17;
-            this.btnReset1.Text = "Reset";
-            this.btnReset1.UseVisualStyleBackColor = false;
-            // 
-            // btnTest
-            // 
-            this.btnTest.BackColor = System.Drawing.Color.YellowGreen;
-            this.btnTest.Location = new System.Drawing.Point(934, 229);
-            this.btnTest.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnTest.Name = "btnTest";
-            this.btnTest.Size = new System.Drawing.Size(112, 38);
-            this.btnTest.TabIndex = 18;
-            this.btnTest.Text = "Test";
-            this.btnTest.UseVisualStyleBackColor = false;
-            // 
-            // FormMahasiswa
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1069, 775);
-            this.Controls.Add(this.btnTest);
-            this.Controls.Add(this.btnReset1);
-            this.Controls.Add(this.dgvKomplain);
-            this.Controls.Add(this.bindingNavigator1);
-            this.Controls.Add(this.txtNama);
-            this.Controls.Add(this.txtNim);
-            this.Controls.Add(this.txtProdi);
-            this.Controls.Add(this.txtHp);
-            this.Controls.Add(this.txtEmail);
-            this.Controls.Add(this.cmbJenis);
-            this.Controls.Add(this.cmbSumberDaya);
-            this.Controls.Add(this.txtIsi);
-            this.Controls.Add(this.txtCari);
-            this.Controls.Add(this.btnTambah);
-            this.Controls.Add(this.btnUpdate);
-            this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.btnClear);
-            this.Controls.Add(this.btnTampil);
-            this.Controls.Add(this.BtnCari);
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "FormMahasiswa";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "PORTAL SARAN & KOMPLAIN MAHASISWA";
-            this.Load += new System.EventHandler(this.FormMahasiswa_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvKomplain)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).EndInit();
-            this.bindingNavigator1.ResumeLayout(false);
-            this.bindingNavigator1.PerformLayout();
+
+            // =========================================
+            // FORM
+            // =========================================
+            this.BackColor =
+                Color.WhiteSmoke;
+
+            this.ClientSize =
+                new Size(1280, 720);
+
+            this.StartPosition =
+                FormStartPosition.CenterScreen;
+
+            this.Text =
+                "Dashboard Mahasiswa";
+
+            // =========================================
+            // TITLE
+            // =========================================
+            lblTitle.Text =
+                "DASHBOARD MAHASISWA";
+
+            lblTitle.Font =
+                new Font(
+                    "Segoe UI",
+                    22F,
+                    FontStyle.Bold);
+
+            lblTitle.ForeColor =
+                Color.DarkBlue;
+
+            lblTitle.AutoSize =
+                false;
+
+            lblTitle.TextAlign =
+                ContentAlignment.MiddleCenter;
+
+            lblTitle.Location =
+                new Point(330, 20);
+
+            lblTitle.Size =
+                new Size(600, 50);
+
+            // =========================================
+            // LABEL KIRI
+            // =========================================
+            lblJenis.Text =
+                "Jenis";
+
+            lblJenis.Location =
+                new Point(80, 100);
+
+            lblSumber.Text =
+                "Sumber Daya";
+
+            lblSumber.Location =
+                new Point(80, 160);
+
+            lblIsi.Text =
+                "Isi Komplain";
+
+            lblIsi.Location =
+                new Point(80, 220);
+
+            // =========================================
+            // LABEL KANAN
+            // =========================================
+            lblNama.Text =
+                "Nama";
+
+            lblNama.Location =
+                new Point(700, 100);
+
+            lblNim.Text =
+                "NIM";
+
+            lblNim.Location =
+                new Point(700, 150);
+
+            lblProdi.Text =
+                "Prodi";
+
+            lblProdi.Location =
+                new Point(700, 200);
+
+            lblHp.Text =
+                "No HP";
+
+            lblHp.Location =
+                new Point(700, 250);
+
+            lblEmail.Text =
+                "Email";
+
+            lblEmail.Location =
+                new Point(700, 300);
+
+            // =========================================
+            // COMBOBOX
+            // =========================================
+            cmbJenis.Location =
+                new Point(80, 120);
+
+            cmbJenis.Size =
+                new Size(260, 30);
+
+            cmbJenis.FlatStyle =
+                FlatStyle.Popup;
+
+            cmbJenis.DropDownStyle =
+                ComboBoxStyle.DropDownList;
+
+            cmbSumberDaya.Location =
+                new Point(80, 180);
+
+            cmbSumberDaya.Size =
+                new Size(260, 30);
+
+            cmbSumberDaya.FlatStyle =
+                FlatStyle.Popup;
+
+            cmbSumberDaya.DropDownStyle =
+                ComboBoxStyle.DropDownList;
+
+            // =========================================
+            // TEXTBOX KIRI
+            // =========================================
+            txtIsi.Location =
+                new Point(80, 240);
+
+            txtIsi.Size =
+                new Size(350, 70);
+
+            txtIsi.Multiline =
+                true;
+
+            txtIsi.BorderStyle =
+                BorderStyle.FixedSingle;
+
+            // =========================================
+            // TEXTBOX KANAN
+            // =========================================
+            txtNama.Location =
+                new Point(780, 100);
+
+            txtNama.Size =
+                new Size(260, 30);
+
+            txtNama.BorderStyle =
+                BorderStyle.FixedSingle;
+
+            txtNim.Location =
+                new Point(780, 150);
+
+            txtNim.Size =
+                new Size(260, 30);
+
+            txtNim.BorderStyle =
+                BorderStyle.FixedSingle;
+
+            txtProdi.Location =
+                new Point(780, 200);
+
+            txtProdi.Size =
+                new Size(260, 30);
+
+            txtProdi.BorderStyle =
+                BorderStyle.FixedSingle;
+
+            txtHp.Location =
+                new Point(780, 250);
+
+            txtHp.Size =
+                new Size(260, 30);
+
+            txtHp.BorderStyle =
+                BorderStyle.FixedSingle;
+
+            txtEmail.Location =
+                new Point(780, 300);
+
+            txtEmail.Size =
+                new Size(260, 30);
+
+            txtEmail.BorderStyle =
+                BorderStyle.FixedSingle;
+
+            // =========================================
+            // BUTTON TAMBAH
+            // =========================================
+            btnTambah.Text =
+                "Tambah";
+
+            btnTambah.Location =
+                new Point(80, 340);
+
+            btnTambah.Size =
+                new Size(120, 40);
+
+            btnTambah.BackColor =
+                Color.LimeGreen;
+
+            btnTambah.ForeColor =
+                Color.White;
+
+            btnTambah.FlatStyle =
+                FlatStyle.Flat;
+
+            btnTambah.Click +=
+                new EventHandler(
+                    this.btnTambah_Click);
+
+            // =========================================
+            // BUTTON UPDATE
+            // =========================================
+            btnUpdate.Text =
+                "Update";
+
+            btnUpdate.Location =
+                new Point(220, 340);
+
+            btnUpdate.Size =
+                new Size(120, 40);
+
+            btnUpdate.BackColor =
+                Color.DodgerBlue;
+
+            btnUpdate.ForeColor =
+                Color.White;
+
+            btnUpdate.FlatStyle =
+                FlatStyle.Flat;
+
+            btnUpdate.Click +=
+                new EventHandler(
+                    this.btnUpdate_Click);
+
+            // =========================================
+            // BUTTON DELETE
+            // =========================================
+            btnDelete.Text =
+                "Delete";
+
+            btnDelete.Location =
+                new Point(360, 340);
+
+            btnDelete.Size =
+                new Size(120, 40);
+
+            btnDelete.BackColor =
+                Color.Crimson;
+
+            btnDelete.ForeColor =
+                Color.White;
+
+            btnDelete.FlatStyle =
+                FlatStyle.Flat;
+
+            btnDelete.Click +=
+                new EventHandler(
+                    this.btnDelete_Click);
+
+            // =========================================
+            // BUTTON CLEAR
+            // =========================================
+            btnClear.Text =
+                "Clear";
+
+            btnClear.Location =
+                new Point(500, 340);
+
+            btnClear.Size =
+                new Size(120, 40);
+
+            btnClear.BackColor =
+                Color.Gray;
+
+            btnClear.ForeColor =
+                Color.White;
+
+            btnClear.FlatStyle =
+                FlatStyle.Flat;
+
+            btnClear.Click +=
+                new EventHandler(
+                    this.btnClear_Click);
+
+            // =========================================
+            // BUTTON TAMPIL
+            // =========================================
+            btnTampil.Text =
+                "Tampil";
+
+            btnTampil.Location =
+                new Point(640, 340);
+
+            btnTampil.Size =
+                new Size(120, 40);
+
+            btnTampil.BackColor =
+                Color.Orange;
+
+            btnTampil.ForeColor =
+                Color.White;
+
+            btnTampil.FlatStyle =
+                FlatStyle.Flat;
+
+            btnTampil.Click +=
+                new EventHandler(
+                    this.btnTampil_Click);
+
+            // =========================================
+            // BUTTON TEST
+            // =========================================
+            btnTest.Text =
+                "Test";
+
+            btnTest.Location =
+                new Point(1080, 180);
+
+            btnTest.Size =
+                new Size(120, 40);
+
+            btnTest.BackColor =
+                Color.Red;
+
+            btnTest.ForeColor =
+                Color.White;
+
+            btnTest.FlatStyle =
+                FlatStyle.Flat;
+
+            btnTest.Click +=
+                new EventHandler(
+                    this.btnTest_Click);
+
+            // =========================================
+            // BUTTON RESET
+            // =========================================
+            btnResetData.Text =
+                "Reset";
+
+            btnResetData.Location =
+                new Point(1080, 120);
+
+            btnResetData.Size =
+                new Size(120, 40);
+
+            btnResetData.BackColor =
+                Color.YellowGreen;
+
+            btnResetData.ForeColor =
+                Color.White;
+
+            btnResetData.FlatStyle =
+                FlatStyle.Flat;
+
+            btnResetData.Click +=
+                new EventHandler(
+                    this.btnResetData_Click);
+
+            // =========================================
+            // SEARCH
+            // =========================================
+            txtCari.Location =
+                new Point(860, 350);
+
+            txtCari.Size =
+                new Size(220, 30);
+
+            txtCari.BorderStyle =
+                BorderStyle.FixedSingle;
+
+            BtnCari.Text =
+                "Cari";
+
+            BtnCari.Location =
+                new Point(1100, 347);
+
+            BtnCari.Size =
+                new Size(90, 35);
+
+            BtnCari.Click +=
+                new EventHandler(
+                    this.BtnCari_Click);
+
+            // =========================================
+            // DATAGRIDVIEW
+            // =========================================
+            dgvKomplain.Location =
+                new Point(40, 420);
+
+            dgvKomplain.Size =
+                new Size(1180, 240);
+
+            dgvKomplain.BackgroundColor =
+                Color.White;
+
+            dgvKomplain.BorderStyle =
+                BorderStyle.Fixed3D;
+
+            dgvKomplain.AutoSizeColumnsMode =
+                DataGridViewAutoSizeColumnsMode.Fill;
+
+            dgvKomplain.SelectionMode =
+                DataGridViewSelectionMode.FullRowSelect;
+
+            dgvKomplain.RowHeadersVisible =
+                false;
+
+            dgvKomplain.CellClick +=
+                new DataGridViewCellEventHandler(
+                    this.dgvKomplain_CellClick);
+
+            // =========================================
+            // ADD CONTROL
+            // =========================================
+            this.Controls.Add(lblTitle);
+
+            this.Controls.Add(lblJenis);
+            this.Controls.Add(lblSumber);
+            this.Controls.Add(lblIsi);
+
+            this.Controls.Add(lblNama);
+            this.Controls.Add(lblNim);
+            this.Controls.Add(lblProdi);
+            this.Controls.Add(lblHp);
+            this.Controls.Add(lblEmail);
+
+            this.Controls.Add(cmbJenis);
+            this.Controls.Add(cmbSumberDaya);
+
+            this.Controls.Add(txtIsi);
+
+            this.Controls.Add(txtNama);
+            this.Controls.Add(txtNim);
+            this.Controls.Add(txtProdi);
+            this.Controls.Add(txtHp);
+            this.Controls.Add(txtEmail);
+
+            this.Controls.Add(txtCari);
+
+            this.Controls.Add(btnTambah);
+            this.Controls.Add(btnUpdate);
+            this.Controls.Add(btnDelete);
+            this.Controls.Add(btnClear);
+            this.Controls.Add(btnTampil);
+
+            this.Controls.Add(btnTest);
+            this.Controls.Add(btnResetData);
+
+            this.Controls.Add(BtnCari);
+
+            this.Controls.Add(dgvKomplain);
+
+            ((ISupportInitialize)(this.dgvKomplain)).EndInit();
+
             this.ResumeLayout(false);
-            this.PerformLayout();
-
         }
-
-        #endregion
-
-        private System.Windows.Forms.DataGridView dgvKomplain;
-
-        private System.Windows.Forms.BindingNavigator bindingNavigator1;
-
-        private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem;
-        private System.Windows.Forms.ToolStripButton bindingNavigatorMovePreviousItem;
-        private System.Windows.Forms.ToolStripButton bindingNavigatorMoveNextItem;
-        private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
-
-        private System.Windows.Forms.TextBox txtNama;
-        private System.Windows.Forms.TextBox txtNim;
-        private System.Windows.Forms.TextBox txtProdi;
-        private System.Windows.Forms.TextBox txtHp;
-        private System.Windows.Forms.TextBox txtEmail;
-        private System.Windows.Forms.TextBox txtIsi;
-        private System.Windows.Forms.TextBox txtCari;
-
-        private System.Windows.Forms.ComboBox cmbJenis;
-        private System.Windows.Forms.ComboBox cmbSumberDaya;
-
-        private System.Windows.Forms.Button btnTambah;
-        private System.Windows.Forms.Button btnUpdate;
-        private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.Button btnClear;
-        private System.Windows.Forms.Button btnTampil;
-        private System.Windows.Forms.Button BtnCari;
-        private Button btnReset1;
-        private Button btnTest;
     }
 }
