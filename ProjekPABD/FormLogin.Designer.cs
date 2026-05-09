@@ -101,6 +101,8 @@ namespace ProjekPABD
             this.btnTest.TabIndex = 7;
             this.btnTest.Text = "Test";
             this.btnTest.UseVisualStyleBackColor = false;
+            this.btnTest.Click +=
+            new System.EventHandler(this.btnTest_Click);
             // 
             // btnReset1
             // 
@@ -111,6 +113,7 @@ namespace ProjekPABD
             this.btnReset1.TabIndex = 8;
             this.btnReset1.Text = "Reset";
             this.btnReset1.UseVisualStyleBackColor = false;
+            this.btnReset1.Click += new System.EventHandler(this.btnReset1_Click);
             // 
             // FormLogin
             // 

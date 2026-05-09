@@ -19,14 +19,49 @@ namespace ProjekPABD
         // ====================================
         // LOAD
         // ====================================
-        
+        private void FormLogin_Load(
+            object sender,
+            EventArgs e)
+        {
+
+        }
+
+        // ====================================
+        // TEST KONEKSI
+        // ====================================
+        private void btnTesKoneksi_Click(
+            object sender,
+            EventArgs e)
+        {
+            try
+            {
+                using (SqlConnection conn =
+                    new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    MessageBox.Show(
+                        "Koneksi database berhasil!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Koneksi gagal : " + ex.Message);
+            }
+        }
 
         // ====================================
         // LOGIN
         // ====================================
-        private void BtnLogin_Click(object sender, EventArgs e)
+        private void BtnLogin_Click(
+            object sender,
+            EventArgs e)
         {
-            if (txtUsername.Text == "" || txtPassword.Text == "")
+            if (
+                txtUsername.Text == "" ||
+                txtPassword.Text == ""
+            )
             {
                 MessageBox.Show(
                     "Username dan Password wajib diisi!");
@@ -42,176 +77,81 @@ namespace ProjekPABD
                     conn.Open();
 
                     // ====================================
-                    // MODE VULNERABLE
+                    // LOGIN MAHASISWA (AMAN)
                     // ====================================
+                    SqlCommand cmdMhs =
+                        new SqlCommand(
+                        "SELECT id_mhs FROM mahasiswa WHERE username=@u AND password=@p",
+                        conn);
 
-                    if (cmbMode.Text == "Vulnerable")
+                    cmdMhs.Parameters.AddWithValue(
+                        "@u",
+                        txtUsername.Text.Trim());
+
+                    cmdMhs.Parameters.AddWithValue(
+                        "@p",
+                        txtPassword.Text.Trim());
+
+                    object resultMhs =
+                        cmdMhs.ExecuteScalar();
+
+                    if (resultMhs != null)
                     {
-                        // =========================
-                        // LOGIN MAHASISWA
-                        // =========================
+                        MessageBox.Show(
+                            "Login sebagai Mahasiswa");
 
-                        string queryMhs =
-                            "SELECT id_mhs FROM mahasiswa " +
-                            "WHERE username='"
-                            + txtUsername.Text +
-                            "' AND password='"
-                            + txtPassword.Text + "'";
+                        FormMahasiswa.idMahasiswa =
+                            Convert.ToInt32(resultMhs);
 
-                        SqlCommand cmdMhs =
-                            new SqlCommand(
-                            queryMhs,
-                            conn);
+                        FormMahasiswa f =
+                            new FormMahasiswa();
 
-                        object resultMhs =
-                            cmdMhs.ExecuteScalar();
+                        this.Hide();
 
-                        if (resultMhs != null)
-                        {
-                            MessageBox.Show(
-                                "Login Mahasiswa berhasil (Vulnerable)");
+                        f.Show();
 
-                            FormMahasiswa.idMahasiswa =
-                                Convert.ToInt32(resultMhs);
-
-                            FormMahasiswa f =
-                                new FormMahasiswa();
-
-                            this.Hide();
-
-                            f.Show();
-
-                            return;
-                        }
-
-                        // =========================
-                        // LOGIN ADMIN
-                        // =========================
-
-                        string queryAdmin =
-                            "SELECT id_admin FROM admin " +
-                            "WHERE username='"
-                            + txtUsername.Text +
-                            "' AND password='"
-                            + txtPassword.Text + "'";
-
-                        SqlCommand cmdAdmin =
-                            new SqlCommand(
-                            queryAdmin,
-                            conn);
-
-                        object resultAdmin =
-                            cmdAdmin.ExecuteScalar();
-
-                        if (resultAdmin != null)
-                        {
-                            MessageBox.Show(
-                                "Login Admin berhasil (Vulnerable)");
-
-                            FormAdmin.idAdmin =
-                                Convert.ToInt32(resultAdmin);
-
-                            FormAdmin f =
-                                new FormAdmin();
-
-                            this.Hide();
-
-                            f.Show();
-
-                            return;
-                        }
+                        return;
                     }
 
                     // ====================================
-                    // MODE SECURE
+                    // LOGIN ADMIN (VULNERABLE)
                     // ====================================
-                    else
+                    string query =
+                        "SELECT id_admin FROM admin " +
+                        "WHERE username='"
+                        + txtUsername.Text +
+                        "' AND password='"
+                        + txtPassword.Text + "'";
+
+                    SqlCommand cmdAdmin =
+                        new SqlCommand(
+                            query,
+                            conn);
+
+                    object resultAdmin =
+                        cmdAdmin.ExecuteScalar();
+
+                    if (resultAdmin != null)
                     {
-                        // =========================
-                        // LOGIN MAHASISWA
-                        // =========================
+                        MessageBox.Show(
+                            "SQL Injection Berhasil! Login sebagai Admin");
 
-                        SqlCommand cmdMhs =
-                            new SqlCommand(
-                            "SELECT id_mhs FROM mahasiswa " +
-                            "WHERE username=@u " +
-                            "AND password=@p",
-                            conn);
+                        FormAdmin.idAdmin =
+                            Convert.ToInt32(resultAdmin);
 
-                        cmdMhs.Parameters.AddWithValue(
-                            "@u",
-                            txtUsername.Text.Trim());
+                        FormAdmin f =
+                            new FormAdmin();
 
-                        cmdMhs.Parameters.AddWithValue(
-                            "@p",
-                            txtPassword.Text.Trim());
+                        this.Hide();
 
-                        object resultMhs =
-                            cmdMhs.ExecuteScalar();
+                        f.Show();
 
-                        if (resultMhs != null)
-                        {
-                            MessageBox.Show(
-                                "Login Mahasiswa berhasil (Secure)");
-
-                            FormMahasiswa.idMahasiswa =
-                                Convert.ToInt32(resultMhs);
-
-                            FormMahasiswa f =
-                                new FormMahasiswa();
-
-                            this.Hide();
-
-                            f.Show();
-
-                            return;
-                        }
-
-                        // =========================
-                        // LOGIN ADMIN
-                        // =========================
-
-                        SqlCommand cmdAdmin =
-                            new SqlCommand(
-                            "SELECT id_admin FROM admin " +
-                            "WHERE username=@u " +
-                            "AND password=@p",
-                            conn);
-
-                        cmdAdmin.Parameters.AddWithValue(
-                            "@u",
-                            txtUsername.Text.Trim());
-
-                        cmdAdmin.Parameters.AddWithValue(
-                            "@p",
-                            txtPassword.Text.Trim());
-
-                        object resultAdmin =
-                            cmdAdmin.ExecuteScalar();
-
-                        if (resultAdmin != null)
-                        {
-                            MessageBox.Show(
-                                "Login Admin berhasil (Secure)");
-
-                            FormAdmin.idAdmin =
-                                Convert.ToInt32(resultAdmin);
-
-                            FormAdmin f =
-                                new FormAdmin();
-
-                            this.Hide();
-
-                            f.Show();
-
-                            return;
-                        }
+                        return;
                     }
 
                     // ====================================
                     // LOGIN GAGAL
                     // ====================================
-
                     MessageBox.Show(
                         "Username / Password salah!");
                 }
@@ -224,9 +164,25 @@ namespace ProjekPABD
         }
 
         // ====================================
+        // RESET LOGIN
+        // ====================================
+        private void btnReset_Click(
+            object sender,
+            EventArgs e)
+        {
+            txtUsername.Clear();
+
+            txtPassword.Clear();
+
+            txtUsername.Focus();
+        }
+
+        // ====================================
         // TEST SQL INJECTION
         // ====================================
-        private void btnTest_Click(object sender, EventArgs e)
+        private void btnTest_Click(
+            object sender,
+            EventArgs e)
         {
             txtUsername.Text =
                 "' OR 1=1 --";
@@ -241,36 +197,26 @@ namespace ProjekPABD
         // ====================================
         // RESET TEST
         // ====================================
-        private void btnReset1_Click(object sender, EventArgs e)
+        private void btnReset1_Click(
+            object sender,
+            EventArgs e)
         {
             txtUsername.Clear();
 
             txtPassword.Clear();
-
-            cmbMode.SelectedIndex = 1;
 
             txtUsername.Focus();
 
             MessageBox.Show(
-                "Form berhasil direset");
-        }
-
-        // ====================================
-        // RESET
-        // ====================================
-        private void btnReset_Click(object sender, EventArgs e)
-        {
-            txtUsername.Clear();
-
-            txtPassword.Clear();
-
-            txtUsername.Focus();
+                "Payload berhasil direset");
         }
 
         // ====================================
         // KELUAR
         // ====================================
-        private void btnKeluar_Click(object sender, EventArgs e)
+        private void btnKeluar_Click(
+            object sender,
+            EventArgs e)
         {
             Application.Exit();
         }

@@ -1,49 +1,41 @@
 ﻿using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 
 namespace ProjekPABD
 {
-    public partial class FormLogin : Form
+    public partial class FormMahasiswa : Form
     {
         private readonly string connectionString =
         "Data Source=LAPTOP-6B5BO8RM\\SA;Initial Catalog=ProjekPABD;Integrated Security=True";
 
-        public FormLogin()
+        SqlCommand cmd;
+
+        SqlDataAdapter da;
+
+        DataSet ds;
+
+        DataTable dt =
+            new DataTable();
+
+        BindingSource bs =
+            new BindingSource();
+
+        int idSelected = 0;
+
+        public static int idMahasiswa;
+
+        public FormMahasiswa()
         {
             InitializeComponent();
-
-            txtPassword.UseSystemPasswordChar = true;
         }
 
-        // ====================================
-        // LOAD
-        // ====================================
-        private void FormLogin_Load(
-            object sender,
-            EventArgs e)
+        // ===============================
+        // LOAD MAHASISWA
+        // ===============================
+        void LoadMahasiswa()
         {
-
-        }
-
-        // ====================================
-        // LOGIN
-        // ====================================
-        private void BtnLogin_Click(
-            object sender,
-            EventArgs e)
-        {
-            if (
-                txtUsername.Text == "" ||
-                txtPassword.Text == ""
-            )
-            {
-                MessageBox.Show(
-                    "Username dan Password wajib diisi!");
-
-                return;
-            }
-
             try
             {
                 using (SqlConnection conn =
@@ -51,150 +43,620 @@ namespace ProjekPABD
                 {
                     conn.Open();
 
-                    // ====================================
-                    // LOGIN MAHASISWA
-                    // ====================================
-                    SqlCommand cmdMhs =
+                    string query =
+                    "SELECT * FROM mahasiswa WHERE id_mhs=@id";
+
+                    cmd =
                         new SqlCommand(
-                        "SELECT id_mhs FROM mahasiswa WHERE username=@u AND password=@p",
-                        conn);
+                            query,
+                            conn);
 
-                    cmdMhs.Parameters.AddWithValue(
-                        "@u",
-                        txtUsername.Text.Trim());
+                    cmd.Parameters.AddWithValue(
+                        "@id",
+                        idMahasiswa);
 
-                    cmdMhs.Parameters.AddWithValue(
-                        "@p",
-                        txtPassword.Text.Trim());
+                    SqlDataReader rd =
+                        cmd.ExecuteReader();
 
-                    object resultMhs =
-                        cmdMhs.ExecuteScalar();
-
-                    if (resultMhs != null)
+                    if (rd.Read())
                     {
-                        MessageBox.Show(
-                            "Login sebagai Mahasiswa");
+                        txtNama.Text =
+                            rd["nama"].ToString();
 
-                        FormMahasiswa.idMahasiswa =
-                            Convert.ToInt32(resultMhs);
+                        txtNim.Text =
+                            rd["nim"].ToString();
 
-                        FormMahasiswa f =
-                            new FormMahasiswa();
+                        txtProdi.Text =
+                            rd["prodi"].ToString();
 
-                        this.Hide();
+                        txtHp.Text =
+                            rd["no_hp"].ToString();
 
-                        f.Show();
-
-                        return;
+                        txtEmail.Text =
+                            rd["email"].ToString();
                     }
-
-                    // ====================================
-                    // LOGIN ADMIN
-                    // ====================================
-                    SqlCommand cmdAdmin =
-                        new SqlCommand(
-                        "SELECT id_admin FROM admin WHERE username=@u AND password=@p",
-                        conn);
-
-                    cmdAdmin.Parameters.AddWithValue(
-                        "@u",
-                        txtUsername.Text.Trim());
-
-                    cmdAdmin.Parameters.AddWithValue(
-                        "@p",
-                        txtPassword.Text.Trim());
-
-                    object resultAdmin =
-                        cmdAdmin.ExecuteScalar();
-
-                    if (resultAdmin != null)
-                    {
-                        MessageBox.Show(
-                            "Login sebagai Admin");
-
-                        FormAdmin.idAdmin =
-                            Convert.ToInt32(resultAdmin);
-
-                        FormAdmin f =
-                            new FormAdmin();
-
-                        this.Hide();
-
-                        f.Show();
-
-                        return;
-                    }
-
-                    // ====================================
-                    // LOGIN GAGAL
-                    // ====================================
-                    MessageBox.Show(
-                        "Username / Password salah!");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error : " + ex.Message);
+                MessageBox.Show(ex.Message);
             }
         }
 
-        // ====================================
-        // RESET LOGIN
-        // ====================================
-        private void btnReset_Click(
-            object sender,
-            EventArgs e)
+        // ===============================
+        // LOAD SUMBER DAYA
+        // ===============================
+        void LoadSumberDaya()
         {
-            txtUsername.Clear();
+            try
+            {
+                using (SqlConnection conn =
+                    new SqlConnection(connectionString))
+                {
+                    conn.Open();
 
-            txtPassword.Clear();
+                    string query =
+                    "SELECT * FROM sumber_daya_kampus";
 
-            txtUsername.Focus();
+                    cmd =
+                        new SqlCommand(
+                            query,
+                            conn);
+
+                    SqlDataReader rd =
+                        cmd.ExecuteReader();
+
+                    cmbSumberDaya.Items.Clear();
+
+                    while (rd.Read())
+                    {
+                        cmbSumberDaya.Items.Add(
+                            rd["kategori"].ToString());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
-        // ====================================
-        // TEST SQL INJECTION
-        // ====================================
-        private void btnTest_Click(
-            object sender,
-            EventArgs e)
+        // ===============================
+        // LOAD DATA
+        // ===============================
+        void LoadData()
         {
-            txtUsername.Text =
-                "' OR 1=1 --";
+            try
+            {
+                using (SqlConnection conn =
+                    new SqlConnection(connectionString))
+                {
+                    conn.Open();
 
-            txtPassword.Text =
-                "bebas";
+                    string query = @"
+                    SELECT
+                        s.id_saran,
+                        m.nim,
+                        m.nama,
+                        m.prodi,
+                        s.jenis,
+                        sk.kategori,
+                        s.isi,
+                        s.status,
+                        ISNULL(
+                            t.isi_tanggapan,
+                            'Belum ada tanggapan'
+                        ) AS tanggapan,
+                        s.created_at
 
-            MessageBox.Show(
-                "Mode SQL Injection aktif!\n\nKlik LOGIN untuk tes keamanan.");
+                    FROM saran_komplain s
+
+                    JOIN mahasiswa m
+                    ON s.id_mhs = m.id_mhs
+
+                    JOIN sumber_daya_kampus sk
+                    ON s.id_sumber = sk.id_sumber
+
+                    LEFT JOIN tanggapan t
+                    ON s.id_saran = t.id_saran
+
+                    WHERE s.id_mhs = @id";
+
+                    cmd =
+                        new SqlCommand(
+                            query,
+                            conn);
+
+                    cmd.Parameters.AddWithValue(
+                        "@id",
+                        idMahasiswa);
+
+                    da =
+                        new SqlDataAdapter(cmd);
+
+                    dt.Clear();
+
+                    da.Fill(dt);
+
+                    bs.DataSource = dt;
+
+                    dgvKomplain.DataSource = bs;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
-        // ====================================
-        // RESET TEST
-        // ====================================
-        private void btnReset1_Click(
-            object sender,
-            EventArgs e)
+        // ===============================
+        // BIND KONTROL
+        // ===============================
+        void BindKontrol()
         {
-            txtUsername.Clear();
+            txtIsi.DataBindings.Clear();
 
-            txtPassword.Clear();
+            cmbJenis.DataBindings.Clear();
 
-            txtUsername.Focus();
+            cmbSumberDaya.DataBindings.Clear();
 
-            MessageBox.Show(
-                "Data test berhasil direset.");
+            txtIsi.DataBindings.Add(
+                "Text",
+                bs,
+                "isi");
+
+            cmbJenis.DataBindings.Add(
+                "Text",
+                bs,
+                "jenis");
+
+            cmbSumberDaya.DataBindings.Add(
+                "Text",
+                bs,
+                "kategori");
         }
 
-        // ====================================
-        // KELUAR
-        // ====================================
-        private void btnKeluar_Click(
+        // ===============================
+        // CLEAR FORM
+        // ===============================
+        void ClearForm()
+        {
+            cmbJenis.SelectedIndex = -1;
+
+            cmbSumberDaya.SelectedIndex = -1;
+
+            txtIsi.Clear();
+
+            txtCari.Clear();
+
+            idSelected = 0;
+        }
+
+        // ===============================
+        // FORM LOAD
+        // ===============================
+        private void FormMahasiswa_Load(
             object sender,
             EventArgs e)
         {
-            Application.Exit();
+            cmbJenis.Items.Add("saran");
+
+            cmbJenis.Items.Add("komplain");
+
+            LoadMahasiswa();
+
+            LoadSumberDaya();
+
+            LoadData();
+
+            BindKontrol();
+        }
+
+        // ===============================
+        // TEST KONEKSI
+        // ===============================
+        private void btnTesKoneksi_Click(
+            object sender,
+            EventArgs e)
+        {
+            try
+            {
+                using (SqlConnection conn =
+                    new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    MessageBox.Show(
+                        "Koneksi database berhasil!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        // ===============================
+        // TAMBAH
+        // ===============================
+        private void btnTambah_Click(
+            object sender,
+            EventArgs e)
+        {
+            try
+            {
+                if (
+                    txtNama.Text == "" ||
+                    txtNim.Text == "" ||
+                    txtProdi.Text == "" ||
+                    txtHp.Text == "" ||
+                    txtEmail.Text == "" ||
+                    cmbJenis.Text == "" ||
+                    cmbSumberDaya.Text == "" ||
+                    txtIsi.Text == ""
+                )
+                {
+                    MessageBox.Show(
+                        "Semua data wajib diisi!");
+
+                    return;
+                }
+
+                using (SqlConnection conn =
+                    new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    string cari =
+                    "SELECT id_sumber FROM sumber_daya_kampus WHERE kategori=@kategori";
+
+                    cmd =
+                        new SqlCommand(
+                            cari,
+                            conn);
+
+                    cmd.Parameters.AddWithValue(
+                        "@kategori",
+                        cmbSumberDaya.Text);
+
+                    int idSumber =
+                        Convert.ToInt32(
+                            cmd.ExecuteScalar());
+
+                    string insert = @"
+                    INSERT INTO saran_komplain
+                    (id_mhs,id_sumber,jenis,isi,status)
+                    VALUES
+                    (@id_mhs,@id_sumber,@jenis,@isi,'menunggu')";
+
+                    cmd =
+                        new SqlCommand(
+                            insert,
+                            conn);
+
+                    cmd.Parameters.AddWithValue(
+                        "@id_mhs",
+                        idMahasiswa);
+
+                    cmd.Parameters.AddWithValue(
+                        "@id_sumber",
+                        idSumber);
+
+                    cmd.Parameters.AddWithValue(
+                        "@jenis",
+                        cmbJenis.Text);
+
+                    cmd.Parameters.AddWithValue(
+                        "@isi",
+                        txtIsi.Text);
+
+                    cmd.ExecuteNonQuery();
+
+                    MessageBox.Show(
+                        "Data berhasil disimpan");
+
+                    LoadData();
+
+                    ClearForm();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        // ===============================
+        // GRID CLICK
+        // ===============================
+        private void dgvKomplain_CellClick(
+            object sender,
+            DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row =
+                    dgvKomplain.Rows[e.RowIndex];
+
+                idSelected =
+                    Convert.ToInt32(
+                        row.Cells[0].Value);
+
+                cmbJenis.Text =
+                    row.Cells[4].Value.ToString();
+
+                cmbSumberDaya.Text =
+                    row.Cells[5].Value.ToString();
+
+                txtIsi.Text =
+                    row.Cells[6].Value.ToString();
+            }
+        }
+
+        // ===============================
+        // UPDATE
+        // ===============================
+        private void btnUpdate_Click(
+            object sender,
+            EventArgs e)
+        {
+            try
+            {
+                using (SqlConnection conn =
+                    new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    string cari =
+                    "SELECT id_sumber FROM sumber_daya_kampus WHERE kategori=@kategori";
+
+                    cmd =
+                        new SqlCommand(
+                            cari,
+                            conn);
+
+                    cmd.Parameters.AddWithValue(
+                        "@kategori",
+                        cmbSumberDaya.Text);
+
+                    int idSumber =
+                        Convert.ToInt32(
+                            cmd.ExecuteScalar());
+
+                    string query = @"
+                    UPDATE saran_komplain
+                    SET
+                        id_sumber=@id_sumber,
+                        jenis=@jenis,
+                        isi=@isi
+                    WHERE id_saran=@id";
+
+                    cmd =
+                        new SqlCommand(
+                            query,
+                            conn);
+
+                    cmd.Parameters.AddWithValue(
+                        "@id_sumber",
+                        idSumber);
+
+                    cmd.Parameters.AddWithValue(
+                        "@jenis",
+                        cmbJenis.Text);
+
+                    cmd.Parameters.AddWithValue(
+                        "@isi",
+                        txtIsi.Text);
+
+                    cmd.Parameters.AddWithValue(
+                        "@id",
+                        idSelected);
+
+                    cmd.ExecuteNonQuery();
+
+                    MessageBox.Show(
+                        "Data berhasil diupdate");
+
+                    LoadData();
+
+                    ClearForm();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        // ===============================
+        // DELETE
+        // ===============================
+        private void btnDelete_Click(
+            object sender,
+            EventArgs e)
+        {
+            try
+            {
+                using (SqlConnection conn =
+                    new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    string query =
+                    "DELETE FROM saran_komplain WHERE id_saran=@id";
+
+                    cmd =
+                        new SqlCommand(
+                            query,
+                            conn);
+
+                    cmd.Parameters.AddWithValue(
+                        "@id",
+                        idSelected);
+
+                    cmd.ExecuteNonQuery();
+
+                    MessageBox.Show(
+                        "Data berhasil dihapus");
+
+                    LoadData();
+
+                    ClearForm();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        // ===============================
+        // CARI
+        // ===============================
+        private void BtnCari_Click(
+            object sender,
+            EventArgs e)
+        {
+            try
+            {
+                using (SqlConnection conn =
+                    new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    string query = @"
+                    SELECT
+                        s.id_saran,
+                        m.nim,
+                        m.nama,
+                        m.prodi,
+                        s.jenis,
+                        sk.kategori,
+                        s.isi,
+                        s.status,
+                        ISNULL(
+                            t.isi_tanggapan,
+                            'Belum ada tanggapan'
+                        ) AS tanggapan,
+                        s.created_at
+
+                    FROM saran_komplain s
+
+                    JOIN mahasiswa m
+                    ON s.id_mhs = m.id_mhs
+
+                    JOIN sumber_daya_kampus sk
+                    ON s.id_sumber = sk.id_sumber
+
+                    LEFT JOIN tanggapan t
+                    ON s.id_saran = t.id_saran
+
+                    WHERE
+                    (
+                        m.nama LIKE @cari
+                        OR m.nim LIKE @cari
+                        OR s.jenis LIKE @cari
+                        OR sk.kategori LIKE @cari
+                        OR s.status LIKE @cari
+                        OR s.isi LIKE @cari
+                    )
+                    AND s.id_mhs = @id";
+
+                    cmd =
+                        new SqlCommand(
+                            query,
+                            conn);
+
+                    cmd.Parameters.AddWithValue(
+                        "@cari",
+                        "%" + txtCari.Text + "%");
+
+                    cmd.Parameters.AddWithValue(
+                        "@id",
+                        idMahasiswa);
+
+                    da =
+                        new SqlDataAdapter(cmd);
+
+                    ds =
+                        new DataSet();
+
+                    da.Fill(ds);
+
+                    dgvKomplain.DataSource =
+                        ds.Tables[0];
+
+                    if (ds.Tables[0].Rows.Count == 0)
+                    {
+                        MessageBox.Show(
+                            "Data tidak ditemukan!");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        // ===============================
+        // RESET DATA SQL
+        // ===============================
+        private void btnResetData_Click(
+            object sender,
+            EventArgs e)
+        {
+            try
+            {
+                using (SqlConnection conn =
+                    new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    cmd =
+                        new SqlCommand(
+                            "sp_reset_data",
+                            conn);
+
+                    cmd.CommandType =
+                        CommandType.StoredProcedure;
+
+                    cmd.ExecuteNonQuery();
+
+                    MessageBox.Show(
+                        "Data berhasil direset");
+
+                    LoadData();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        // ===============================
+        // CLEAR
+        // ===============================
+        private void btnClear_Click(
+            object sender,
+            EventArgs e)
+        {
+            ClearForm();
+
+            LoadData();
+        }
+
+        // ===============================
+        // TAMPIL
+        // ===============================
+        private void btnTampil_Click(
+            object sender,
+            EventArgs e)
+        {
+            txtCari.Clear();
+
+            LoadData();
         }
     }
 }
