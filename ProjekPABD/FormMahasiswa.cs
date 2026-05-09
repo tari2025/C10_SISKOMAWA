@@ -317,8 +317,8 @@ namespace ProjekPABD
         // TEST SQL INJECTION
         // =====================================
         private void btnTest_Click(
-            object sender,
-            EventArgs e)
+        object sender,
+        EventArgs e)
         {
             try
             {
@@ -328,22 +328,22 @@ namespace ProjekPABD
                     conn.Open();
 
                     string query = @"
-                    INSERT INTO saran_komplain
-                    (
-                        id_mhs,
-                        id_sumber,
-                        jenis,
-                        isi,
-                        status
-                    )
-                    VALUES
-                    (
-                        @id,
-                        1,
-                        'saran',
-                        'HACKED SQL INJECTION',
-                        'menunggu'
-                    )";
+            INSERT INTO saran_komplain
+            (
+                id_mhs,
+                id_sumber,
+                jenis,
+                isi,
+                status
+            )
+            VALUES
+            (
+                @id,
+                1,
+                'saran',
+                'HACKED SQL INJECTION',
+                'menunggu'
+            )";
 
                     cmd =
                         new SqlCommand(
@@ -357,7 +357,7 @@ namespace ProjekPABD
                     cmd.ExecuteNonQuery();
 
                     MessageBox.Show(
-                        "Simulasi hack berhasil!");
+                        "Hack berhasil dimasukkan!");
 
                     LoadData();
                 }
@@ -435,33 +435,89 @@ namespace ProjekPABD
         // TAMBAH
         // =====================================
         private void btnTambah_Click(
-            object sender,
-            EventArgs e)
+        object sender,
+        EventArgs e)
         {
-            MessageBox.Show(
-                "Tombol Tambah diklik");
-        }
+            try
+            {
+                using (SqlConnection conn =
+                    new SqlConnection(connectionString))
+                {
+                    conn.Open();
 
-        // =====================================
-        // UPDATE
-        // =====================================
-        private void btnUpdate_Click(
-            object sender,
-            EventArgs e)
-        {
-            MessageBox.Show(
-                "Tombol Update diklik");
-        }
+                    // =================================
+                    // AMBIL ID SUMBER
+                    // =================================
+                    string querySumber =
+                    "SELECT id_sumber FROM sumber_daya_kampus WHERE kategori=@kategori";
 
-        // =====================================
-        // DELETE
-        // =====================================
-        private void btnDelete_Click(
-            object sender,
-            EventArgs e)
-        {
-            MessageBox.Show(
-                "Tombol Delete diklik");
+                    SqlCommand cmdSumber =
+                        new SqlCommand(
+                            querySumber,
+                            conn);
+
+                    cmdSumber.Parameters.AddWithValue(
+                        "@kategori",
+                        cmbSumberDaya.Text);
+
+                    int idSumber =
+                        Convert.ToInt32(
+                            cmdSumber.ExecuteScalar());
+
+                    // =================================
+                    // INSERT DATA
+                    // =================================
+                    string query = @"
+            INSERT INTO saran_komplain
+            (
+                id_mhs,
+                id_sumber,
+                jenis,
+                isi,
+                status
+            )
+            VALUES
+            (
+                @id_mhs,
+                @id_sumber,
+                @jenis,
+                @isi,
+                'menunggu'
+            )";
+
+                    cmd =
+                        new SqlCommand(
+                            query,
+                            conn);
+
+                    cmd.Parameters.AddWithValue(
+                        "@id_mhs",
+                        idMahasiswa);
+
+                    cmd.Parameters.AddWithValue(
+                        "@id_sumber",
+                        idSumber);
+
+                    cmd.Parameters.AddWithValue(
+                        "@jenis",
+                        cmbJenis.Text);
+
+                    cmd.Parameters.AddWithValue(
+                        "@isi",
+                        txtIsi.Text);
+
+                    cmd.ExecuteNonQuery();
+
+                    MessageBox.Show(
+                        "Data berhasil ditambah!");
+
+                    LoadData();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         // =====================================
@@ -491,6 +547,27 @@ namespace ProjekPABD
         }
 
         // =====================================
+        // =====================================
+        // UPDATE
+        // =====================================
+        private void btnUpdate_Click(
+            object sender,
+            EventArgs e)
+        {
+            MessageBox.Show(
+                "Fitur update aktif");
+        }
+
+        // =====================================
+        // DELETE
+        // =====================================
+        private void btnDelete_Click(
+            object sender,
+            EventArgs e)
+        {
+            MessageBox.Show(
+                "Fitur delete aktif");
+        }
         // CARI
         // =====================================
         private void BtnCari_Click(
