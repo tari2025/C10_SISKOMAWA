@@ -126,73 +126,80 @@ namespace ProjekPABD
             // 
             // btnTambah
             // 
+            this.btnTambah.BackColor = System.Drawing.Color.GreenYellow;
             this.btnTambah.Location = new System.Drawing.Point(56, 330);
             this.btnTambah.Name = "btnTambah";
             this.btnTambah.Size = new System.Drawing.Size(120, 40);
             this.btnTambah.TabIndex = 17;
             this.btnTambah.Text = "Tambah";
-            this.btnTambah.UseVisualStyleBackColor = true;
+            this.btnTambah.UseVisualStyleBackColor = false;
             this.btnTambah.Click += new System.EventHandler(this.btnTambah_Click);
             // 
             // btnUpdate
             // 
+            this.btnUpdate.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.btnUpdate.Location = new System.Drawing.Point(190, 330);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(120, 40);
             this.btnUpdate.TabIndex = 18;
             this.btnUpdate.Text = "Update";
-            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.UseVisualStyleBackColor = false;
             this.btnUpdate.Click += new System.EventHandler(this.BtnUpdate_Click);
             // 
             // btnDelete
             // 
+            this.btnDelete.BackColor = System.Drawing.Color.Red;
             this.btnDelete.Location = new System.Drawing.Point(324, 330);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(120, 40);
             this.btnDelete.TabIndex = 19;
             this.btnDelete.Text = "Delete";
-            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.UseVisualStyleBackColor = false;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnClear
             // 
+            this.btnClear.BackColor = System.Drawing.Color.Gray;
             this.btnClear.Location = new System.Drawing.Point(458, 330);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(120, 40);
             this.btnClear.TabIndex = 20;
             this.btnClear.Text = "Clear";
-            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.UseVisualStyleBackColor = false;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // btnCari
             // 
+            this.btnCari.BackColor = System.Drawing.Color.SpringGreen;
             this.btnCari.Location = new System.Drawing.Point(1130, 330);
             this.btnCari.Name = "btnCari";
             this.btnCari.Size = new System.Drawing.Size(90, 35);
             this.btnCari.TabIndex = 23;
             this.btnCari.Text = "Cari";
-            this.btnCari.UseVisualStyleBackColor = true;
+            this.btnCari.UseVisualStyleBackColor = false;
             this.btnCari.Click += new System.EventHandler(this.BtnCari_Click);
             // 
             // btnTampil
             // 
+            this.btnTampil.BackColor = System.Drawing.Color.Gold;
             this.btnTampil.Location = new System.Drawing.Point(592, 330);
             this.btnTampil.Name = "btnTampil";
             this.btnTampil.Size = new System.Drawing.Size(120, 40);
             this.btnTampil.TabIndex = 21;
             this.btnTampil.Text = "Tampil";
-            this.btnTampil.UseVisualStyleBackColor = true;
+            this.btnTampil.UseVisualStyleBackColor = false;
             this.btnTampil.Click += new System.EventHandler(this.btnTampil_Click);
             // 
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
+            this.lblTitle.BackColor = System.Drawing.Color.GreenYellow;
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.Location = new System.Drawing.Point(420, 20);
+            this.lblTitle.Location = new System.Drawing.Point(295, 9);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(434, 45);
+            this.lblTitle.Size = new System.Drawing.Size(631, 45);
             this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "DASHBOARD MAHASISWA";
+            this.lblTitle.Text = "FORM SARAN & KOMPLAIN MAHASISWA";
             // 
             // lblNama
             // 
@@ -253,9 +260,9 @@ namespace ProjekPABD
             this.lblSumber.AutoSize = true;
             this.lblSumber.Location = new System.Drawing.Point(56, 121);
             this.lblSumber.Name = "lblSumber";
-            this.lblSumber.Size = new System.Drawing.Size(106, 20);
+            this.lblSumber.Size = new System.Drawing.Size(168, 20);
             this.lblSumber.TabIndex = 2;
-            this.lblSumber.Text = "Sumber Daya";
+            this.lblSumber.Text = "Sumber Daya Kampus";
             // 
             // lblIsi
             // 

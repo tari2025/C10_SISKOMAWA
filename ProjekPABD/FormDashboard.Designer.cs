@@ -51,6 +51,7 @@ namespace ProjekPABD
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
+            this.lblTitle.BackColor = System.Drawing.Color.YellowGreen;
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold);
             this.lblTitle.ForeColor = System.Drawing.Color.MidnightBlue;
             this.lblTitle.Location = new System.Drawing.Point(455, 215);
