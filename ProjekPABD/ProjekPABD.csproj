@@ -91,6 +91,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>projekPABDDataSet1.xsd</DependentUpon>
     </Compile>
+    <Compile Include="projekPABDDataSet10.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>projekPABDDataSet10.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="projekPABDDataSet11.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>projekPABDDataSet11.xsd</DependentUpon>
+    </Compile>
     <Compile Include="projekPABDDataSet2.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -132,16 +142,6 @@
       <DependentUpon>projekPABDDataSet9.xsd</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="_LAPTOP_6B5BO8RM_SADataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>_LAPTOP_6B5BO8RM_SADataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="_LAPTOP_6B5BO8RM_SADataSet1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>_LAPTOP_6B5BO8RM_SADataSet1.xsd</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="FormAdmin.resx">
       <DependentUpon>FormAdmin.cs</DependentUpon>
     </EmbeddedResource>
@@ -207,6 +207,28 @@
     </None>
     <None Include="projekPABDDataSet1.xss">
       <DependentUpon>projekPABDDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="projekPABDDataSet10.xsc">
+      <DependentUpon>projekPABDDataSet10.xsd</DependentUpon>
+    </None>
+    <None Include="projekPABDDataSet10.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>projekPABDDataSet10.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="projekPABDDataSet10.xss">
+      <DependentUpon>projekPABDDataSet10.xsd</DependentUpon>
+    </None>
+    <None Include="projekPABDDataSet11.xsc">
+      <DependentUpon>projekPABDDataSet11.xsd</DependentUpon>
+    </None>
+    <None Include="projekPABDDataSet11.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>projekPABDDataSet11.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="projekPABDDataSet11.xss">
+      <DependentUpon>projekPABDDataSet11.xsd</DependentUpon>
     </None>
     <None Include="projekPABDDataSet2.xsc">
       <DependentUpon>projekPABDDataSet2.xsd</DependentUpon>
@@ -305,28 +327,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="_LAPTOP_6B5BO8RM_SADataSet.xsc">
-      <DependentUpon>_LAPTOP_6B5BO8RM_SADataSet.xsd</DependentUpon>
-    </None>
-    <None Include="_LAPTOP_6B5BO8RM_SADataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>_LAPTOP_6B5BO8RM_SADataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="_LAPTOP_6B5BO8RM_SADataSet.xss">
-      <DependentUpon>_LAPTOP_6B5BO8RM_SADataSet.xsd</DependentUpon>
-    </None>
-    <None Include="_LAPTOP_6B5BO8RM_SADataSet1.xsc">
-      <DependentUpon>_LAPTOP_6B5BO8RM_SADataSet1.xsd</DependentUpon>
-    </None>
-    <None Include="_LAPTOP_6B5BO8RM_SADataSet1.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>_LAPTOP_6B5BO8RM_SADataSet1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="_LAPTOP_6B5BO8RM_SADataSet1.xss">
-      <DependentUpon>_LAPTOP_6B5BO8RM_SADataSet1.xsd</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

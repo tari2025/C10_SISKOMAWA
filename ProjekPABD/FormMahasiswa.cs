@@ -1,4 +1,5 @@
-﻿using System;
+﻿```csharp
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
@@ -13,6 +14,12 @@ namespace ProjekPABD
         SqlCommand cmd;
         SqlDataAdapter da;
         DataSet ds;
+
+        BindingSource bs =
+            new BindingSource();
+
+        DataTable dt =
+            new DataTable();
 
         int idSelected = 0;
 
@@ -112,11 +119,16 @@ namespace ProjekPABD
                         m.nim,
                         m.nama,
                         m.prodi,
+                        m.no_hp,
+                        m.email,
                         s.jenis,
                         sk.kategori,
                         s.isi,
                         s.status,
-                        ISNULL(t.isi_tanggapan,'Belum ada tanggapan') AS tanggapan,
+                        ISNULL(
+                            t.isi_tanggapan,
+                            'Belum ada tanggapan'
+                        ) AS tanggapan,
                         s.created_at
 
                     FROM saran_komplain s
@@ -132,25 +144,83 @@ namespace ProjekPABD
 
                     WHERE s.id_mhs = @id";
 
-                    cmd = new SqlCommand(query, conn);
+                    cmd =
+                        new SqlCommand(
+                        query,
+                        conn);
 
                     cmd.Parameters.AddWithValue(
                         "@id",
                         idMahasiswa);
 
-                    da = new SqlDataAdapter(cmd);
+                    da =
+                        new SqlDataAdapter(cmd);
 
-                    ds = new DataSet();
+                    dt.Clear();
 
-                    da.Fill(ds);
+                    da.Fill(dt);
 
-                    dgvKomplain.DataSource = ds.Tables[0];
+                    bs.DataSource = dt;
+
+                    dgvKomplain.DataSource = bs;
+
+                    BindData();
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        // ===============================
+        // BINDING DATA
+        // ===============================
+        void BindData()
+        {
+            txtNama.DataBindings.Clear();
+            txtNim.DataBindings.Clear();
+            txtProdi.DataBindings.Clear();
+            txtHp.DataBindings.Clear();
+            txtEmail.DataBindings.Clear();
+            txtIsi.DataBindings.Clear();
+
+            cmbJenis.DataBindings.Clear();
+
+            txtNama.DataBindings.Add(
+                "Text",
+                bs,
+                "nama");
+
+            txtNim.DataBindings.Add(
+                "Text",
+                bs,
+                "nim");
+
+            txtProdi.DataBindings.Add(
+                "Text",
+                bs,
+                "prodi");
+
+            txtHp.DataBindings.Add(
+                "Text",
+                bs,
+                "no_hp");
+
+            txtEmail.DataBindings.Add(
+                "Text",
+                bs,
+                "email");
+
+            txtIsi.DataBindings.Add(
+                "Text",
+                bs,
+                "isi");
+
+            cmbJenis.DataBindings.Add(
+                "Text",
+                bs,
+                "jenis");
         }
 
         // ===============================
@@ -170,10 +240,24 @@ namespace ProjekPABD
         // ===============================
         // FORM LOAD
         // ===============================
-        private void FormMahasiswa_Load(object sender, EventArgs e)
+        private void FormMahasiswa_Load(
+            object sender,
+            EventArgs e)
         {
             cmbJenis.Items.Add("saran");
             cmbJenis.Items.Add("komplain");
+
+            dgvKomplain.SelectionMode =
+                DataGridViewSelectionMode.FullRowSelect;
+
+            dgvKomplain.MultiSelect = false;
+
+            dgvKomplain.ReadOnly = true;
+
+            dgvKomplain.AllowUserToAddRows = false;
+
+            dgvKomplain.AutoSizeColumnsMode =
+                DataGridViewAutoSizeColumnsMode.Fill;
 
             LoadMahasiswa();
 
@@ -185,7 +269,9 @@ namespace ProjekPABD
         // ===============================
         // TAMBAH
         // ===============================
-        private void btnTambah_Click(object sender, EventArgs e)
+        private void btnTambah_Click(
+            object sender,
+            EventArgs e)
         {
             try
             {
@@ -200,7 +286,9 @@ namespace ProjekPABD
                     txtIsi.Text == ""
                 )
                 {
-                    MessageBox.Show("Semua data wajib diisi!");
+                    MessageBox.Show(
+                        "Semua data wajib diisi!");
+
                     return;
                 }
 
@@ -219,28 +307,50 @@ namespace ProjekPABD
                         email=@email
                     WHERE id_mhs=@id";
 
-                    cmd = new SqlCommand(updateMhs, conn);
+                    cmd = new SqlCommand(
+                        updateMhs,
+                        conn);
 
-                    cmd.Parameters.AddWithValue("@nama", txtNama.Text);
-                    cmd.Parameters.AddWithValue("@nim", txtNim.Text);
-                    cmd.Parameters.AddWithValue("@prodi", txtProdi.Text);
-                    cmd.Parameters.AddWithValue("@hp", txtHp.Text);
-                    cmd.Parameters.AddWithValue("@email", txtEmail.Text);
-                    cmd.Parameters.AddWithValue("@id", idMahasiswa);
+                    cmd.Parameters.AddWithValue(
+                        "@nama",
+                        txtNama.Text);
+
+                    cmd.Parameters.AddWithValue(
+                        "@nim",
+                        txtNim.Text);
+
+                    cmd.Parameters.AddWithValue(
+                        "@prodi",
+                        txtProdi.Text);
+
+                    cmd.Parameters.AddWithValue(
+                        "@hp",
+                        txtHp.Text);
+
+                    cmd.Parameters.AddWithValue(
+                        "@email",
+                        txtEmail.Text);
+
+                    cmd.Parameters.AddWithValue(
+                        "@id",
+                        idMahasiswa);
 
                     cmd.ExecuteNonQuery();
 
                     string cari =
                     "SELECT id_sumber FROM sumber_daya_kampus WHERE kategori=@kategori";
 
-                    cmd = new SqlCommand(cari, conn);
+                    cmd = new SqlCommand(
+                        cari,
+                        conn);
 
                     cmd.Parameters.AddWithValue(
                         "@kategori",
                         cmbSumberDaya.Text);
 
                     int idSumber =
-                        Convert.ToInt32(cmd.ExecuteScalar());
+                        Convert.ToInt32(
+                            cmd.ExecuteScalar());
 
                     string insert = @"
                     INSERT INTO saran_komplain
@@ -248,16 +358,30 @@ namespace ProjekPABD
                     VALUES
                     (@id_mhs,@id_sumber,@jenis,@isi)";
 
-                    cmd = new SqlCommand(insert, conn);
+                    cmd = new SqlCommand(
+                        insert,
+                        conn);
 
-                    cmd.Parameters.AddWithValue("@id_mhs", idMahasiswa);
-                    cmd.Parameters.AddWithValue("@id_sumber", idSumber);
-                    cmd.Parameters.AddWithValue("@jenis", cmbJenis.Text);
-                    cmd.Parameters.AddWithValue("@isi", txtIsi.Text);
+                    cmd.Parameters.AddWithValue(
+                        "@id_mhs",
+                        idMahasiswa);
+
+                    cmd.Parameters.AddWithValue(
+                        "@id_sumber",
+                        idSumber);
+
+                    cmd.Parameters.AddWithValue(
+                        "@jenis",
+                        cmbJenis.Text);
+
+                    cmd.Parameters.AddWithValue(
+                        "@isi",
+                        txtIsi.Text);
 
                     cmd.ExecuteNonQuery();
 
-                    MessageBox.Show("Data berhasil disimpan");
+                    MessageBox.Show(
+                        "Data berhasil disimpan");
 
                     TampilData();
 
@@ -273,31 +397,19 @@ namespace ProjekPABD
         // ===============================
         // GRID CLICK
         // ===============================
-        private void dgvKomplain_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvKomplain_CellClick(
+            object sender,
+            DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
-            {
-                DataGridViewRow row =
-                    dgvKomplain.Rows[e.RowIndex];
 
-                idSelected =
-                    Convert.ToInt32(row.Cells[0].Value);
-
-                cmbJenis.Text =
-                    row.Cells[4].Value.ToString();
-
-                cmbSumberDaya.Text =
-                    row.Cells[5].Value.ToString();
-
-                txtIsi.Text =
-                    row.Cells[6].Value.ToString();
-            }
         }
 
         // ===============================
         // UPDATE
         // ===============================
-        private void BtnUpdate_Click(object sender, EventArgs e)
+        private void btnUpdate_Click(
+            object sender,
+            EventArgs e)
         {
             try
             {
@@ -309,30 +421,40 @@ namespace ProjekPABD
                     string cek =
                     "SELECT id_mhs FROM saran_komplain WHERE id_saran=@id";
 
-                    cmd = new SqlCommand(cek, conn);
+                    cmd = new SqlCommand(
+                        cek,
+                        conn);
 
-                    cmd.Parameters.AddWithValue("@id", idSelected);
+                    cmd.Parameters.AddWithValue(
+                        "@id",
+                        idSelected);
 
                     int owner =
-                        Convert.ToInt32(cmd.ExecuteScalar());
+                        Convert.ToInt32(
+                            cmd.ExecuteScalar());
 
                     if (owner != idMahasiswa)
                     {
-                        MessageBox.Show("Tidak bisa edit data orang lain!");
+                        MessageBox.Show(
+                            "Tidak bisa edit data orang lain!");
+
                         return;
                     }
 
                     string cari =
                     "SELECT id_sumber FROM sumber_daya_kampus WHERE kategori=@kategori";
 
-                    cmd = new SqlCommand(cari, conn);
+                    cmd = new SqlCommand(
+                        cari,
+                        conn);
 
                     cmd.Parameters.AddWithValue(
                         "@kategori",
                         cmbSumberDaya.Text);
 
                     int idSumber =
-                        Convert.ToInt32(cmd.ExecuteScalar());
+                        Convert.ToInt32(
+                            cmd.ExecuteScalar());
 
                     string query = @"
                     UPDATE saran_komplain
@@ -342,16 +464,30 @@ namespace ProjekPABD
                         isi=@isi
                     WHERE id_saran=@id";
 
-                    cmd = new SqlCommand(query, conn);
+                    cmd = new SqlCommand(
+                        query,
+                        conn);
 
-                    cmd.Parameters.AddWithValue("@id_sumber", idSumber);
-                    cmd.Parameters.AddWithValue("@jenis", cmbJenis.Text);
-                    cmd.Parameters.AddWithValue("@isi", txtIsi.Text);
-                    cmd.Parameters.AddWithValue("@id", idSelected);
+                    cmd.Parameters.AddWithValue(
+                        "@id_sumber",
+                        idSumber);
+
+                    cmd.Parameters.AddWithValue(
+                        "@jenis",
+                        cmbJenis.Text);
+
+                    cmd.Parameters.AddWithValue(
+                        "@isi",
+                        txtIsi.Text);
+
+                    cmd.Parameters.AddWithValue(
+                        "@id",
+                        idSelected);
 
                     cmd.ExecuteNonQuery();
 
-                    MessageBox.Show("Data berhasil diupdate");
+                    MessageBox.Show(
+                        "Data berhasil diupdate");
 
                     TampilData();
 
@@ -367,7 +503,9 @@ namespace ProjekPABD
         // ===============================
         // DELETE
         // ===============================
-        private void btnDelete_Click(object sender, EventArgs e)
+        private void btnDelete_Click(
+            object sender,
+            EventArgs e)
         {
             try
             {
@@ -376,32 +514,21 @@ namespace ProjekPABD
                 {
                     conn.Open();
 
-                    string cek =
-                    "SELECT id_mhs FROM saran_komplain WHERE id_saran=@id";
-
-                    cmd = new SqlCommand(cek, conn);
-
-                    cmd.Parameters.AddWithValue("@id", idSelected);
-
-                    int owner =
-                        Convert.ToInt32(cmd.ExecuteScalar());
-
-                    if (owner != idMahasiswa)
-                    {
-                        MessageBox.Show("Tidak bisa hapus data orang lain!");
-                        return;
-                    }
-
                     string query =
                     "DELETE FROM saran_komplain WHERE id_saran=@id";
 
-                    cmd = new SqlCommand(query, conn);
+                    cmd = new SqlCommand(
+                        query,
+                        conn);
 
-                    cmd.Parameters.AddWithValue("@id", idSelected);
+                    cmd.Parameters.AddWithValue(
+                        "@id",
+                        idSelected);
 
                     cmd.ExecuteNonQuery();
 
-                    MessageBox.Show("Data berhasil dihapus");
+                    MessageBox.Show(
+                        "Data berhasil dihapus");
 
                     TampilData();
 
@@ -417,16 +544,12 @@ namespace ProjekPABD
         // ===============================
         // CARI
         // ===============================
-        private void BtnCari_Click(object sender, EventArgs e)
+        private void BtnCari_Click(
+            object sender,
+            EventArgs e)
         {
             try
             {
-                if (txtCari.Text == "")
-                {
-                    MessageBox.Show("Masukkan keyword pencarian!");
-                    return;
-                }
-
                 using (SqlConnection conn =
                     new SqlConnection(connectionString))
                 {
@@ -442,7 +565,10 @@ namespace ProjekPABD
                         sk.kategori,
                         s.isi,
                         s.status,
-                        ISNULL(t.isi_tanggapan,'Belum ada tanggapan') AS tanggapan,
+                        ISNULL(
+                            t.isi_tanggapan,
+                            'Belum ada tanggapan'
+                        ) AS tanggapan,
                         s.created_at
 
                     FROM saran_komplain s
@@ -467,7 +593,9 @@ namespace ProjekPABD
                     )
                     AND s.id_mhs = @id";
 
-                    cmd = new SqlCommand(query, conn);
+                    cmd = new SqlCommand(
+                        query,
+                        conn);
 
                     cmd.Parameters.AddWithValue(
                         "@cari",
@@ -477,17 +605,21 @@ namespace ProjekPABD
                         "@id",
                         idMahasiswa);
 
-                    da = new SqlDataAdapter(cmd);
+                    da =
+                        new SqlDataAdapter(cmd);
 
-                    ds = new DataSet();
+                    dt.Clear();
 
-                    da.Fill(ds);
+                    da.Fill(dt);
 
-                    dgvKomplain.DataSource = ds.Tables[0];
+                    bs.DataSource = dt;
 
-                    if (ds.Tables[0].Rows.Count == 0)
+                    dgvKomplain.DataSource = bs;
+
+                    if (dt.Rows.Count == 0)
                     {
-                        MessageBox.Show("Data tidak ditemukan!");
+                        MessageBox.Show(
+                            "Data tidak ditemukan!");
                     }
                 }
             }
@@ -500,7 +632,9 @@ namespace ProjekPABD
         // ===============================
         // CLEAR
         // ===============================
-        private void btnClear_Click(object sender, EventArgs e)
+        private void btnClear_Click(
+            object sender,
+            EventArgs e)
         {
             ClearForm();
 
@@ -510,7 +644,9 @@ namespace ProjekPABD
         // ===============================
         // TAMPIL
         // ===============================
-        private void btnTampil_Click(object sender, EventArgs e)
+        private void btnTampil_Click(
+            object sender,
+            EventArgs e)
         {
             txtCari.Clear();
 
@@ -518,3 +654,4 @@ namespace ProjekPABD
         }
     }
 }
+```
