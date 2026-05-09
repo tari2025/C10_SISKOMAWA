@@ -113,41 +113,8 @@ namespace ProjekPABD
                         return;
                     }
 
-                    // ====================================
-                    // LOGIN ADMIN (VULNERABLE)
-                    // ====================================
-                    string query =
-                        "SELECT id_admin FROM admin " +
-                        "WHERE username='"
-                        + txtUsername.Text +
-                        "' AND password='"
-                        + txtPassword.Text + "'";
-
-                    SqlCommand cmdAdmin =
-                        new SqlCommand(
-                            query,
-                            conn);
-
-                    object resultAdmin =
-                        cmdAdmin.ExecuteScalar();
-
-                    if (resultAdmin != null)
-                    {
-                        MessageBox.Show(
-                            "SQL Injection Berhasil! Login sebagai Admin");
-
-                        FormAdmin.idAdmin =
-                            Convert.ToInt32(resultAdmin);
-
-                        FormAdmin f =
-                            new FormAdmin();
-
-                        this.Hide();
-
-                        f.Show();
-
-                        return;
-                    }
+                    
+                 
 
                     // ====================================
                     // LOGIN GAGAL
@@ -177,40 +144,7 @@ namespace ProjekPABD
             txtUsername.Focus();
         }
 
-        // ====================================
-        // TEST SQL INJECTION
-        // ====================================
-        private void btnTest_Click(
-            object sender,
-            EventArgs e)
-        {
-            txtUsername.Text =
-                "' OR 1=1 --";
-
-            txtPassword.Text =
-                "bebas";
-
-            MessageBox.Show(
-                "Payload SQL Injection berhasil dimasukkan");
-        }
-
-        // ====================================
-        // RESET TEST
-        // ====================================
-        private void btnReset1_Click(
-            object sender,
-            EventArgs e)
-        {
-            txtUsername.Clear();
-
-            txtPassword.Clear();
-
-            txtUsername.Focus();
-
-            MessageBox.Show(
-                "Payload berhasil direset");
-        }
-
+     
         // ====================================
         // KELUAR
         // ====================================

@@ -84,7 +84,57 @@ namespace ProjekPABD
             }
         }
 
-      
+        // =====================================
+        // LOAD DATA GRID
+        // =====================================
+        private void LoadData()
+        {
+            try
+            {
+                conn.Open();
+
+                string query = @"
+                SELECT
+                    sk.id_saran,
+                    m.nim,
+                    m.nama,
+                    m.prodi,
+                    sk.jenis,
+                    sdk.kategori,
+                    sk.isi,
+                    sk.status,
+                    sk.created_at
+                FROM saran_komplain sk
+                JOIN mahasiswa m
+                    ON sk.id_mhs = m.id_mhs
+                JOIN sumber_daya_kampus sdk
+                    ON sk.id_sumber = sdk.id_sumber
+                WHERE m.id_mhs = @id_mhs";
+
+                da =
+                    new SqlDataAdapter(
+                        query,
+                        conn);
+
+                da.SelectCommand.Parameters.AddWithValue(
+                    "@id_mhs",
+                    idMahasiswa);
+
+                dt =
+                    new DataTable();
+
+                da.Fill(dt);
+
+                dgvKomplain.DataSource =
+                    dt;
+
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
         // =====================================
         // LOAD DATA MAHASISWA
@@ -365,9 +415,10 @@ namespace ProjekPABD
 
         // =====================================
         // TEST SQL INJECTION
+        // =====================================
         private void btnTest_Click(
-    object sender,
-    EventArgs e)
+            object sender,
+            EventArgs e)
         {
             try
             {
@@ -404,14 +455,12 @@ namespace ProjekPABD
             }
         }
 
-
         // =====================================
         // RESET DATA
-
-
+        // =====================================
         private void btnResetData_Click(
-    object sender,
-    EventArgs e)
+            object sender,
+            EventArgs e)
         {
             try
             {
@@ -421,14 +470,14 @@ namespace ProjekPABD
                     conn.Open();
 
                     string query = @"
-            UPDATE mahasiswa
-            SET nama =
-            CASE
-                WHEN nim='202401' THEN 'Andi'
-                WHEN nim='202403' THEN 'Citra'
-                WHEN nim='202404' THEN 'Dewi'
-                ELSE nama
-            END";
+                    UPDATE mahasiswa
+                    SET nama =
+                    CASE
+                        WHEN nim='202401' THEN 'Andi'
+                        WHEN nim='202403' THEN 'Citra'
+                        WHEN nim='202404' THEN 'Dewi'
+                        ELSE nama
+                    END";
 
                     SqlCommand cmd =
                         new SqlCommand(
@@ -454,7 +503,6 @@ namespace ProjekPABD
                     ex.Message);
             }
         }
-        
 
         // =====================================
         // CLEAR
