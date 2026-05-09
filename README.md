@@ -1,11 +1,12 @@
-# ProjekPABD
-#foto login
-<img width="940" height="281" alt="image" src="https://github.com/user-attachments/assets/1b1aee05-83e2-4468-9e5f-e6fca4688a1e" />
-tanggapan
-<img width="940" height="588" alt="image" src="https://github.com/user-attachments/assets/ffe6b19a-4b37-4193-9a8f-6642df0f9339" />
-form saran
-<img width="940" height="588" alt="image" src="https://github.com/user-attachments/assets/872bb19d-acad-4254-a8d9-88459e2536c0" />
-form admin
-<img width="940" height="611" alt="image" src="https://github.com/user-attachments/assets/9bdeb05e-67da-44c0-bb90-0ac01001a14b" />
-tampilan CRUD
-<img width="1920" height="1200" alt="Screenshot (1019)" src="https://github.com/user-attachments/assets/489537cf-9bf3-4f4d-acb7-c275eb03b91d" />
+#PROJEK SISKOMAWA
+Foto Dashboard utama
+<img width="655" height="398" alt="{266BFEF7-CEA1-4FC7-A297-B353DE447BC7}" src="https://github.com/user-attachments/assets/14b8685a-dec2-45f9-b074-5a54016c6031" />
+Foto Dashboard Login
+<img width="372" height="201" alt="{59D42C05-77AA-4AEB-BCF4-64D0B57DEC2C}" src="https://github.com/user-attachments/assets/3a4ec1e6-cae7-45ff-9480-ecaec920172a" />
+Foto Dashboard Mahasiswa
+<img width="635" height="364" alt="{EEE795EF-D190-4FA3-9808-1C0E2C09FF89}" src="https://github.com/user-attachments/assets/d7c0b921-901c-4da3-beb7-b78cee57e8d1" />
+Foto Dashboard Admin
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/3bcb897a-ee3a-4b2b-802c-af26589b9ef3" />
+
+
+
