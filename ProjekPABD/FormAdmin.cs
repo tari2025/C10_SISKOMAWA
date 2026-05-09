@@ -7,6 +7,9 @@ namespace ProjekPABD
 {
     public partial class FormAdmin : Form
     {
+        // =====================================
+        // CONNECTION
+        // =====================================
         private readonly SqlConnection conn =
         new SqlConnection(
         "Data Source=LAPTOP-6B5BO8RM\\SA;Initial Catalog=ProjekPABD;Integrated Security=True");
@@ -19,14 +22,17 @@ namespace ProjekPABD
 
         public static int idAdmin = 1;
 
+        // =====================================
+        // CONSTRUCTOR
+        // =====================================
         public FormAdmin()
         {
             InitializeComponent();
         }
 
-        // ===============================
-        // FORM LOAD
-        // ===============================
+        // =====================================
+        // LOAD
+        // =====================================
         private void FormAdmin_Load(object sender, EventArgs e)
         {
             cmbStatus.Items.Clear();
@@ -38,9 +44,9 @@ namespace ProjekPABD
             TampilData();
         }
 
-        // ===============================
+        // =====================================
         // TAMPIL DATA
-        // ===============================
+        // =====================================
         void TampilData()
         {
             try
@@ -54,6 +60,7 @@ namespace ProjekPABD
                 SELECT
                     s.id_saran,
                     m.nama,
+                    m.nim,
                     s.jenis,
                     s.isi,
                     s.status,
@@ -66,7 +73,9 @@ namespace ProjekPABD
                 ON s.id_mhs = m.id_mhs
 
                 LEFT JOIN tanggapan t
-                ON s.id_saran = t.id_saran";
+                ON s.id_saran = t.id_saran
+
+                ORDER BY s.created_at DESC";
 
                 da = new SqlDataAdapter(query, conn);
 
@@ -87,10 +96,90 @@ namespace ProjekPABD
             }
         }
 
-        // ===============================
+        // =====================================
+        // CARI DATA
+        // =====================================
+        void CariData()
+        {
+            try
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+
+                conn.Open();
+
+                string query = @"
+                SELECT
+                    s.id_saran,
+                    m.nama,
+                    m.nim,
+                    s.jenis,
+                    s.isi,
+                    s.status,
+                    ISNULL(t.isi_tanggapan,'Belum ada tanggapan') AS tanggapan,
+                    s.created_at
+
+                FROM saran_komplain s
+
+                JOIN mahasiswa m
+                ON s.id_mhs = m.id_mhs
+
+                LEFT JOIN tanggapan t
+                ON s.id_saran = t.id_saran
+
+                WHERE
+                    m.nama LIKE @cari
+                    OR m.nim LIKE @cari
+                    OR s.jenis LIKE @cari
+                    OR s.status LIKE @cari
+
+                ORDER BY s.created_at DESC";
+
+                da = new SqlDataAdapter(query, conn);
+
+                da.SelectCommand.Parameters.AddWithValue(
+                    "@cari",
+                    "%" + txtCari.Text + "%");
+
+                ds = new DataSet();
+
+                da.Fill(ds);
+
+                dgvAdmin.DataSource = ds.Tables[0];
+
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+        }
+
+        // =====================================
+        // BUTTON CARI
+        // =====================================
+        private void BtnCari_Click(object sender, EventArgs e)
+        {
+            CariData();
+        }
+
+        // =====================================
+        // BUTTON REFRESH
+        // =====================================
+        private void BtnRefresh_Click(object sender, EventArgs e)
+        {
+            txtCari.Clear();
+
+            TampilData();
+        }
+
+        // =====================================
         // GRID CLICK
-        // ===============================
-        private void dgvAdmin_CellClick(object sender, DataGridViewCellEventArgs e)
+        // =====================================
+        private void DgvAdmin_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
@@ -101,21 +190,22 @@ namespace ProjekPABD
                     Convert.ToInt32(row.Cells[0].Value);
 
                 cmbStatus.Text =
-                    row.Cells[4].Value.ToString();
+                    row.Cells[5].Value.ToString();
 
                 txtTanggapan.Text =
-                    row.Cells[5].Value.ToString();
+                    row.Cells[6].Value.ToString();
             }
         }
 
-        // ===============================
-        // SIMPAN TANGGAPAN
-        // ===============================
-        private void btnSimpan_Click(object sender, EventArgs e)
+        // =====================================
+        // SIMPAN
+        // =====================================
+        private void BtnSimpan_Click(object sender, EventArgs e)
         {
             if (idSaran == 0)
             {
-                MessageBox.Show("Pilih data terlebih dahulu");
+                MessageBox.Show(
+                    "Pilih data terlebih dahulu");
 
                 return;
             }
@@ -127,9 +217,6 @@ namespace ProjekPABD
 
                 conn.Open();
 
-                // =========================
-                // UPDATE STATUS
-                // =========================
                 string update = @"
                 UPDATE saran_komplain
                 SET status=@status
@@ -137,30 +224,28 @@ namespace ProjekPABD
 
                 cmd = new SqlCommand(update, conn);
 
-                cmd.Parameters.AddWithValue("@status",
+                cmd.Parameters.AddWithValue(
+                    "@status",
                     cmbStatus.Text);
 
-                cmd.Parameters.AddWithValue("@id",
+                cmd.Parameters.AddWithValue(
+                    "@id",
                     idSaran);
 
                 cmd.ExecuteNonQuery();
 
-                // =========================
-                // CEK TANGGAPAN
-                // =========================
                 string cek =
                     "SELECT COUNT(*) FROM tanggapan WHERE id_saran=@id";
 
                 cmd = new SqlCommand(cek, conn);
 
-                cmd.Parameters.AddWithValue("@id", idSaran);
+                cmd.Parameters.AddWithValue(
+                    "@id",
+                    idSaran);
 
                 int count =
                     Convert.ToInt32(cmd.ExecuteScalar());
 
-                // =========================
-                // INSERT / UPDATE
-                // =========================
                 if (count == 0)
                 {
                     string insert = @"
@@ -171,13 +256,16 @@ namespace ProjekPABD
 
                     cmd = new SqlCommand(insert, conn);
 
-                    cmd.Parameters.AddWithValue("@id_saran",
+                    cmd.Parameters.AddWithValue(
+                        "@id_saran",
                         idSaran);
 
-                    cmd.Parameters.AddWithValue("@id_admin",
+                    cmd.Parameters.AddWithValue(
+                        "@id_admin",
                         idAdmin);
 
-                    cmd.Parameters.AddWithValue("@isi",
+                    cmd.Parameters.AddWithValue(
+                        "@isi",
                         txtTanggapan.Text);
 
                     cmd.ExecuteNonQuery();
@@ -189,12 +277,16 @@ namespace ProjekPABD
                     SET isi_tanggapan=@isi
                     WHERE id_saran=@id";
 
-                    cmd = new SqlCommand(updateTanggapan, conn);
+                    cmd = new SqlCommand(
+                        updateTanggapan,
+                        conn);
 
-                    cmd.Parameters.AddWithValue("@isi",
+                    cmd.Parameters.AddWithValue(
+                        "@isi",
                         txtTanggapan.Text);
 
-                    cmd.Parameters.AddWithValue("@id",
+                    cmd.Parameters.AddWithValue(
+                        "@id",
                         idSaran);
 
                     cmd.ExecuteNonQuery();
@@ -202,7 +294,8 @@ namespace ProjekPABD
 
                 conn.Close();
 
-                MessageBox.Show("Tanggapan berhasil disimpan");
+                MessageBox.Show(
+                    "Tanggapan berhasil disimpan");
 
                 TampilData();
 
@@ -221,10 +314,10 @@ namespace ProjekPABD
             }
         }
 
-        // ===============================
+        // =====================================
         // RESET
-        // ===============================
-        private void btnReset_Click(object sender, EventArgs e)
+        // =====================================
+        private void BtnReset_Click(object sender, EventArgs e)
         {
             txtTanggapan.Clear();
 
@@ -233,10 +326,10 @@ namespace ProjekPABD
             idSaran = 0;
         }
 
-        // ===============================
+        // =====================================
         // KELUAR
-        // ===============================
-        private void btnKeluar_Click(object sender, EventArgs e)
+        // =====================================
+        private void BtnKeluar_Click(object sender, EventArgs e)
         {
             this.Close();
         }
