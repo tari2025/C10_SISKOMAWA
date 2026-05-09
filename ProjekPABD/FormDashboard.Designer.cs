@@ -26,7 +26,14 @@ namespace ProjekPABD
             this.pictureLogo = new System.Windows.Forms.PictureBox();
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblSubTitle = new System.Windows.Forms.Label();
+
+            this.txtCari = new System.Windows.Forms.TextBox();
+            this.btnCari = new System.Windows.Forms.Button();
+            this.btnRefresh = new System.Windows.Forms.Button();
+            this.lblTotalData = new System.Windows.Forms.Label();
+
             this.dgvDashboard = new System.Windows.Forms.DataGridView();
+
             this.btnLoginMahasiswa = new System.Windows.Forms.Button();
             this.btnLoginAdmin = new System.Windows.Forms.Button();
             this.btnKeluar = new System.Windows.Forms.Button();
@@ -39,11 +46,21 @@ namespace ProjekPABD
             // =====================================
             // pictureLogo
             // =====================================
-            this.pictureLogo.Image = global::ProjekPABD.Properties.Resources.Sisko_Mawa_student_feedback_system_logo;
-            this.pictureLogo.Location = new System.Drawing.Point(530, 20);
-            this.pictureLogo.Name = "pictureLogo";
-            this.pictureLogo.Size = new System.Drawing.Size(250, 180);
-            this.pictureLogo.SizeMode = PictureBoxSizeMode.Zoom;
+            this.pictureLogo.Image =
+                global::ProjekPABD.Properties.Resources.Sisko_Mawa_student_feedback_system_logo;
+
+            this.pictureLogo.Location =
+                new System.Drawing.Point(530, 20);
+
+            this.pictureLogo.Name =
+                "pictureLogo";
+
+            this.pictureLogo.Size =
+                new System.Drawing.Size(250, 180);
+
+            this.pictureLogo.SizeMode =
+                PictureBoxSizeMode.Zoom;
+
             this.pictureLogo.TabIndex = 0;
             this.pictureLogo.TabStop = false;
 
@@ -51,45 +68,197 @@ namespace ProjekPABD
             // lblTitle
             // =====================================
             this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.lblTitle.Location = new System.Drawing.Point(470, 210);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(390, 65);
+
+            this.lblTitle.Font =
+                new System.Drawing.Font(
+                    "Segoe UI",
+                    24F,
+                    System.Drawing.FontStyle.Bold);
+
+            this.lblTitle.ForeColor =
+                System.Drawing.Color.MidnightBlue;
+
+            this.lblTitle.Location =
+                new System.Drawing.Point(470, 210);
+
+            this.lblTitle.Name =
+                "lblTitle";
+
+            this.lblTitle.Size =
+                new System.Drawing.Size(390, 65);
+
             this.lblTitle.TabIndex = 1;
-            this.lblTitle.Text = "SISKOMAWA";
+
+            this.lblTitle.Text =
+                "SISKOMAWA";
 
             // =====================================
             // lblSubTitle
             // =====================================
             this.lblSubTitle.AutoSize = true;
-            this.lblSubTitle.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.lblSubTitle.ForeColor = System.Drawing.Color.DimGray;
-            this.lblSubTitle.Location = new System.Drawing.Point(365, 280);
-            this.lblSubTitle.Name = "lblSubTitle";
-            this.lblSubTitle.Size = new System.Drawing.Size(580, 30);
+
+            this.lblSubTitle.Font =
+                new System.Drawing.Font("Segoe UI", 11F);
+
+            this.lblSubTitle.ForeColor =
+                System.Drawing.Color.DimGray;
+
+            this.lblSubTitle.Location =
+                new System.Drawing.Point(365, 280);
+
+            this.lblSubTitle.Name =
+                "lblSubTitle";
+
+            this.lblSubTitle.Size =
+                new System.Drawing.Size(580, 30);
+
             this.lblSubTitle.TabIndex = 2;
-            this.lblSubTitle.Text = "Sistem Informasi Saran dan Komplain Mahasiswa";
-            this.lblSubTitle.Click += new System.EventHandler(this.lblSubTitle_Click);
+
+            this.lblSubTitle.Text =
+                "Sistem Informasi Saran dan Komplain Mahasiswa";
+
+            this.lblSubTitle.Click +=
+                new System.EventHandler(this.lblSubTitle_Click);
+
+            // =====================================
+            // txtCari
+            // =====================================
+            this.txtCari.Font =
+                new System.Drawing.Font("Segoe UI", 10F);
+
+            this.txtCari.Location =
+                new System.Drawing.Point(100, 320);
+
+            this.txtCari.Name =
+                "txtCari";
+
+            this.txtCari.Size =
+                new System.Drawing.Size(300, 34);
+
+            this.txtCari.TabIndex = 3;
+
+            // =====================================
+            // btnCari
+            // =====================================
+            this.btnCari.BackColor =
+                System.Drawing.Color.DodgerBlue;
+
+            this.btnCari.FlatStyle =
+                System.Windows.Forms.FlatStyle.Flat;
+
+            this.btnCari.Font =
+                new System.Drawing.Font(
+                    "Segoe UI",
+                    10F,
+                    System.Drawing.FontStyle.Bold);
+
+            this.btnCari.ForeColor =
+                System.Drawing.Color.White;
+
+            this.btnCari.Location =
+                new System.Drawing.Point(420, 318);
+
+            this.btnCari.Name =
+                "btnCari";
+
+            this.btnCari.Size =
+                new System.Drawing.Size(120, 40);
+
+            this.btnCari.TabIndex = 4;
+
+            this.btnCari.Text =
+                "CARI";
+
+            this.btnCari.UseVisualStyleBackColor = false;
+
+            this.btnCari.Click +=
+                new System.EventHandler(this.BtnCari_Click);
+
+            // =====================================
+            // btnRefresh
+            // =====================================
+            this.btnRefresh.BackColor =
+                System.Drawing.Color.DarkOrange;
+
+            this.btnRefresh.FlatStyle =
+                System.Windows.Forms.FlatStyle.Flat;
+
+            this.btnRefresh.Font =
+                new System.Drawing.Font(
+                    "Segoe UI",
+                    10F,
+                    System.Drawing.FontStyle.Bold);
+
+            this.btnRefresh.ForeColor =
+                System.Drawing.Color.White;
+
+            this.btnRefresh.Location =
+                new System.Drawing.Point(560, 318);
+
+            this.btnRefresh.Name =
+                "btnRefresh";
+
+            this.btnRefresh.Size =
+                new System.Drawing.Size(140, 40);
+
+            this.btnRefresh.TabIndex = 5;
+
+            this.btnRefresh.Text =
+                "REFRESH";
+
+            this.btnRefresh.UseVisualStyleBackColor = false;
+
+            this.btnRefresh.Click +=
+                new System.EventHandler(this.BtnRefresh_Click);
+
+            // =====================================
+            // lblTotalData
+            // =====================================
+            this.lblTotalData.AutoSize = true;
+
+            this.lblTotalData.Font =
+                new System.Drawing.Font(
+                    "Segoe UI",
+                    10F,
+                    System.Drawing.FontStyle.Bold);
+
+            this.lblTotalData.ForeColor =
+                System.Drawing.Color.MidnightBlue;
+
+            this.lblTotalData.Location =
+                new System.Drawing.Point(1030, 325);
+
+            this.lblTotalData.Name =
+                "lblTotalData";
+
+            this.lblTotalData.Size =
+                new System.Drawing.Size(140, 28);
+
+            this.lblTotalData.TabIndex = 6;
+
+            this.lblTotalData.Text =
+                "Total Data : 0";
 
             // =====================================
             // dgvDashboard
             // =====================================
             this.dgvDashboard.AutoSizeColumnsMode =
-                System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+                DataGridViewAutoSizeColumnsMode.Fill;
 
             this.dgvDashboard.BackgroundColor =
                 System.Drawing.Color.White;
 
             this.dgvDashboard.BorderStyle =
-                System.Windows.Forms.BorderStyle.None;
+                BorderStyle.None;
 
-            this.dgvDashboard.ColumnHeadersHeight = 40;
+            this.dgvDashboard.ColumnHeadersHeight =
+                40;
 
             this.dgvDashboard.Location =
-                new System.Drawing.Point(100, 340);
+                new System.Drawing.Point(100, 380);
 
-            this.dgvDashboard.Name = "dgvDashboard";
+            this.dgvDashboard.Name =
+                "dgvDashboard";
 
             this.dgvDashboard.ReadOnly = true;
 
@@ -98,12 +267,12 @@ namespace ProjekPABD
             this.dgvDashboard.RowTemplate.Height = 35;
 
             this.dgvDashboard.SelectionMode =
-                System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+                DataGridViewSelectionMode.FullRowSelect;
 
             this.dgvDashboard.Size =
-                new System.Drawing.Size(1150, 260);
+                new System.Drawing.Size(1150, 220);
 
-            this.dgvDashboard.TabIndex = 3;
+            this.dgvDashboard.TabIndex = 7;
 
             // =====================================
             // btnLoginMahasiswa
@@ -112,11 +281,13 @@ namespace ProjekPABD
                 System.Drawing.Color.RoyalBlue;
 
             this.btnLoginMahasiswa.FlatStyle =
-                System.Windows.Forms.FlatStyle.Flat;
+                FlatStyle.Flat;
 
             this.btnLoginMahasiswa.Font =
-                new System.Drawing.Font("Segoe UI", 11F,
-                System.Drawing.FontStyle.Bold);
+                new System.Drawing.Font(
+                    "Segoe UI",
+                    11F,
+                    System.Drawing.FontStyle.Bold);
 
             this.btnLoginMahasiswa.ForeColor =
                 System.Drawing.Color.White;
@@ -130,7 +301,7 @@ namespace ProjekPABD
             this.btnLoginMahasiswa.Size =
                 new System.Drawing.Size(280, 55);
 
-            this.btnLoginMahasiswa.TabIndex = 4;
+            this.btnLoginMahasiswa.TabIndex = 8;
 
             this.btnLoginMahasiswa.Text =
                 "LOGIN MAHASISWA";
@@ -147,11 +318,13 @@ namespace ProjekPABD
                 System.Drawing.Color.SeaGreen;
 
             this.btnLoginAdmin.FlatStyle =
-                System.Windows.Forms.FlatStyle.Flat;
+                FlatStyle.Flat;
 
             this.btnLoginAdmin.Font =
-                new System.Drawing.Font("Segoe UI", 11F,
-                System.Drawing.FontStyle.Bold);
+                new System.Drawing.Font(
+                    "Segoe UI",
+                    11F,
+                    System.Drawing.FontStyle.Bold);
 
             this.btnLoginAdmin.ForeColor =
                 System.Drawing.Color.White;
@@ -165,7 +338,7 @@ namespace ProjekPABD
             this.btnLoginAdmin.Size =
                 new System.Drawing.Size(280, 55);
 
-            this.btnLoginAdmin.TabIndex = 5;
+            this.btnLoginAdmin.TabIndex = 9;
 
             this.btnLoginAdmin.Text =
                 "LOGIN ADMIN";
@@ -182,11 +355,13 @@ namespace ProjekPABD
                 System.Drawing.Color.IndianRed;
 
             this.btnKeluar.FlatStyle =
-                System.Windows.Forms.FlatStyle.Flat;
+                FlatStyle.Flat;
 
             this.btnKeluar.Font =
-                new System.Drawing.Font("Segoe UI", 11F,
-                System.Drawing.FontStyle.Bold);
+                new System.Drawing.Font(
+                    "Segoe UI",
+                    11F,
+                    System.Drawing.FontStyle.Bold);
 
             this.btnKeluar.ForeColor =
                 System.Drawing.Color.White;
@@ -200,7 +375,7 @@ namespace ProjekPABD
             this.btnKeluar.Size =
                 new System.Drawing.Size(220, 55);
 
-            this.btnKeluar.TabIndex = 6;
+            this.btnKeluar.TabIndex = 10;
 
             this.btnKeluar.Text =
                 "KELUAR";
@@ -228,22 +403,31 @@ namespace ProjekPABD
             this.Controls.Add(this.pictureLogo);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.lblSubTitle);
+
+            this.Controls.Add(this.txtCari);
+            this.Controls.Add(this.btnCari);
+            this.Controls.Add(this.btnRefresh);
+            this.Controls.Add(this.lblTotalData);
+
             this.Controls.Add(this.dgvDashboard);
+
             this.Controls.Add(this.btnLoginMahasiswa);
             this.Controls.Add(this.btnLoginAdmin);
             this.Controls.Add(this.btnKeluar);
 
             this.FormBorderStyle =
-                System.Windows.Forms.FormBorderStyle.FixedSingle;
+                FormBorderStyle.FixedSingle;
 
             this.MaximizeBox = false;
 
-            this.Name = "FormDashboard";
+            this.Name =
+                "FormDashboard";
 
             this.StartPosition =
-                System.Windows.Forms.FormStartPosition.CenterScreen;
+                FormStartPosition.CenterScreen;
 
-            this.Text = "Dashboard Utama";
+            this.Text =
+                "Dashboard Utama";
 
             this.Load +=
                 new System.EventHandler(this.FormDashboard_Load);
@@ -257,12 +441,20 @@ namespace ProjekPABD
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureLogo;
-        private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.Label lblSubTitle;
-        private System.Windows.Forms.DataGridView dgvDashboard;
-        private System.Windows.Forms.Button btnLoginMahasiswa;
-        private System.Windows.Forms.Button btnLoginAdmin;
-        private System.Windows.Forms.Button btnKeluar;
+        private PictureBox pictureLogo;
+        private Label lblTitle;
+        private Label lblSubTitle;
+
+        private TextBox txtCari;
+        private Button btnCari;
+        private Button btnRefresh;
+        private Label lblTotalData;
+
+        private DataGridView dgvDashboard;
+
+        private Button btnLoginMahasiswa;
+        private Button btnLoginAdmin;
+        private Button btnKeluar;
     }
 }
+
