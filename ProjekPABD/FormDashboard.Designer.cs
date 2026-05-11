@@ -88,7 +88,7 @@ namespace ProjekPABD
             this.btnCari.ForeColor = System.Drawing.Color.White;
             this.btnCari.Location = new System.Drawing.Point(420, 318);
             this.btnCari.Name = "btnCari";
-            this.btnCari.Size = new System.Drawing.Size(76, 35);
+            this.btnCari.Size = new System.Drawing.Size(120, 56);
             this.btnCari.TabIndex = 4;
             this.btnCari.Text = "CARI";
             this.btnCari.UseVisualStyleBackColor = false;
@@ -100,9 +100,9 @@ namespace ProjekPABD
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnRefresh.ForeColor = System.Drawing.Color.White;
-            this.btnRefresh.Location = new System.Drawing.Point(520, 322);
+            this.btnRefresh.Location = new System.Drawing.Point(561, 320);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(97, 35);
+            this.btnRefresh.Size = new System.Drawing.Size(149, 54);
             this.btnRefresh.TabIndex = 5;
             this.btnRefresh.Text = "REFRESH";
             this.btnRefresh.UseVisualStyleBackColor = false;

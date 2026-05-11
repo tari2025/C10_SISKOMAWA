@@ -88,7 +88,6 @@ namespace ProjekPABD
 
         // =====================================
         // LOAD DATA GRID (VIEW)
-        // 
         // =====================================
         // LOAD DATA GRID (VIEW + BINDING)
         // =====================================
@@ -131,6 +130,8 @@ namespace ProjekPABD
                 MessageBox.Show(ex.Message);
             }
         }
+
+
 
 
         // =====================================
@@ -567,14 +568,23 @@ namespace ProjekPABD
             }
         }
 
-        // =====================================
+        
         // TAMPIL
         // =====================================
         private void btnTampil_Click(
-        object sender,
-        EventArgs e)
+            object sender,
+            EventArgs e)
         {
             LoadData();
+
+            MessageBox.Show(
+                "Data berhasil ditampilkan");
+        
+        }
+
+        private void lblTitle_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
