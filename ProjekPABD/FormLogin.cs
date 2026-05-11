@@ -77,6 +77,43 @@ namespace ProjekPABD
                     conn.Open();
 
                     // ====================================
+                    //
+                    // ====================================
+                    // LOGIN ADMIN
+                    // ====================================
+                    SqlCommand cmdAdmin =
+                        new SqlCommand(
+                        "SELECT id_admin FROM admin WHERE username=@u AND password=@p",
+                        conn);
+
+                    cmdAdmin.Parameters.AddWithValue(
+                        "@u",
+                        txtUsername.Text.Trim());
+
+                    cmdAdmin.Parameters.AddWithValue(
+                        "@p",
+                        txtPassword.Text.Trim());
+
+                    object resultAdmin =
+                        cmdAdmin.ExecuteScalar();
+
+                    if (resultAdmin != null)
+                    {
+                        MessageBox.Show(
+                            "Login sebagai Admin");
+
+                        FormAdmin.idAdmin =
+                            Convert.ToInt32(resultAdmin);
+
+                        FormAdmin f =
+                            new FormAdmin();
+
+                        this.Hide();
+
+                        f.Show();
+
+                        return;
+                    }
                     // LOGIN MAHASISWA (AMAN)
                     // ====================================
                     SqlCommand cmdMhs =
