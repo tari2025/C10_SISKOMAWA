@@ -85,7 +85,7 @@ namespace ProjekPABD
         }
 
         // =====================================
-        // LOAD DATA GRID
+        // LOAD DATA GRID (VIEW)
         // =====================================
         private void LoadData()
         {
@@ -94,7 +94,7 @@ namespace ProjekPABD
                 conn.Open();
 
                 string query =
-                    "SELECT * FROM view_laporan_komplain WHERE id_mhs=@id_mhs";
+                "SELECT * FROM view_laporan_komplain WHERE id_mhs=@id_mhs";
 
                 da =
                     new SqlDataAdapter(
@@ -200,7 +200,7 @@ namespace ProjekPABD
         }
 
         // =====================================
-        // TAMBAH DATA
+        // TAMBAH DATA (SP)
         // =====================================
         private void btnTambah_Click(
             object sender,
@@ -230,28 +230,13 @@ namespace ProjekPABD
                         Convert.ToInt32(
                             cmdSumber.ExecuteScalar());
 
-                    string query = @"
-                    INSERT INTO saran_komplain
-                    (
-                        id_mhs,
-                        id_sumber,
-                        jenis,
-                        isi,
-                        status
-                    )
-                    VALUES
-                    (
-                        @id_mhs,
-                        @id_sumber,
-                        @jenis,
-                        @isi,
-                        'menunggu'
-                    )";
-
                     SqlCommand cmd =
                         new SqlCommand(
-                            query,
+                            "sp_TambahKomplain",
                             conn);
+
+                    cmd.CommandType =
+                        CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue(
                         "@id_mhs",
@@ -284,7 +269,7 @@ namespace ProjekPABD
         }
 
         // =====================================
-        // UPDATE DATA
+        // UPDATE DATA (SP)
         // =====================================
         private void btnUpdate_Click(
             object sender,
@@ -314,21 +299,16 @@ namespace ProjekPABD
                         Convert.ToInt32(
                             cmdSumber.ExecuteScalar());
 
-                    string query = @"
-                    UPDATE saran_komplain
-                    SET
-                        id_sumber=@id_sumber,
-                        jenis=@jenis,
-                        isi=@isi
-                    WHERE id_saran=@id";
-
                     SqlCommand cmd =
                         new SqlCommand(
-                            query,
+                            "sp_UpdateKomplain",
                             conn);
 
+                    cmd.CommandType =
+                        CommandType.StoredProcedure;
+
                     cmd.Parameters.AddWithValue(
-                        "@id",
+                        "@id_saran",
                         idSelected);
 
                     cmd.Parameters.AddWithValue(
@@ -358,7 +338,7 @@ namespace ProjekPABD
         }
 
         // =====================================
-        // DELETE DATA
+        // DELETE DATA (SP)
         // =====================================
         private void btnDelete_Click(
             object sender,
@@ -371,17 +351,16 @@ namespace ProjekPABD
                 {
                     conn.Open();
 
-                    string query =
-                    "DELETE FROM saran_komplain " +
-                    "WHERE id_saran=@id";
-
                     SqlCommand cmd =
                         new SqlCommand(
-                            query,
+                            "sp_DeleteKomplain",
                             conn);
 
+                    cmd.CommandType =
+                        CommandType.StoredProcedure;
+
                     cmd.Parameters.AddWithValue(
-                        "@id",
+                        "@id_saran",
                         idSelected);
 
                     cmd.ExecuteNonQuery();
@@ -504,7 +483,7 @@ namespace ProjekPABD
         }
 
         // =====================================
-        // CARI
+        // CARI DATA (SP)
         // =====================================
         private void BtnCari_Click(
             object sender,
@@ -512,16 +491,34 @@ namespace ProjekPABD
         {
             try
             {
-                DataView dv =
-                    dt.DefaultView;
+                using (SqlConnection conn =
+                    new SqlConnection(connectionString))
+                {
+                    conn.Open();
 
-                dv.RowFilter =
-                    "isi LIKE '%" +
-                    txtCari.Text +
-                    "%'";
+                    SqlCommand cmd =
+                        new SqlCommand(
+                            "sp_CariKomplain",
+                            conn);
 
-                dgvKomplain.DataSource =
-                    dv;
+                    cmd.CommandType =
+                        CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue(
+                        "@keyword",
+                        txtCari.Text);
+
+                    SqlDataAdapter da =
+                        new SqlDataAdapter(cmd);
+
+                    DataTable dtCari =
+                        new DataTable();
+
+                    da.Fill(dtCari);
+
+                    dgvKomplain.DataSource =
+                        dtCari;
+                }
             }
             catch (Exception ex)
             {
@@ -546,13 +543,13 @@ namespace ProjekPABD
                         row.Cells[0].Value);
 
                 cmbJenis.Text =
-                    row.Cells[4].Value.ToString();
+                    row.Cells[6].Value.ToString();
 
                 cmbSumberDaya.Text =
                     row.Cells[5].Value.ToString();
 
                 txtIsi.Text =
-                    row.Cells[6].Value.ToString();
+                    row.Cells[7].Value.ToString();
             }
         }
 
