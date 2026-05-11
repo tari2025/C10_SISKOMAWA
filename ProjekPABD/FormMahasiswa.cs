@@ -528,8 +528,10 @@ namespace ProjekPABD
 
                     da.Fill(dtCari);
 
+                    bs.DataSource = dtCari;
+
                     dgvKomplain.DataSource =
-                        dtCari;
+                        bs;
                 }
             }
             catch (Exception ex)
