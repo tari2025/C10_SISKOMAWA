@@ -17,6 +17,17 @@ FOTO SQL Injection
 FOTO saat direset
 <img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/ce540c98-6bbd-425a-9613-1819344a9f04" />
 
+FOTO MEMBUAT VIUW 
+<img width="936" height="486" alt="{12F2A467-06CD-4847-AD65-6C90A78CA45E}" src="https://github.com/user-attachments/assets/80ebeaf0-d699-4207-b051-41fe831e4867" />
+
+FOTO MEMBUAT SP
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/7f85fb53-2abb-465e-950f-3d12fda715e2" />
+
+FOTO MEMBUAT BINDING
+<img width="799" height="399" alt="{4FB556E0-DD9E-4945-9359-DF57B53A54F0}" src="https://github.com/user-attachments/assets/666b0249-2761-4423-adaf-9ae809e6f955" />
+
+
+
 
 
 
