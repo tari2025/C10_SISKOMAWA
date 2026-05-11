@@ -11,8 +11,12 @@ Foto Dashboard Admin
 UCP 2
 FOTO SQL Injection
 <img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/b880ff55-e6fb-4e01-9874-49e40f93be0d" />
+
 <img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/d1428118-81c2-4c44-81e1-82205479c70d" />
-![Uploading image.png…]()
+
+FOTO saat direset
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/ce540c98-6bbd-425a-9613-1819344a9f04" />
+
 
 
 
