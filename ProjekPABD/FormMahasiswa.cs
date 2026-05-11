@@ -93,23 +93,8 @@ namespace ProjekPABD
             {
                 conn.Open();
 
-                string query = @"
-                SELECT
-                    sk.id_saran,
-                    m.nim,
-                    m.nama,
-                    m.prodi,
-                    sk.jenis,
-                    sdk.kategori,
-                    sk.isi,
-                    sk.status,
-                    sk.created_at
-                FROM saran_komplain sk
-                JOIN mahasiswa m
-                    ON sk.id_mhs = m.id_mhs
-                JOIN sumber_daya_kampus sdk
-                    ON sk.id_sumber = sdk.id_sumber
-                WHERE m.id_mhs = @id_mhs";
+                string query =
+                    "SELECT * FROM view_laporan_komplain WHERE id_mhs=@id_mhs";
 
                 da =
                     new SqlDataAdapter(
