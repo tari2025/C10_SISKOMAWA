@@ -571,8 +571,8 @@ namespace ProjekPABD
         // TAMPIL
         // =====================================
         private void btnTampil_Click(
-            object sender,
-            EventArgs e)
+        object sender,
+        EventArgs e)
         {
             LoadData();
         }
