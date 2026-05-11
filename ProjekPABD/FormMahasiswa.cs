@@ -11,6 +11,8 @@ namespace ProjekPABD
         SqlCommand cmd;
         SqlDataAdapter da;
         DataTable dt;
+        BindingSource bs =
+        new BindingSource();
 
         string connectionString =
         "Data Source=LAPTOP-6B5BO8RM\\SA;Initial Catalog=ProjekPABD;Integrated Security=True";
@@ -86,6 +88,9 @@ namespace ProjekPABD
 
         // =====================================
         // LOAD DATA GRID (VIEW)
+        // 
+        // =====================================
+        // LOAD DATA GRID (VIEW + BINDING)
         // =====================================
         private void LoadData()
         {
@@ -110,8 +115,14 @@ namespace ProjekPABD
 
                 da.Fill(dt);
 
+                // BINDING
+                bs.DataSource = dt;
+
                 dgvKomplain.DataSource =
-                    dt;
+                    bs;
+
+                bindingNavigator1.BindingSource =
+                    bs;
 
                 conn.Close();
             }
@@ -120,6 +131,7 @@ namespace ProjekPABD
                 MessageBox.Show(ex.Message);
             }
         }
+
 
         // =====================================
         // LOAD DATA MAHASISWA
