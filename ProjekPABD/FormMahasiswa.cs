@@ -189,7 +189,7 @@ namespace ProjekPABD
         // =====================================
         // TEST KONEKSI
         // =====================================
-        private void btnTesKoneksi_Click(
+        private void BtnTesKoneksi_Click(
             object sender,
             EventArgs e)
         {
@@ -215,7 +215,7 @@ namespace ProjekPABD
         // =====================================
         // TAMBAH DATA (SP)
         // =====================================
-        private void btnTambah_Click(
+        private void BtnTambah_Click(
             object sender,
             EventArgs e)
         {
@@ -284,7 +284,7 @@ namespace ProjekPABD
         // =====================================
         // UPDATE DATA (SP)
         // =====================================
-        private void btnUpdate_Click(
+        private void BtnUpdate_Click(
             object sender,
             EventArgs e)
         {
@@ -353,7 +353,7 @@ namespace ProjekPABD
         // =====================================
         // DELETE DATA (SP)
         // =====================================
-        private void btnDelete_Click(
+        private void BtnDelete_Click(
             object sender,
             EventArgs e)
         {
@@ -393,7 +393,7 @@ namespace ProjekPABD
         // =====================================
         // TEST SQL INJECTION
         // =====================================
-        private void btnTest_Click(
+        private void BtnTest_Click(
             object sender,
             EventArgs e)
         {
@@ -435,7 +435,7 @@ namespace ProjekPABD
         // =====================================
         // RESET DATA
         // =====================================
-        private void btnResetData_Click(
+        private void BtnResetData_Click(
             object sender,
             EventArgs e)
         {
@@ -484,7 +484,7 @@ namespace ProjekPABD
         // =====================================
         // CLEAR
         // =====================================
-        private void btnClear_Click(
+        private void BtnClear_Click(
             object sender,
             EventArgs e)
         {
@@ -544,7 +544,7 @@ namespace ProjekPABD
         // =====================================
         // GRID CLICK
         // =====================================
-        private void dgvKomplain_CellClick(
+        private void DgvKomplain_CellClick(
             object sender,
             DataGridViewCellEventArgs e)
         {
@@ -571,7 +571,7 @@ namespace ProjekPABD
         
         // TAMPIL
         // =====================================
-        private void btnTampil_Click(
+        private void BtnTampil_Click(
             object sender,
             EventArgs e)
         {
@@ -582,7 +582,7 @@ namespace ProjekPABD
         
         }
 
-        private void lblTitle_Click(object sender, EventArgs e)
+        private void LblTitle_Click(object sender, EventArgs e)
         {
 
         }

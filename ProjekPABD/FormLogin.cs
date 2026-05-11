@@ -185,7 +185,7 @@ namespace ProjekPABD
         // ====================================
         // KELUAR
         // ====================================
-        private void btnKeluar_Click(
+        private void BtnKeluar_Click(
             object sender,
             EventArgs e)
         {
