@@ -70,7 +70,7 @@ namespace ProjekPABD
             this.btnKeluar.Size = new System.Drawing.Size(80, 30);
             this.btnKeluar.TabIndex = 4;
             this.btnKeluar.Text = "Keluar";
-            this.btnKeluar.Click += new System.EventHandler(this.btnKeluar_Click);
+            this.btnKeluar.Click += new System.EventHandler(this.BtnKeluar_Click);
             // 
             // label1
             // 
