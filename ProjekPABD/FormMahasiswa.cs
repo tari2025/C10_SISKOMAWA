@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace ProjekPABD
@@ -11,8 +12,9 @@ namespace ProjekPABD
         SqlCommand cmd;
         SqlDataAdapter da;
         DataTable dt;
+
         BindingSource bs =
-        new BindingSource();
+            new BindingSource();
 
         string connectionString =
         "Data Source=LAPTOP-6B5BO8RM\\SA;Initial Catalog=ProjekPABD;Integrated Security=True";
@@ -41,6 +43,111 @@ namespace ProjekPABD
             LoadMahasiswa();
 
             LoadData();
+        }
+
+        // =====================================
+        // VALIDASI INPUT (LENGKAP)
+        // =====================================
+        private bool ValidasiInput()
+        {
+            // VALIDASI JENIS
+            if (cmbJenis.SelectedIndex == -1)
+            {
+                MessageBox.Show("Jenis harus dipilih!");
+                cmbJenis.Focus();
+                return false;
+            }
+
+            // VALIDASI SUMBER DAYA
+            if (cmbSumberDaya.SelectedIndex == -1)
+            {
+                MessageBox.Show("Sumber daya harus dipilih!");
+                cmbSumberDaya.Focus();
+                return false;
+            }
+
+            // VALIDASI ISI
+            if (string.IsNullOrWhiteSpace(txtIsi.Text))
+            {
+                MessageBox.Show("Isi komplain tidak boleh kosong!");
+                txtIsi.Focus();
+                return false;
+            }
+
+            // VALIDASI NAMA
+            if (string.IsNullOrWhiteSpace(txtNama.Text))
+            {
+                MessageBox.Show("Nama tidak boleh kosong!");
+                txtNama.Focus();
+                return false;
+            }
+
+            // NAMA TIDAK BOLEH ANGKA
+            foreach (char c in txtNama.Text)
+            {
+                if (char.IsDigit(c))
+                {
+                    MessageBox.Show("Nama tidak boleh mengandung angka!");
+                    txtNama.Focus();
+                    return false;
+                }
+            }
+
+            // VALIDASI NIM
+            if (string.IsNullOrWhiteSpace(txtNim.Text))
+            {
+                MessageBox.Show("NIM tidak boleh kosong!");
+                txtNim.Focus();
+                return false;
+            }
+
+            // NIM HARUS ANGKA
+            foreach (char c in txtNim.Text)
+            {
+                if (!char.IsDigit(c))
+                {
+                    MessageBox.Show("NIM hanya boleh angka!");
+                    txtNim.Focus();
+                    return false;
+                }
+            }
+
+            // VALIDASI NO HP
+            if (string.IsNullOrWhiteSpace(txtHp.Text))
+            {
+                MessageBox.Show("No HP tidak boleh kosong!");
+                txtHp.Focus();
+                return false;
+            }
+
+            // NO HP HARUS ANGKA
+            foreach (char c in txtHp.Text)
+            {
+                if (!char.IsDigit(c))
+                {
+                    MessageBox.Show("No HP hanya boleh angka!");
+                    txtHp.Focus();
+                    return false;
+                }
+            }
+
+            // VALIDASI EMAIL
+            if (string.IsNullOrWhiteSpace(txtEmail.Text))
+            {
+                MessageBox.Show("Email tidak boleh kosong!");
+                txtEmail.Focus();
+                return false;
+            }
+
+            // FORMAT EMAIL
+            if (!Regex.IsMatch(txtEmail.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            {
+                MessageBox.Show("Format email tidak valid!");
+                txtEmail.Focus();
+                return false;
+            }
+
+            return true;
         }
 
         // =====================================
@@ -87,9 +194,7 @@ namespace ProjekPABD
         }
 
         // =====================================
-        // LOAD DATA GRID (VIEW)
-        // =====================================
-        // LOAD DATA GRID (VIEW + BINDING)
+        // LOAD DATA GRID
         // =====================================
         private void LoadData()
         {
@@ -114,7 +219,6 @@ namespace ProjekPABD
 
                 da.Fill(dt);
 
-                // BINDING
                 bs.DataSource = dt;
 
                 dgvKomplain.DataSource =
@@ -130,9 +234,6 @@ namespace ProjekPABD
                 MessageBox.Show(ex.Message);
             }
         }
-
-
-
 
         // =====================================
         // LOAD DATA MAHASISWA
@@ -187,38 +288,18 @@ namespace ProjekPABD
         }
 
         // =====================================
-        // TEST KONEKSI
-        // =====================================
-        private void BtnTesKoneksi_Click(
-            object sender,
-            EventArgs e)
-        {
-            try
-            {
-                using (SqlConnection conn =
-                    new SqlConnection(connectionString))
-                {
-                    conn.Open();
-
-                    MessageBox.Show(
-                        "Koneksi berhasil");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    "Koneksi gagal : " +
-                    ex.Message);
-            }
-        }
-
-        // =====================================
-        // TAMBAH DATA (SP)
+        // TAMBAH DATA (DENGAN VALIDASI)
         // =====================================
         private void BtnTambah_Click(
             object sender,
             EventArgs e)
         {
+            // VALIDASI
+            if (!ValidasiInput())
+            {
+                return;
+            }
+
             try
             {
                 using (SqlConnection conn =
@@ -282,12 +363,18 @@ namespace ProjekPABD
         }
 
         // =====================================
-        // UPDATE DATA (SP)
+        // UPDATE DATA (DENGAN VALIDASI)
         // =====================================
         private void BtnUpdate_Click(
             object sender,
             EventArgs e)
         {
+            // VALIDASI
+            if (!ValidasiInput())
+            {
+                return;
+            }
+
             try
             {
                 using (SqlConnection conn =
@@ -351,12 +438,25 @@ namespace ProjekPABD
         }
 
         // =====================================
-        // DELETE DATA (SP)
+        // DELETE DATA (DENGAN KONFIRMASI)
         // =====================================
         private void BtnDelete_Click(
             object sender,
             EventArgs e)
         {
+            // KONFIRMASI HAPUS
+            DialogResult hasil =
+                MessageBox.Show(
+                    "Yakin ingin dihapus?",
+                    "Konfirmasi Hapus",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+            if (hasil == DialogResult.No)
+            {
+                return;
+            }
+
             try
             {
                 using (SqlConnection conn =
@@ -391,7 +491,7 @@ namespace ProjekPABD
         }
 
         // =====================================
-        // TEST SQL INJECTION
+        // TEST SQL INJECTION (TETAP ADA)
         // =====================================
         private void BtnTest_Click(
             object sender,
@@ -496,7 +596,7 @@ namespace ProjekPABD
         }
 
         // =====================================
-        // CARI DATA (SP)
+        // CARI DATA
         // =====================================
         private void BtnCari_Click(
             object sender,
@@ -568,7 +668,7 @@ namespace ProjekPABD
             }
         }
 
-        
+        // =====================================
         // TAMPIL
         // =====================================
         private void BtnTampil_Click(
@@ -579,7 +679,6 @@ namespace ProjekPABD
 
             MessageBox.Show(
                 "Data berhasil ditampilkan");
-        
         }
 
         private void LblTitle_Click(object sender, EventArgs e)
