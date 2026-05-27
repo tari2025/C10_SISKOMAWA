@@ -45,12 +45,12 @@
             this.BtnResetData = new System.Windows.Forms.Button();
             this.dgvKomplain = new System.Windows.Forms.DataGridView();
             this.bindingNavigator1 = new System.Windows.Forms.BindingNavigator(this.components);
+            this.lblNavCount = new System.Windows.Forms.ToolStripLabel();
             this.btnNavFirst = new System.Windows.Forms.ToolStripButton();
             this.btnNavPrev = new System.Windows.Forms.ToolStripButton();
             this.lblNavPos = new System.Windows.Forms.ToolStripLabel();
             this.btnNavNext = new System.Windows.Forms.ToolStripButton();
             this.btnNavLast = new System.Windows.Forms.ToolStripButton();
-            this.lblNavCount = new System.Windows.Forms.ToolStripLabel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKomplain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
             this.bindingNavigator1.SuspendLayout();
@@ -97,7 +97,6 @@
             this.txtNama.BackColor = System.Drawing.Color.AliceBlue;
             this.txtNama.Location = new System.Drawing.Point(600, 82);
             this.txtNama.Name = "txtNama";
-            this.txtNama.ReadOnly = false;
             this.txtNama.Size = new System.Drawing.Size(220, 31);
             this.txtNama.TabIndex = 14;
             this.txtNama.TextChanged += new System.EventHandler(this.txtNama_TextChanged);
@@ -114,7 +113,6 @@
             this.txtProdi.BackColor = System.Drawing.Color.AliceBlue;
             this.txtProdi.Location = new System.Drawing.Point(600, 172);
             this.txtProdi.Name = "txtProdi";
-            this.txtProdi.ReadOnly = false;
             this.txtProdi.Size = new System.Drawing.Size(220, 31);
             this.txtProdi.TabIndex = 16;
             this.txtProdi.TextChanged += new System.EventHandler(this.txtProdi_TextChanged);
@@ -124,7 +122,6 @@
             this.txtHp.BackColor = System.Drawing.Color.AliceBlue;
             this.txtHp.Location = new System.Drawing.Point(600, 217);
             this.txtHp.Name = "txtHp";
-            this.txtHp.ReadOnly = false;
             this.txtHp.Size = new System.Drawing.Size(220, 31);
             this.txtHp.TabIndex = 17;
             // 
@@ -133,7 +130,6 @@
             this.txtEmail.BackColor = System.Drawing.Color.AliceBlue;
             this.txtEmail.Location = new System.Drawing.Point(600, 262);
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.ReadOnly = false;
             this.txtEmail.Size = new System.Drawing.Size(220, 31);
             this.txtEmail.TabIndex = 18;
             // 
@@ -219,11 +215,11 @@
             // lblCari
             // 
             this.lblCari.AutoSize = true;
-            this.lblCari.Location = new System.Drawing.Point(520, 295);
+            this.lblCari.Location = new System.Drawing.Point(524, 313);
             this.lblCari.Name = "lblCari";
-            this.lblCari.Size = new System.Drawing.Size(122, 25);
+            this.lblCari.Size = new System.Drawing.Size(42, 25);
             this.lblCari.TabIndex = 9;
-            this.lblCari.Text = "Cari Komplain";
+            this.lblCari.Text = "Cari";
             // 
             // BtnTambah
             // 
@@ -276,14 +272,15 @@
             this.BtnClear.Text = "Clear";
             this.BtnClear.UseVisualStyleBackColor = false;
             this.BtnClear.Click += new System.EventHandler(this.BtnClear_Click);
+            // 
             // BtnTampil
             // 
             this.BtnTampil.BackColor = System.Drawing.Color.Orange;
             this.BtnTampil.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnTampil.ForeColor = System.Drawing.Color.White;
-            this.BtnTampil.Location = new System.Drawing.Point(840, 308);
+            this.BtnTampil.Location = new System.Drawing.Point(416, 283);
             this.BtnTampil.Name = "BtnTampil";
-            this.BtnTampil.Size = new System.Drawing.Size(100, 28);
+            this.BtnTampil.Size = new System.Drawing.Size(102, 32);
             this.BtnTampil.TabIndex = 24;
             this.BtnTampil.Text = "Tampil Semua";
             this.BtnTampil.UseVisualStyleBackColor = false;
@@ -296,7 +293,7 @@
             this.BtnCari.ForeColor = System.Drawing.Color.White;
             this.BtnCari.Location = new System.Drawing.Point(762, 308);
             this.BtnCari.Name = "BtnCari";
-            this.BtnCari.Size = new System.Drawing.Size(70, 28);
+            this.BtnCari.Size = new System.Drawing.Size(117, 33);
             this.BtnCari.TabIndex = 25;
             this.BtnCari.Text = "Cari";
             this.BtnCari.UseVisualStyleBackColor = false;
@@ -369,8 +366,14 @@
             this.bindingNavigator1.MovePreviousItem = this.btnNavPrev;
             this.bindingNavigator1.Name = "bindingNavigator1";
             this.bindingNavigator1.PositionItem = this.lblNavPos;
-            this.bindingNavigator1.Size = new System.Drawing.Size(246, 34);
+            this.bindingNavigator1.Size = new System.Drawing.Size(234, 34);
             this.bindingNavigator1.TabIndex = 29;
+            // 
+            // lblNavCount
+            // 
+            this.lblNavCount.Name = "lblNavCount";
+            this.lblNavCount.Size = new System.Drawing.Size(54, 29);
+            this.lblNavCount.Text = "of {0}";
             // 
             // btnNavFirst
             // 
@@ -409,12 +412,6 @@
             this.btnNavLast.Size = new System.Drawing.Size(36, 29);
             this.btnNavLast.Text = "▶|";
             this.btnNavLast.ToolTipText = "Data Terakhir";
-            // 
-            // lblNavCount
-            // 
-            this.lblNavCount.Name = "lblNavCount";
-            this.lblNavCount.Size = new System.Drawing.Size(54, 29);
-            this.lblNavCount.Text = "of {0}";
             // 
             // FormMahasiswa
             // 
