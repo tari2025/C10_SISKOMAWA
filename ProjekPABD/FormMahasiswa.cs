@@ -13,11 +13,9 @@ namespace ProjekPABD
         SqlDataAdapter da;
         DataTable dt;
 
-        BindingSource bs =
-            new BindingSource();
+        BindingSource bs = new BindingSource();
 
-        string connectionString =
-        "Data Source=LAPTOP-6B5BO8RM\\SA;Initial Catalog=ProjekPABD;Integrated Security=True";
+        string connectionString = "Data Source=LAPTOP-6B5BO8RM\\SA;Initial Catalog=ProjekPABD;Integrated Security=True";
 
         int idSelected = 0;
 
@@ -26,27 +24,82 @@ namespace ProjekPABD
         public FormMahasiswa()
         {
             InitializeComponent();
-
-            conn =
-                new SqlConnection(connectionString);
+            conn = new SqlConnection(connectionString);
         }
 
         // =====================================
         // FORM LOAD
         // =====================================
-        private void FormMahasiswa_Load(
-            object sender,
-            EventArgs e)
+        private void FormMahasiswa_Load(object sender, EventArgs e)
         {
             LoadCombo();
-
             LoadMahasiswa();
-
             LoadData();
         }
 
         // =====================================
-        // VALIDASI INPUT (LENGKAP)
+        // LOAD COMBOBOX
+        // =====================================
+        private void LoadCombo()
+        {
+            // Contoh isian combo box
+            cmbJenis.Items.Clear();
+            cmbJenis.Items.Add("Komplain Akademik");
+            cmbJenis.Items.Add("Komplain Fasilitas");
+            cmbJenis.Items.Add("Komplain Pelayanan");
+            cmbJenis.SelectedIndex = -1;
+
+            cmbSumberDaya.Items.Clear();
+            cmbSumberDaya.Items.Add("WhatsApp");
+            cmbSumberDaya.Items.Add("Email");
+            cmbSumberDaya.Items.Add("Telepon");
+            cmbSumberDaya.Items.Add("Langsur");
+            cmbSumberDaya.SelectedIndex = -1;
+        }
+
+        // =====================================
+        // LOAD MAHASISWA (Data untuk DataGridView)
+        // =====================================
+        private void LoadMahasiswa()
+        {
+            try
+            {
+                conn.Open();
+                string query = "SELECT * FROM Komplain ORDER BY Id DESC";
+                da = new SqlDataAdapter(query, conn);
+                dt = new DataTable();
+                da.Fill(dt);
+                dgvKomplain.DataSource = dt;
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error LoadMahasiswa: " + ex.Message);
+                conn.Close();
+            }
+        }
+
+        // =====================================
+        // LOAD DATA KE FORM (untuk update)
+        // =====================================
+        private void LoadData()
+        {
+            if (dgvKomplain.SelectedRows.Count > 0)
+            {
+                idSelected = Convert.ToInt32(dgvKomplain.SelectedRows[0].Cells["Id"].Value);
+                cmbJenis.Text = dgvKomplain.SelectedRows[0].Cells["Jenis"].Value.ToString();
+                cmbSumberDaya.Text = dgvKomplain.SelectedRows[0].Cells["SumberDaya"].Value.ToString();
+                txtIsi.Text = dgvKomplain.SelectedRows[0].Cells["Isi"].Value.ToString();
+                txtNama.Text = dgvKomplain.SelectedRows[0].Cells["Nama"].Value.ToString();
+                txtNim.Text = dgvKomplain.SelectedRows[0].Cells["Nim"].Value.ToString();
+                txtProdi.Text = dgvKomplain.SelectedRows[0].Cells["Prodi"].Value.ToString();
+                txtHp.Text = dgvKomplain.SelectedRows[0].Cells["Hp"].Value.ToString();
+                txtEmail.Text = dgvKomplain.SelectedRows[0].Cells["Email"].Value.ToString();
+            }
+        }
+
+        // =====================================
+        // VALIDASI INPUT (DIPERBAIKI)
         // =====================================
         private bool ValidasiInput()
         {
@@ -101,18 +154,16 @@ namespace ProjekPABD
                 return false;
             }
 
-            // NIM HARUS ANGKA
-            foreach (char c in txtNim.Text)
+            // NIM HARUS ANGKA (DIPERBAIKI)
+            string nim = txtNim.Text.Trim();
+            if (!long.TryParse(nim, out _))
             {
-                if (!char.IsDigit(c))
-                {
-                    MessageBox.Show("NIM hanya boleh angka!");
-                    txtNim.Focus();
-                    return false;
-                }
+                MessageBox.Show("NIM hanya boleh angka!");
+                txtNim.Focus();
+                return false;
             }
 
-            // VALIDASI NO HP
+            // VALIDASI NO HP (DIPERBAIKI)
             if (string.IsNullOrWhiteSpace(txtHp.Text))
             {
                 MessageBox.Show("No HP tidak boleh kosong!");
@@ -120,15 +171,12 @@ namespace ProjekPABD
                 return false;
             }
 
-            // NO HP HARUS ANGKA
-            foreach (char c in txtHp.Text)
+            // NO HP HARUS ANGKA (DIPERBAIKI - sebelumnya salah pake txtNim)
+            if (!long.TryParse(txtHp.Text.Trim(), out _))
             {
-                if (!char.IsDigit(c))
-                {
-                    MessageBox.Show("No HP hanya boleh angka!");
-                    txtHp.Focus();
-                    return false;
-                }
+                MessageBox.Show("No HP hanya boleh angka!");
+                txtHp.Focus();
+                return false;
             }
 
             // VALIDASI EMAIL
@@ -151,539 +199,211 @@ namespace ProjekPABD
         }
 
         // =====================================
-        // LOAD COMBOBOX
+        // BUTTON TAMBAH
         // =====================================
-        private void LoadCombo()
+        private void btnTambah_Click(object sender, EventArgs e)
         {
-            cmbJenis.Items.Clear();
-
-            cmbJenis.Items.Add("saran");
-            cmbJenis.Items.Add("komplain");
-
-            cmbSumberDaya.Items.Clear();
+            if (!ValidasiInput()) return;
 
             try
             {
                 conn.Open();
+                string query = @"INSERT INTO Komplain (Jenis, SumberDaya, Isi, Nama, Nim, Prodi, Hp, Email) 
+                                 VALUES (@Jenis, @SumberDaya, @Isi, @Nama, @Nim, @Prodi, @Hp, @Email)";
+                cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@Jenis", cmbJenis.Text);
+                cmd.Parameters.AddWithValue("@SumberDaya", cmbSumberDaya.Text);
+                cmd.Parameters.AddWithValue("@Isi", txtIsi.Text);
+                cmd.Parameters.AddWithValue("@Nama", txtNama.Text);
+                cmd.Parameters.AddWithValue("@Nim", txtNim.Text);
+                cmd.Parameters.AddWithValue("@Prodi", txtProdi.Text);
+                cmd.Parameters.AddWithValue("@Hp", txtHp.Text);
+                cmd.Parameters.AddWithValue("@Email", txtEmail.Text);
 
-                string query =
-                "SELECT kategori FROM sumber_daya_kampus";
-
-                cmd =
-                    new SqlCommand(
-                        query,
-                        conn);
-
-                SqlDataReader dr =
-                    cmd.ExecuteReader();
-
-                while (dr.Read())
-                {
-                    cmbSumberDaya.Items.Add(
-                        dr["kategori"].ToString());
-                }
-
-                dr.Close();
-
+                cmd.ExecuteNonQuery();
                 conn.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
 
-        // =====================================
-        // LOAD DATA GRID
-        // =====================================
-        private void LoadData()
-        {
-            try
-            {
-                conn.Open();
-
-                string query =
-                "SELECT * FROM view_laporan_komplain WHERE id_mhs=@id_mhs";
-
-                da =
-                    new SqlDataAdapter(
-                        query,
-                        conn);
-
-                da.SelectCommand.Parameters.AddWithValue(
-                    "@id_mhs",
-                    idMahasiswa);
-
-                dt =
-                    new DataTable();
-
-                da.Fill(dt);
-
-                bs.DataSource = dt;
-
-                dgvKomplain.DataSource =
-                    bs;
-
-                bindingNavigator1.BindingSource =
-                    bs;
-
-                conn.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        // =====================================
-        // LOAD DATA MAHASISWA
-        // =====================================
-        private void LoadMahasiswa()
-        {
-            try
-            {
-                conn.Open();
-
-                string query =
-                "SELECT * FROM mahasiswa WHERE id_mhs=@id";
-
-                cmd =
-                    new SqlCommand(
-                        query,
-                        conn);
-
-                cmd.Parameters.AddWithValue(
-                    "@id",
-                    idMahasiswa);
-
-                SqlDataReader dr =
-                    cmd.ExecuteReader();
-
-                if (dr.Read())
-                {
-                    txtNama.Text =
-                        dr["nama"].ToString();
-
-                    txtNim.Text =
-                        dr["nim"].ToString();
-
-                    txtProdi.Text =
-                        dr["prodi"].ToString();
-
-                    txtHp.Text =
-                        dr["no_hp"].ToString();
-
-                    txtEmail.Text =
-                        dr["email"].ToString();
-                }
-
-                dr.Close();
-
-                conn.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        // =====================================
-        // TAMBAH DATA (DENGAN VALIDASI)
-        // =====================================
-        private void BtnTambah_Click(
-            object sender,
-            EventArgs e)
-        {
-            // VALIDASI
-            if (!ValidasiInput())
-            {
-                return;
-            }
-
-            try
-            {
-                using (SqlConnection conn =
-                    new SqlConnection(connectionString))
-                {
-                    conn.Open();
-
-                    string querySumber =
-                    "SELECT id_sumber FROM sumber_daya_kampus " +
-                    "WHERE kategori=@kategori";
-
-                    SqlCommand cmdSumber =
-                        new SqlCommand(
-                            querySumber,
-                            conn);
-
-                    cmdSumber.Parameters.AddWithValue(
-                        "@kategori",
-                        cmbSumberDaya.Text);
-
-                    int idSumber =
-                        Convert.ToInt32(
-                            cmdSumber.ExecuteScalar());
-
-                    SqlCommand cmd =
-                        new SqlCommand(
-                            "sp_TambahKomplain",
-                            conn);
-
-                    cmd.CommandType =
-                        CommandType.StoredProcedure;
-
-                    cmd.Parameters.AddWithValue(
-                        "@id_mhs",
-                        idMahasiswa);
-
-                    cmd.Parameters.AddWithValue(
-                        "@id_sumber",
-                        idSumber);
-
-                    cmd.Parameters.AddWithValue(
-                        "@jenis",
-                        cmbJenis.Text);
-
-                    cmd.Parameters.AddWithValue(
-                        "@isi",
-                        txtIsi.Text);
-
-                    cmd.ExecuteNonQuery();
-
-                    MessageBox.Show(
-                        "Data berhasil ditambah!");
-
-                    LoadData();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        // =====================================
-        // UPDATE DATA (DENGAN VALIDASI)
-        // =====================================
-        private void BtnUpdate_Click(
-            object sender,
-            EventArgs e)
-        {
-            // VALIDASI
-            if (!ValidasiInput())
-            {
-                return;
-            }
-
-            try
-            {
-                using (SqlConnection conn =
-                    new SqlConnection(connectionString))
-                {
-                    conn.Open();
-
-                    string querySumber =
-                    "SELECT id_sumber FROM sumber_daya_kampus " +
-                    "WHERE kategori=@kategori";
-
-                    SqlCommand cmdSumber =
-                        new SqlCommand(
-                            querySumber,
-                            conn);
-
-                    cmdSumber.Parameters.AddWithValue(
-                        "@kategori",
-                        cmbSumberDaya.Text);
-
-                    int idSumber =
-                        Convert.ToInt32(
-                            cmdSumber.ExecuteScalar());
-
-                    SqlCommand cmd =
-                        new SqlCommand(
-                            "sp_UpdateKomplain",
-                            conn);
-
-                    cmd.CommandType =
-                        CommandType.StoredProcedure;
-
-                    cmd.Parameters.AddWithValue(
-                        "@id_saran",
-                        idSelected);
-
-                    cmd.Parameters.AddWithValue(
-                        "@id_sumber",
-                        idSumber);
-
-                    cmd.Parameters.AddWithValue(
-                        "@jenis",
-                        cmbJenis.Text);
-
-                    cmd.Parameters.AddWithValue(
-                        "@isi",
-                        txtIsi.Text);
-
-                    cmd.ExecuteNonQuery();
-
-                    MessageBox.Show(
-                        "Data berhasil diupdate");
-
-                    LoadData();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        // =====================================
-        // DELETE DATA (DENGAN KONFIRMASI)
-        // =====================================
-        private void BtnDelete_Click(
-            object sender,
-            EventArgs e)
-        {
-            // KONFIRMASI HAPUS
-            DialogResult hasil =
-                MessageBox.Show(
-                    "Yakin ingin dihapus?",
-                    "Konfirmasi Hapus",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question);
-
-            if (hasil == DialogResult.No)
-            {
-                return;
-            }
-
-            try
-            {
-                using (SqlConnection conn =
-                    new SqlConnection(connectionString))
-                {
-                    conn.Open();
-
-                    SqlCommand cmd =
-                        new SqlCommand(
-                            "sp_DeleteKomplain",
-                            conn);
-
-                    cmd.CommandType =
-                        CommandType.StoredProcedure;
-
-                    cmd.Parameters.AddWithValue(
-                        "@id_saran",
-                        idSelected);
-
-                    cmd.ExecuteNonQuery();
-
-                    MessageBox.Show(
-                        "Data berhasil dihapus");
-
-                    LoadData();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        // =====================================
-        // TEST SQL INJECTION (TETAP ADA)
-        // =====================================
-        private void BtnTest_Click(
-            object sender,
-            EventArgs e)
-        {
-            try
-            {
-                using (SqlConnection conn =
-                    new SqlConnection(connectionString))
-                {
-                    conn.Open();
-
-                    string query =
-                        "UPDATE mahasiswa " +
-                        "SET nama='HACKED' " +
-                        "WHERE nim = '" +
-                        txtNim.Text + "'";
-
-                    SqlCommand cmd =
-                        new SqlCommand(
-                            query,
-                            conn);
-
-                    int result =
-                        cmd.ExecuteNonQuery();
-
-                    MessageBox.Show(
-                        result + " baris terupdate");
-                }
-
+                MessageBox.Show("Data berhasil ditambahkan!");
+                ClearForm();
                 LoadMahasiswa();
-
-                LoadData();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Error: " + ex.Message);
+                conn.Close();
             }
         }
 
         // =====================================
-        // RESET DATA
+        // BUTTON UPDATE
         // =====================================
-        private void BtnResetData_Click(
-            object sender,
-            EventArgs e)
+        private void btnUpdate_Click(object sender, EventArgs e)
         {
+            if (idSelected == 0)
+            {
+                MessageBox.Show("Pilih data yang akan diupdate!");
+                return;
+            }
+
+            if (!ValidasiInput()) return;
+
             try
             {
-                using (SqlConnection conn =
-                    new SqlConnection(connectionString))
-                {
-                    conn.Open();
+                conn.Open();
+                string query = @"UPDATE Komplain SET 
+                                 Jenis = @Jenis, 
+                                 SumberDaya = @SumberDaya, 
+                                 Isi = @Isi, 
+                                 Nama = @Nama, 
+                                 Nim = @Nim, 
+                                 Prodi = @Prodi, 
+                                 Hp = @Hp, 
+                                 Email = @Email 
+                                 WHERE Id = @Id";
+                cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@Jenis", cmbJenis.Text);
+                cmd.Parameters.AddWithValue("@SumberDaya", cmbSumberDaya.Text);
+                cmd.Parameters.AddWithValue("@Isi", txtIsi.Text);
+                cmd.Parameters.AddWithValue("@Nama", txtNama.Text);
+                cmd.Parameters.AddWithValue("@Nim", txtNim.Text);
+                cmd.Parameters.AddWithValue("@Prodi", txtProdi.Text);
+                cmd.Parameters.AddWithValue("@Hp", txtHp.Text);
+                cmd.Parameters.AddWithValue("@Email", txtEmail.Text);
+                cmd.Parameters.AddWithValue("@Id", idSelected);
 
-                    string query = @"
-                    UPDATE mahasiswa
-                    SET nama =
-                    CASE
-                        WHEN nim='202401' THEN 'Andi'
-                        WHEN nim='202403' THEN 'Citra'
-                        WHEN nim='202404' THEN 'Dewi'
-                        ELSE nama
-                    END";
+                cmd.ExecuteNonQuery();
+                conn.Close();
 
-                    SqlCommand cmd =
-                        new SqlCommand(
-                            query,
-                            conn);
-
-                    int result =
-                        cmd.ExecuteNonQuery();
-
-                    MessageBox.Show(
-                        result +
-                        " data berhasil direset");
-                }
-
+                MessageBox.Show("Data berhasil diupdate!");
+                ClearForm();
                 LoadMahasiswa();
-
-                LoadData();
+                idSelected = 0;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Reset gagal: " +
-                    ex.Message);
+                MessageBox.Show("Error: " + ex.Message);
+                conn.Close();
             }
         }
 
         // =====================================
-        // CLEAR
+        // BUTTON DELETE
         // =====================================
-        private void BtnClear_Click(
-            object sender,
-            EventArgs e)
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (idSelected == 0)
+            {
+                MessageBox.Show("Pilih data yang akan dihapus!");
+                return;
+            }
+
+            DialogResult result = MessageBox.Show("Yakin ingin menghapus data ini?", "Konfirmasi", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    conn.Open();
+                    string query = "DELETE FROM Komplain WHERE Id = @Id";
+                    cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@Id", idSelected);
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+
+                    MessageBox.Show("Data berhasil dihapus!");
+                    ClearForm();
+                    LoadMahasiswa();
+                    idSelected = 0;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                    conn.Close();
+                }
+            }
+        }
+
+        // =====================================
+        // BUTTON CLEAR
+        // =====================================
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            ClearForm();
+        }
+
+        private void ClearForm()
         {
             cmbJenis.SelectedIndex = -1;
-
             cmbSumberDaya.SelectedIndex = -1;
-
             txtIsi.Clear();
+            txtNama.Clear();
+            txtNim.Clear();
+            txtProdi.Clear();
+            txtHp.Clear();
+            txtEmail.Clear();
+            txtCari.Clear();
+            idSelected = 0;
         }
 
         // =====================================
-        // CARI DATA
+        // BUTTON TAMPIL
         // =====================================
-        private void BtnCari_Click(
-            object sender,
-            EventArgs e)
+        private void btnTampil_Click(object sender, EventArgs e)
         {
+            LoadMahasiswa();
+        }
+
+        // =====================================
+        // BUTTON CARI
+        // =====================================
+        private void BtnCari_Click(object sender, EventArgs e)
+        {
+            string keyword = txtCari.Text.Trim();
+            if (string.IsNullOrWhiteSpace(keyword))
+            {
+                LoadMahasiswa();
+                return;
+            }
+
             try
             {
-                using (SqlConnection conn =
-                    new SqlConnection(connectionString))
-                {
-                    conn.Open();
-
-                    SqlCommand cmd =
-                        new SqlCommand(
-                            "sp_CariKomplain",
-                            conn);
-
-                    cmd.CommandType =
-                        CommandType.StoredProcedure;
-
-                    cmd.Parameters.AddWithValue(
-                        "@keyword",
-                        txtCari.Text);
-
-                    SqlDataAdapter da =
-                        new SqlDataAdapter(cmd);
-
-                    DataTable dtCari =
-                        new DataTable();
-
-                    da.Fill(dtCari);
-
-                    bs.DataSource = dtCari;
-
-                    dgvKomplain.DataSource =
-                        bs;
-                }
+                conn.Open();
+                string query = @"SELECT * FROM Komplain 
+                                 WHERE Nama LIKE @Keyword 
+                                 OR Nim LIKE @Keyword 
+                                 OR Prodi LIKE @Keyword";
+                cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@Keyword", "%" + keyword + "%");
+                da = new SqlDataAdapter(cmd);
+                dt = new DataTable();
+                da.Fill(dt);
+                dgvKomplain.DataSource = dt;
+                conn.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Error: " + ex.Message);
+                conn.Close();
             }
         }
 
         // =====================================
-        // GRID CLICK
+        // DATAGRIDVIEW CLICK
         // =====================================
-        private void DgvKomplain_CellClick(
-            object sender,
-            DataGridViewCellEventArgs e)
+        private void dgvKomplain_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
-                DataGridViewRow row =
-                    dgvKomplain.Rows[e.RowIndex];
-
-                idSelected =
-                    Convert.ToInt32(
-                        row.Cells[0].Value);
-
-                cmbJenis.Text =
-                    row.Cells[6].Value.ToString();
-
-                cmbSumberDaya.Text =
-                    row.Cells[5].Value.ToString();
-
-                txtIsi.Text =
-                    row.Cells[7].Value.ToString();
+                DataGridViewRow row = dgvKomplain.Rows[e.RowIndex];
+                idSelected = Convert.ToInt32(row.Cells["Id"].Value);
+                cmbJenis.Text = row.Cells["Jenis"].Value.ToString();
+                cmbSumberDaya.Text = row.Cells["SumberDaya"].Value.ToString();
+                txtIsi.Text = row.Cells["Isi"].Value.ToString();
+                txtNama.Text = row.Cells["Nama"].Value.ToString();
+                txtNim.Text = row.Cells["Nim"].Value.ToString();
+                txtProdi.Text = row.Cells["Prodi"].Value.ToString();
+                txtHp.Text = row.Cells["Hp"].Value.ToString();
+                txtEmail.Text = row.Cells["Email"].Value.ToString();
             }
-        }
-
-        // =====================================
-        // TAMPIL
-        // =====================================
-        private void BtnTampil_Click(
-            object sender,
-            EventArgs e)
-        {
-            LoadData();
-
-            MessageBox.Show(
-                "Data berhasil ditampilkan");
-        }
-
-        private void LblTitle_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
