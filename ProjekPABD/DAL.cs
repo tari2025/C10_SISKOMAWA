@@ -42,39 +42,8 @@ namespace ProjekPABD
             return localIP;
         }
 
-        // =====================insert LOG========================
+        
 
-        public void InsertLog(string aktivitas, string detail = "")
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-                    string ip = GetLocalIPAddress();
-                    string username = Environment.UserName;
-
-                    string query = @"
-                    INSERT INTO log_aktivitas
-                    (username, aktivitas, tanggal, status, ip_address)
-                    VALUES
-                    (@username, @aktivitas, GETDATE(), @status, @ip)";
-
-                    SqlCommand cmd = new SqlCommand(query, conn);
-
-                    cmd.Parameters.AddWithValue("@username", username);
-                    cmd.Parameters.AddWithValue("@aktivitas", aktivitas + " " + detail);
-                    cmd.Parameters.AddWithValue("@status", "Success");
-                    cmd.Parameters.AddWithValue("@ip", ip);
-
-                    cmd.ExecuteNonQuery();
-                }
-            }
-            catch
-            {
-
-            }
-        }
         // GET DATA KOMPLAIN
         // =============================================
         public DataTable GetDataKomplain()
