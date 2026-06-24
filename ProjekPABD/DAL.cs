@@ -50,6 +50,9 @@ namespace ProjekPABD
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
+                    conn.Open();
+                    string ip = GetLocalIPAddress();
+                    string username = Environment.UserName;
 
 
         // GET DATA KOMPLAIN
