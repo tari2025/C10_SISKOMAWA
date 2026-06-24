@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DSKomplain" targetNamespace="http://tempuri.org/DataSet.xsd" xmlns:mstns="http://tempuri.org/DataSet.xsd" xmlns="http://tempuri.org/DataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="LAPTOP_6B5BO8RM_SAConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="LAPTOP_6B5BO8RM_SAConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.ProjekPABD.Properties.Settings.GlobalReference.Default.LAPTOP_6B5BO8RM_SAConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DSKomplain" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="DSKomplain" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="_DSKomplain">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DSKomplain" msprop:Generator_RowEvHandlerName="DSKomplainRowChangeEventHandler" msprop:Generator_RowDeletedName="DSKomplainRowDeleted" msprop:Generator_RowDeletingName="DSKomplainRowDeleting" msprop:Generator_RowEvArgName="DSKomplainRowChangeEvent" msprop:Generator_TablePropName="DSKomplain" msprop:Generator_RowChangedName="DSKomplainRowChanged" msprop:Generator_UserTableName="DSKomplain" msprop:Generator_RowChangingName="DSKomplainRowChanging" msprop:Generator_RowClassName="DSKomplainRow" msprop:Generator_TableClassName="DSKomplainDataTable" msprop:Generator_TableVarName="tableDSKomplain">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id_saran" msprop:Generator_ColumnPropNameInTable="id_saranColumn" msprop:Generator_ColumnPropNameInRow="id_saran" msprop:Generator_UserColumnName="id_saran" msprop:Generator_ColumnVarNameInTable="columnid_saran" type="xs:string" minOccurs="0" />
+              <xs:element name="id_mhs_x0020_" msprop:Generator_ColumnPropNameInTable="id_mhs_Column" msprop:Generator_ColumnPropNameInRow="id_mhs_" msprop:Generator_UserColumnName="id_mhs " msprop:Generator_ColumnVarNameInTable="columnid_mhs_" type="xs:string" minOccurs="0" />
+              <xs:element name="nim" msprop:Generator_ColumnPropNameInTable="nimColumn" msprop:Generator_ColumnPropNameInRow="nim" msprop:Generator_UserColumnName="nim" msprop:Generator_ColumnVarNameInTable="columnnim" type="xs:string" minOccurs="0" />
+              <xs:element name="nama" msprop:Generator_ColumnPropNameInTable="namaColumn" msprop:Generator_ColumnPropNameInRow="nama" msprop:Generator_UserColumnName="nama" msprop:Generator_ColumnVarNameInTable="columnnama" type="xs:string" minOccurs="0" />
+              <xs:element name="prodi" msprop:Generator_ColumnPropNameInTable="prodiColumn" msprop:Generator_ColumnPropNameInRow="prodi" msprop:Generator_UserColumnName="prodi" msprop:Generator_ColumnVarNameInTable="columnprodi" type="xs:string" minOccurs="0" />
+              <xs:element name="kategori" msprop:Generator_ColumnPropNameInTable="kategoriColumn" msprop:Generator_ColumnPropNameInRow="kategori" msprop:Generator_UserColumnName="kategori" msprop:Generator_ColumnVarNameInTable="columnkategori" type="xs:string" minOccurs="0" />
+              <xs:element name="jenis" msprop:Generator_ColumnPropNameInTable="jenisColumn" msprop:Generator_ColumnPropNameInRow="jenis" msprop:Generator_UserColumnName="jenis" msprop:Generator_ColumnVarNameInTable="columnjenis" type="xs:string" minOccurs="0" />
+              <xs:element name="isi" msprop:Generator_ColumnPropNameInTable="isiColumn" msprop:Generator_ColumnPropNameInRow="isi" msprop:Generator_UserColumnName="isi" msprop:Generator_ColumnVarNameInTable="columnisi" type="xs:string" minOccurs="0" />
+              <xs:element name="status" msprop:Generator_ColumnPropNameInTable="statusColumn" msprop:Generator_ColumnPropNameInRow="status" msprop:Generator_UserColumnName="status" msprop:Generator_ColumnVarNameInTable="columnstatus" type="xs:string" minOccurs="0" />
+              <xs:element name="tanggapan" msprop:Generator_ColumnPropNameInTable="tanggapanColumn" msprop:Generator_ColumnPropNameInRow="tanggapan" msprop:Generator_UserColumnName="tanggapan" msprop:Generator_ColumnVarNameInTable="columntanggapan" type="xs:string" minOccurs="0" />
+              <xs:element name="created_at" msprop:Generator_ColumnPropNameInTable="created_atColumn" msprop:Generator_ColumnPropNameInRow="created_at" msprop:Generator_UserColumnName="created_at" msprop:Generator_ColumnVarNameInTable="columncreated_at" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,25 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ProjekPABD
 {
-        internal static class Program
+    internal static class Program
+    {
+        [STAThread]
+        static void Main()
         {
-            /// <summary>
-            /// Main Program
-            /// </summary>
-            [STAThread]
-            static void Main()
-            {
-                Application.EnableVisualStyles();
-
-                Application.SetCompatibleTextRenderingDefault(false);
-
-                // FORM PERTAMA
-                Application.Run(new FormDashboard());
-            }
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new FormDashboard()); // ← HARUS ADA INI!
         }
     }
+}

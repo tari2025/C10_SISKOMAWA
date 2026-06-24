@@ -51,19 +51,23 @@
             this.lblNavPos = new System.Windows.Forms.ToolStripLabel();
             this.btnNavNext = new System.Windows.Forms.ToolStripButton();
             this.btnNavLast = new System.Windows.Forms.ToolStripButton();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnFoto = new System.Windows.Forms.Button();
+            this.btnLoad = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKomplain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
             this.bindingNavigator1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // LblTitle
             // 
             this.LblTitle.AutoSize = true;
-            this.LblTitle.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            this.LblTitle.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
             this.LblTitle.ForeColor = System.Drawing.Color.Navy;
-            this.LblTitle.Location = new System.Drawing.Point(270, 12);
+            this.LblTitle.Location = new System.Drawing.Point(12, 12);
             this.LblTitle.Name = "LblTitle";
-            this.LblTitle.Size = new System.Drawing.Size(477, 48);
+            this.LblTitle.Size = new System.Drawing.Size(434, 45);
             this.LblTitle.TabIndex = 0;
             this.LblTitle.Text = "DASHBOARD MAHASISWA";
             this.LblTitle.Click += new System.EventHandler(this.LblTitle_Click);
@@ -71,7 +75,7 @@
             // cmbJenis
             // 
             this.cmbJenis.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmbJenis.Location = new System.Drawing.Point(20, 82);
+            this.cmbJenis.Location = new System.Drawing.Point(12, 80);
             this.cmbJenis.Name = "cmbJenis";
             this.cmbJenis.Size = new System.Drawing.Size(200, 33);
             this.cmbJenis.TabIndex = 11;
@@ -79,23 +83,23 @@
             // cmbSumberDaya
             // 
             this.cmbSumberDaya.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmbSumberDaya.Location = new System.Drawing.Point(20, 132);
+            this.cmbSumberDaya.Location = new System.Drawing.Point(12, 142);
             this.cmbSumberDaya.Name = "cmbSumberDaya";
             this.cmbSumberDaya.Size = new System.Drawing.Size(200, 33);
             this.cmbSumberDaya.TabIndex = 12;
             // 
             // txtIsi
             // 
-            this.txtIsi.Location = new System.Drawing.Point(20, 182);
+            this.txtIsi.Location = new System.Drawing.Point(12, 204);
             this.txtIsi.Multiline = true;
             this.txtIsi.Name = "txtIsi";
-            this.txtIsi.Size = new System.Drawing.Size(460, 80);
+            this.txtIsi.Size = new System.Drawing.Size(430, 80);
             this.txtIsi.TabIndex = 13;
             // 
             // txtNama
             // 
             this.txtNama.BackColor = System.Drawing.Color.AliceBlue;
-            this.txtNama.Location = new System.Drawing.Point(600, 82);
+            this.txtNama.Location = new System.Drawing.Point(490, 80);
             this.txtNama.Name = "txtNama";
             this.txtNama.Size = new System.Drawing.Size(220, 31);
             this.txtNama.TabIndex = 14;
@@ -103,7 +107,7 @@
             // 
             // txtNim
             // 
-            this.txtNim.Location = new System.Drawing.Point(600, 127);
+            this.txtNim.Location = new System.Drawing.Point(490, 138);
             this.txtNim.Name = "txtNim";
             this.txtNim.Size = new System.Drawing.Size(220, 31);
             this.txtNim.TabIndex = 15;
@@ -111,7 +115,7 @@
             // txtProdi
             // 
             this.txtProdi.BackColor = System.Drawing.Color.AliceBlue;
-            this.txtProdi.Location = new System.Drawing.Point(600, 172);
+            this.txtProdi.Location = new System.Drawing.Point(490, 196);
             this.txtProdi.Name = "txtProdi";
             this.txtProdi.Size = new System.Drawing.Size(220, 31);
             this.txtProdi.TabIndex = 16;
@@ -120,7 +124,7 @@
             // txtHp
             // 
             this.txtHp.BackColor = System.Drawing.Color.AliceBlue;
-            this.txtHp.Location = new System.Drawing.Point(600, 217);
+            this.txtHp.Location = new System.Drawing.Point(490, 254);
             this.txtHp.Name = "txtHp";
             this.txtHp.Size = new System.Drawing.Size(220, 31);
             this.txtHp.TabIndex = 17;
@@ -128,14 +132,14 @@
             // txtEmail
             // 
             this.txtEmail.BackColor = System.Drawing.Color.AliceBlue;
-            this.txtEmail.Location = new System.Drawing.Point(600, 262);
+            this.txtEmail.Location = new System.Drawing.Point(490, 312);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(220, 31);
             this.txtEmail.TabIndex = 18;
             // 
             // txtCari
             // 
-            this.txtCari.Location = new System.Drawing.Point(600, 310);
+            this.txtCari.Location = new System.Drawing.Point(490, 370);
             this.txtCari.Name = "txtCari";
             this.txtCari.Size = new System.Drawing.Size(155, 31);
             this.txtCari.TabIndex = 19;
@@ -143,7 +147,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(20, 65);
+            this.label1.Location = new System.Drawing.Point(12, 60);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(49, 25);
             this.label1.TabIndex = 1;
@@ -152,7 +156,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(20, 115);
+            this.label2.Location = new System.Drawing.Point(12, 122);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(119, 25);
             this.label2.TabIndex = 2;
@@ -161,7 +165,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(20, 165);
+            this.label3.Location = new System.Drawing.Point(12, 184);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(170, 25);
             this.label3.TabIndex = 3;
@@ -170,7 +174,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(520, 65);
+            this.label4.Location = new System.Drawing.Point(490, 60);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(59, 25);
             this.label4.TabIndex = 4;
@@ -179,7 +183,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(520, 110);
+            this.label5.Location = new System.Drawing.Point(490, 118);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(46, 25);
             this.label5.TabIndex = 5;
@@ -188,7 +192,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(520, 155);
+            this.label6.Location = new System.Drawing.Point(490, 176);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(54, 25);
             this.label6.TabIndex = 6;
@@ -197,7 +201,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(520, 200);
+            this.label7.Location = new System.Drawing.Point(490, 234);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(64, 25);
             this.label7.TabIndex = 7;
@@ -206,7 +210,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(520, 245);
+            this.label8.Location = new System.Drawing.Point(490, 292);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(54, 25);
             this.label8.TabIndex = 8;
@@ -215,7 +219,7 @@
             // lblCari
             // 
             this.lblCari.AutoSize = true;
-            this.lblCari.Location = new System.Drawing.Point(524, 313);
+            this.lblCari.Location = new System.Drawing.Point(490, 350);
             this.lblCari.Name = "lblCari";
             this.lblCari.Size = new System.Drawing.Size(42, 25);
             this.lblCari.TabIndex = 9;
@@ -226,9 +230,9 @@
             this.BtnTambah.BackColor = System.Drawing.Color.LimeGreen;
             this.BtnTambah.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnTambah.ForeColor = System.Drawing.Color.White;
-            this.BtnTambah.Location = new System.Drawing.Point(20, 280);
+            this.BtnTambah.Location = new System.Drawing.Point(12, 295);
             this.BtnTambah.Name = "BtnTambah";
-            this.BtnTambah.Size = new System.Drawing.Size(90, 35);
+            this.BtnTambah.Size = new System.Drawing.Size(85, 32);
             this.BtnTambah.TabIndex = 20;
             this.BtnTambah.Text = "Tambah";
             this.BtnTambah.UseVisualStyleBackColor = false;
@@ -239,9 +243,9 @@
             this.BtnUpdate.BackColor = System.Drawing.Color.DodgerBlue;
             this.BtnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnUpdate.ForeColor = System.Drawing.Color.White;
-            this.BtnUpdate.Location = new System.Drawing.Point(120, 280);
+            this.BtnUpdate.Location = new System.Drawing.Point(103, 295);
             this.BtnUpdate.Name = "BtnUpdate";
-            this.BtnUpdate.Size = new System.Drawing.Size(90, 35);
+            this.BtnUpdate.Size = new System.Drawing.Size(85, 32);
             this.BtnUpdate.TabIndex = 21;
             this.BtnUpdate.Text = "Update";
             this.BtnUpdate.UseVisualStyleBackColor = false;
@@ -252,9 +256,9 @@
             this.BtnDelete.BackColor = System.Drawing.Color.Crimson;
             this.BtnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnDelete.ForeColor = System.Drawing.Color.White;
-            this.BtnDelete.Location = new System.Drawing.Point(220, 280);
+            this.BtnDelete.Location = new System.Drawing.Point(194, 295);
             this.BtnDelete.Name = "BtnDelete";
-            this.BtnDelete.Size = new System.Drawing.Size(90, 35);
+            this.BtnDelete.Size = new System.Drawing.Size(85, 32);
             this.BtnDelete.TabIndex = 22;
             this.BtnDelete.Text = "Delete";
             this.BtnDelete.UseVisualStyleBackColor = false;
@@ -265,9 +269,9 @@
             this.BtnClear.BackColor = System.Drawing.Color.Gray;
             this.BtnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnClear.ForeColor = System.Drawing.Color.White;
-            this.BtnClear.Location = new System.Drawing.Point(320, 280);
+            this.BtnClear.Location = new System.Drawing.Point(285, 295);
             this.BtnClear.Name = "BtnClear";
-            this.BtnClear.Size = new System.Drawing.Size(90, 35);
+            this.BtnClear.Size = new System.Drawing.Size(85, 32);
             this.BtnClear.TabIndex = 23;
             this.BtnClear.Text = "Clear";
             this.BtnClear.UseVisualStyleBackColor = false;
@@ -278,9 +282,9 @@
             this.BtnTampil.BackColor = System.Drawing.Color.Orange;
             this.BtnTampil.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnTampil.ForeColor = System.Drawing.Color.White;
-            this.BtnTampil.Location = new System.Drawing.Point(416, 283);
+            this.BtnTampil.Location = new System.Drawing.Point(376, 295);
             this.BtnTampil.Name = "BtnTampil";
-            this.BtnTampil.Size = new System.Drawing.Size(102, 32);
+            this.BtnTampil.Size = new System.Drawing.Size(105, 32);
             this.BtnTampil.TabIndex = 24;
             this.BtnTampil.Text = "Tampil Semua";
             this.BtnTampil.UseVisualStyleBackColor = false;
@@ -291,9 +295,9 @@
             this.BtnCari.BackColor = System.Drawing.Color.SteelBlue;
             this.BtnCari.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnCari.ForeColor = System.Drawing.Color.White;
-            this.BtnCari.Location = new System.Drawing.Point(762, 308);
+            this.BtnCari.Location = new System.Drawing.Point(651, 370);
             this.BtnCari.Name = "BtnCari";
-            this.BtnCari.Size = new System.Drawing.Size(117, 33);
+            this.BtnCari.Size = new System.Drawing.Size(60, 31);
             this.BtnCari.TabIndex = 25;
             this.BtnCari.Text = "Cari";
             this.BtnCari.UseVisualStyleBackColor = false;
@@ -304,9 +308,9 @@
             this.BtnTest.BackColor = System.Drawing.Color.Red;
             this.BtnTest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnTest.ForeColor = System.Drawing.Color.White;
-            this.BtnTest.Location = new System.Drawing.Point(830, 65);
+            this.BtnTest.Location = new System.Drawing.Point(760, 265);
             this.BtnTest.Name = "BtnTest";
-            this.BtnTest.Size = new System.Drawing.Size(120, 35);
+            this.BtnTest.Size = new System.Drawing.Size(160, 35);
             this.BtnTest.TabIndex = 26;
             this.BtnTest.Text = "TES";
             this.BtnTest.UseVisualStyleBackColor = false;
@@ -317,9 +321,9 @@
             this.BtnResetData.BackColor = System.Drawing.Color.YellowGreen;
             this.BtnResetData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnResetData.ForeColor = System.Drawing.Color.White;
-            this.BtnResetData.Location = new System.Drawing.Point(830, 108);
+            this.BtnResetData.Location = new System.Drawing.Point(760, 310);
             this.BtnResetData.Name = "BtnResetData";
-            this.BtnResetData.Size = new System.Drawing.Size(120, 35);
+            this.BtnResetData.Size = new System.Drawing.Size(160, 35);
             this.BtnResetData.TabIndex = 27;
             this.BtnResetData.Text = "Reset Data";
             this.BtnResetData.UseVisualStyleBackColor = false;
@@ -332,16 +336,17 @@
             this.dgvKomplain.BackgroundColor = System.Drawing.Color.White;
             this.dgvKomplain.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvKomplain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvKomplain.Location = new System.Drawing.Point(20, 355);
+            this.dgvKomplain.Location = new System.Drawing.Point(12, 420);
             this.dgvKomplain.MultiSelect = false;
             this.dgvKomplain.Name = "dgvKomplain";
             this.dgvKomplain.ReadOnly = true;
             this.dgvKomplain.RowHeadersVisible = false;
             this.dgvKomplain.RowHeadersWidth = 62;
             this.dgvKomplain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvKomplain.Size = new System.Drawing.Size(930, 260);
+            this.dgvKomplain.Size = new System.Drawing.Size(950, 230);
             this.dgvKomplain.TabIndex = 28;
             this.dgvKomplain.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvKomplain_CellClick);
+            this.dgvKomplain.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvKomplain_CellContentClick);
             // 
             // bindingNavigator1
             // 
@@ -359,7 +364,7 @@
             this.lblNavCount,
             this.btnNavNext,
             this.btnNavLast});
-            this.bindingNavigator1.Location = new System.Drawing.Point(20, 622);
+            this.bindingNavigator1.Location = new System.Drawing.Point(12, 660);
             this.bindingNavigator1.MoveFirstItem = this.btnNavFirst;
             this.bindingNavigator1.MoveLastItem = this.btnNavLast;
             this.bindingNavigator1.MoveNextItem = this.btnNavNext;
@@ -413,10 +418,52 @@
             this.btnNavLast.Text = "▶|";
             this.btnNavLast.ToolTipText = "Data Terakhir";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.LightGray;
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox1.Location = new System.Drawing.Point(760, 60);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(160, 150);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 31;
+            this.pictureBox1.TabStop = false;
+            // 
+            // btnFoto
+            // 
+            this.btnFoto.BackColor = System.Drawing.Color.YellowGreen;
+            this.btnFoto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFoto.ForeColor = System.Drawing.Color.White;
+            this.btnFoto.Location = new System.Drawing.Point(760, 220);
+            this.btnFoto.Name = "btnFoto";
+            this.btnFoto.Size = new System.Drawing.Size(160, 35);
+            this.btnFoto.TabIndex = 30;
+            this.btnFoto.Text = "Upload Foto";
+            this.btnFoto.UseVisualStyleBackColor = false;
+            this.btnFoto.Click += new System.EventHandler(this.BtnUploadFoto_Click);
+            // 
+            // btnLoad
+            
+            // btnLoad
+            this.btnLoad.BackColor = System.Drawing.Color.OliveDrab;
+            this.btnLoad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLoad.ForeColor = System.Drawing.Color.White;
+            this.btnLoad.Location = new System.Drawing.Point(760, 351);
+            this.btnLoad.Name = "btnLoad";
+            this.btnLoad.Size = new System.Drawing.Size(160, 35);
+            this.btnLoad.TabIndex = 32;
+            this.btnLoad.Text = "Load";
+            this.btnLoad.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnLoad.UseVisualStyleBackColor = false;
+            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click); // ✅ TAMBAHKAN INI!
+
             // FormMahasiswa
             // 
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(960, 680);
+            this.ClientSize = new System.Drawing.Size(980, 710);
+            this.Controls.Add(this.btnLoad);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.btnFoto);
             this.Controls.Add(this.LblTitle);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
@@ -455,6 +502,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).EndInit();
             this.bindingNavigator1.ResumeLayout(false);
             this.bindingNavigator1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -462,6 +510,9 @@
 
         #endregion
 
+        // =============================================
+        // DEKLARASI KOMPONEN  (masing-masing 1x saja)
+        // =============================================
         private System.Windows.Forms.Label LblTitle;
         private System.Windows.Forms.Label label1, label2, label3;
         private System.Windows.Forms.Label label4, label5, label6, label7, label8;
@@ -481,5 +532,8 @@
         private System.Windows.Forms.ToolStripButton btnNavNext;
         private System.Windows.Forms.ToolStripButton btnNavLast;
         private System.Windows.Forms.ToolStripLabel lblNavCount;
+        private System.Windows.Forms.Button btnFoto;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button btnLoad;
     }
 }
