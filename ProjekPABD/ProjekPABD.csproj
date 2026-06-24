@@ -192,6 +192,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="Database\Inno Setup.docx" />
     <None Include="DSKomplain.xsc">
       <DependentUpon>DSKomplain.xsd</DependentUpon>
     </None>
