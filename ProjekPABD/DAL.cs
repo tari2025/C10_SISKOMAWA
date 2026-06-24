@@ -44,7 +44,12 @@ namespace ProjekPABD
 
         // =====================insert LOG========================
 
-
+        public void InsertLog(string aktivitas, string detail = "")
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
 
 
         // GET DATA KOMPLAIN
