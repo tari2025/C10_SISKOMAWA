@@ -25,6 +25,9 @@ FOTO MEMBUAT SP
 
 FOTO MEMBUAT BINDING
 <img width="799" height="399" alt="{4FB556E0-DD9E-4945-9359-DF57B53A54F0}" src="https://github.com/user-attachments/assets/666b0249-2761-4423-adaf-9ae809e6f955" />
+UCP 3
+Dokumentasi UCP3: 
+https://docs.google.com/document/d/1pHBCM017ijYRIRo8nWKv1hUmgN-Eav71boOFqlS3Lg0/edit?usp=sharing
 
 
 
