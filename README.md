@@ -25,7 +25,27 @@ FOTO MEMBUAT SP
 
 FOTO MEMBUAT BINDING
 <img width="799" height="399" alt="{4FB556E0-DD9E-4945-9359-DF57B53A54F0}" src="https://github.com/user-attachments/assets/666b0249-2761-4423-adaf-9ae809e6f955" />
+
+
 UCP 3
+Foto Dasboard Utama:
+<img width="677" height="486" alt="{3034824D-5406-4587-A0E0-561346216DDE}" src="https://github.com/user-attachments/assets/79c8bb1c-634a-43bd-b902-b0d5c5039c47" />
+
+Dasboard Mahasiswa:
+<img width="735" height="558" alt="{9008A4E2-EDBB-4B0B-84F3-B1DD211D5607}" src="https://github.com/user-attachments/assets/e2ea9dc8-8262-44ef-89bf-185f85e15d86" />
+
+
+Dasboard Admin:
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/de83f598-d3c9-4cc4-bc7d-39e860f82671" />
+
+Tampilan Rekap data
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/a7a3d941-b8f1-4995-9b76-732dba24da6b" />
+
+Tampilan Form Cetak
+<img width="944" height="468" alt="{F678647E-AF12-4465-AAD9-451B6AE75D61}" src="https://github.com/user-attachments/assets/1124e48e-eec1-4531-b3d5-19fa15532d84" />
+
+
+
 Dokumentasi UCP3: 
 https://docs.google.com/document/d/1pHBCM017ijYRIRo8nWKv1hUmgN-Eav71boOFqlS3Lg0/edit?usp=sharing
 
