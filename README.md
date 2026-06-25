@@ -49,7 +49,7 @@ Dasboard Admin:<br>
 <img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/985219f7-1134-441d-999d-28edd7b3ef76" />
 
 <br>Dokumentasi UCP3: <br>
-https://docs.google.com/document/d/1pHBCM017ijYRIRo8nWKv1hUmgN-Eav71boOFqlS3Lg0/edit?usp=sharing
+https://drive.google.com/drive/folders/1dXZ5SXcpi8hNKbE5RSLGB0VfwNNZrazX?usp=sharing
 
 
 
